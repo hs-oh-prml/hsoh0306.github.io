@@ -93,9 +93,9 @@ analytics:
 
 # Site Author
 author:
-  name             : "Your Name"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am an **amazing** person."
+  name             : "오형석"
+  avatar           : "/assets/images/profile.jpg"
+  bio              : "맨날 찾아보지말고 정리해놓자"
   location         : "Seoul Korea"
   email            : "dhgudtjr0306@gmail.com"
   links:
