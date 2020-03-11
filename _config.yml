@@ -6,7 +6,7 @@ highlighter:      rouge
 title:            "Root Develope"
 tagline:          'A Jekyll theme'
 description:      '근본 개발자가 되기 위한 기묘한 여정<br/>사실은 그냥 자료 창고'
-url:              https://hsoh0306.github.io
+url:              'https://hsoh0306.github.io'
 baseurl:          '/blog'
                   # the optional subpath of your site, e.g. "/blog"
                   # NB: This applies to all pages in your Jekyll site.
@@ -16,7 +16,7 @@ baseurl:          '/blog'
 
 author:
   name:           '오형석'
-  url:            https://instgram/hsoh0306
+  url:            'https://hsoh0306.github.io'
 
 paginate:         5
 # paginate_path:    '/page:num'
