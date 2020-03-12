@@ -3,7 +3,7 @@ markdown:         kramdown
 highlighter:      rouge
 
 # Setup
-title:            "Root Develope"
+title:            "Root Developer"
 tagline:          'A Jekyll theme'
 description:      '근본 개발자가 되기 위한 기묘한 여정<br/>사실은 그냥 자료 창고'
 url:              'https://hsoh0306.github.io'
