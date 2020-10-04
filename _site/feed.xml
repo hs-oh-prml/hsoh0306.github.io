@@ -1,5 +1,240 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-24T14:53:03+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
-</subtitle><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><entry><title type="html">Show Time 개인 정보 처리 방침</title><link href="http://localhost:4000/showtime/2020/04/22/showtime-policy.html" rel="alternate" type="text/html" title="Show Time 개인 정보 처리 방침" /><published>2020-04-22T00:00:00+09:00</published><updated>2020-04-22T00:00:00+09:00</updated><id>http://localhost:4000/showtime/2020/04/22/showtime-policy</id><content type="html" xml:base="http://localhost:4000/showtime/2020/04/22/showtime-policy.html">&lt;p&gt;&lt;strong&gt;1. 개인정보의 처리 목적&lt;/strong&gt; (‘https://hsoh0306.github.io/’이하 ‘Root Developer’) 은(는) 다음의 목적을 위하여 개인정보를 처리하고 있으며, 다음의 목적 이외의 용도로는 이용하지 않습니다.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-04T21:49:07+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Develope Yourself</title><subtitle>Just Do It!
+</subtitle><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><entry><title type="html">[AlexNet] ImageNet Classification with Deep Convolutional Neural Networks 리뷰</title><link href="http://localhost:4000/review/2020/09/26/alexnet.html" rel="alternate" type="text/html" title="[AlexNet] ImageNet Classification with Deep Convolutional Neural Networks 리뷰" /><published>2020-09-26T00:00:00+09:00</published><updated>2020-09-26T00:00:00+09:00</updated><id>http://localhost:4000/review/2020/09/26/alexnet</id><content type="html" xml:base="http://localhost:4000/review/2020/09/26/alexnet.html">&lt;h2 id=&quot;alexnet&quot;&gt;AlexNet&lt;/h2&gt;
+&lt;p&gt;“ImageNet Classification with Deep Convolutional Neural Networks”의 저자 Alex Krizhevsky의 이름을 따서 network의  AlexNet이라는 명칭이 붙었다. ILSVRC-2012에서 top-5 test error를 15.3%를 기록 했으며, 26.2%었던 2등과 비교하여 무려 10%가 넘는 격차를 내고 우승했다. ReLU의 대유행을 만들어낸 의미 있는 모델이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;dataset&quot;&gt;Dataset&lt;/h2&gt;
+&lt;p&gt;ImageNet은 약 22000 가지의 class에 속하는 1500만개의 고해상도 이미지 데이터 셋이다. 데이터는 Amazon’s Mechanical Turk crowd-sourcing tool를 사용하여 사람이 labeling하여 수집된다고 한다. ILSVRC(ImageNet Large-Scale Visual Acception Challenge)에서는 ImageNet에서 약 1000장의 이미지를 가진 1000개의 class를 사용한다. 전체적으로 120만 장의 학습 이미지와 5만 장의 검증 이미지, 15만 장의 테스트 이미지가 있다. top-1과 top-5 error를 ImageNet에 보고하는데, 여기서 top-5 error는 모델이 가장 가능성이 높다고 출력한 5 개의 label에 대해서 정답이 없는 비율이다. 
+ImageNet은 variable-resolution 이미지로 구성되지만, constant input dimensionality를 필요로 때문에, 이미지를 256x256으로 down sampling을 했다고 한다. 이미지를 자르는 작업 외에 다른 전처리를 하지않고, 픽셀의 R,G,B 원래의 값을 사용했다.&lt;/p&gt;
+
+&lt;h2 id=&quot;alexnet-network-architecture&quot;&gt;AlexNet Network Architecture&lt;/h2&gt;
+&lt;p&gt;네트워크는 5개의 convolutional layer와 3개의 fully-connected layer로 총 8개의 layer로 구성된다. 네트워크 설계에 사용된 4개의 큰 특징을 소개한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;relu-nonlinearity&quot;&gt;ReLU Nonlinearity&lt;/h3&gt;
+&lt;p&gt;ReLU가 유행하기 전까지 활성화 함수는 tanh가 많이 사용됐다. 논문에서는 경사 하강법에서 saturating nonlinearities는 non-saturating nonlinearity보다 훨씬 느리다고 했다. saturating nonlinearities와 non-saturating nonlinearity가 뭔지 찾아보니&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;$f$ is non-saturating iff $(|\lim\limits_{z \to -\infty} f(z)|= +\infty)∨(|\lim\limits_{z \to \infty} f(z)|= +\infty)$ &lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;$f$ is saturating iff $f$ is not non-saturating.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;$f$가 무한으로 발산하면 non-saturating이고, 그렇지 않으면 saturating이란다. 즉, ReLU는 무한으로 발산하므로, non-saturating이고, [-1, 1] 수렴하는 tanh나 [0, 1]로 수렴하는 sigmoid는 saturating에 해당된다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Sigmoid&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;tanh&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;ReLU&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/img/sigmoid.jpg&quot; width=&quot;100%&quot; /&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/img/tanh.jpg&quot; width=&quot;90%&quot; /&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/img/relu.jpg&quot; width=&quot;100%&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;$sigmoid(x) = (1+e^{-x})^{-1}$&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;$tanh(x) = (1-e^{-x})/(1+e^{-x})$&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;$ReLU(x) = max(0, x)$&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Sigmoid와 tanh에 비해서 ReLU의 식이 단순한 것으로 보아, 연산 속도를 빠르게 한다는 것을 직관적으로 추론이 가능한데, 결과는 다음과 같다.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/alexnet_relu.jpg&quot; width=&quot;60%&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;em&gt;Figure 1: A four-layer convolutional neural network with ReLUs (solid line) reaches a 25% training error rate on CIFAR-10 six times faster than an equivalent network with tanh neurons (dashed line). The learning rates for each network were chosen independently to make training as fast as possible. No regularization of any kind was employed. The magnitude of the effect demonstrated here varies with network architecture, but networks with ReLUs consistently learn several times faster than equivalents with saturating neurons.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;실선이 ReLU를 사용한 결과고, 점선은 tanh를 사용한 실험 결과다. 결과로 보았을 때, ReLU가 tanh를 사용했을 때보다 6배 이상 빠른 것을 알 수 있다. 이렇게 빨라진 속도는 대량의 학습 데이터를 사용하는 것을 가능하게 했다.&lt;/p&gt;
+
+&lt;h3 id=&quot;training-on-multiple-gpu&quot;&gt;Training on Multiple GPU&lt;/h3&gt;
+&lt;p&gt;저자는 실험을 위해 GTX 580 GPU를 2개를 사용했다고 한다. 120만개의 학습 데이터를 충분히 학습 시킬만한 크기의 네트워크를 로드하는데 3GB짜리 GPU하나로는 부족했다. 현대의 GPU는 호스트의 메모리를 통하지 않고, 다른 GPU로 직접 I/O를 할 수 있어 병렬화에 적합하다. 네트크를 반으로 분리하여 각 GPU에 로드하여, 학습을 진행한다. 특정 레이어에서는 각 GPU의 파라미터를 모두 받으며 통신을 했다고 한다. 이 방법을 통해서 top-1 error를 1.7%, top-5 error를 1.2% 감소시켰으며, 단일 GPU를 사용했을 때보다 학습시간을 더 단축시킬 수 있었다.&lt;/p&gt;
+
+&lt;h3 id=&quot;local-response-normalization&quot;&gt;Local Response Normalization&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;ReLUs have the desirable property that they do not require input normalization to prevent them from saturating. If at least some training examples produce a positive input to a ReLU, learning will happen in that neuron. However, we still find that the following local normalization scheme aids generalization.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;ReLU는 input에 대하여 nomalization이 필요 없고, Local Response Normalizaation은 generalization에 도움이 된다는 것을 발견했다고 한다. Local Response Normalizaation은 다음과 같다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;center&gt; $b_{x,y}^{i} = a_{x,y}^{i} / (k+\alpha \displaystyle\sum_{j=max(0,i-n/2)}^{min(N-1,i+n/2)} (a_{x,y}^j)^{2})^\beta$ &lt;/center&gt;
+  &lt;p&gt;where&lt;br /&gt;
+$b_{x,y}^{i}$ : regularized output for kernel $i$ at position $x, y$&lt;br /&gt;
+$a_{x,y}^{i}$ : source output of kernel $i$ applied at position $x, y$&lt;br /&gt;
+$N$ : total number of kernels&lt;br /&gt;
+$n$ : size of normalization neigborhood&lt;br /&gt;
+$\alpha, \beta, (n)$ : hyperparmeters&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;$a_{x,y}^{i}$는 input으로 $i$번째 kernel에서 $x, y$ 값을 의미하고, $b_{x,y}^{i}$는 output을 의미한다. 논문에서는 $k=2, n=5, \alpha=10^{-4}, \beta=0.75$로 설정하고, top-1 error를 1.4%, top-5 error를 1.2% 감소시키는 효과를 얻었다고 한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;overlapping-pooling&quot;&gt;Overlapping Pooling&lt;/h3&gt;
+&lt;p&gt;전통적인 CNN에서는 non-overlapping pooling을 사용했지만, overlapping pooling을 통해 약간의 overfit을 개선하는데 효과를 봤다고 한다. overlapping pooling은 kernel의 크기보다 stride의 크기를 작게하면서 구현된다. kernel의 크기와 stride의 크기가 같은 경우 non-overlapping pooling이 된다. kernel의 크기보다, stride가 작게하여 시각화하면 다음과 같은 결과가 나온다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/overlapping_pooling.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;논문에서는 이 방법을 이용하여 top-1, top-5 error를 0.4%, 0.3% 감소시켰다고한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;architecture&quot;&gt;Architecture&lt;/h3&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/alexnet.jpg&quot; width=&quot;100%&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;em&gt;Figure 2: An illustration of the architecture of our CNN, explicitly showing the delineation of responsibilities between the two GPUs. One GPU runs the layer-parts at the top of the figure while the other runs the layer-parts at the bottom. The GPUs communicate only at certain layers. The network’s input is 150,528-dimensional, and the number of neurons in the network’s remaining layers is given by 253,440–186,624–64,896–64,896–43,264–4096–4096–1000.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;네트크는 5개의 convolution layer와 3개의 fully-connected layer로 구성된다. 마지막 fully-connected layer는 softmax를 통해 각 1000개의 class label에 대한 확률을 출력한다. 3번째 layer와 모든 fully-connected layer에서 GPU connection이 이루어져 parameter를 공유한다. Local Response Normalization은 첫번째와 두번째 layer에서 이루어진다. 첫번째와 두번째, 다섯번째 layer에서 max-pooling이 된다. ReLU는 모든 layer에 적용된다. 입력 이미지의 크기는 224x224x3이다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Convolution Layer 1&lt;/td&gt;
+      &lt;td&gt;96x(11x11x3) kernels&lt;/td&gt;
+      &lt;td&gt;Conv5x5, stride: 1 kernel: 256, padding: 2&lt;/td&gt;
+      &lt;td&gt;ReLU&lt;/td&gt;
+      &lt;td&gt;Overlapping Max pooling3x3, stride: 2&lt;/td&gt;
+      &lt;td&gt;Local Response Normalization&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Convolution Layer 2&lt;/td&gt;
+      &lt;td&gt;256x(5x5x48) kernels&lt;/td&gt;
+      &lt;td&gt;Conv3x3, stride: 1 kernel: 384, padding: 1&lt;/td&gt;
+      &lt;td&gt;ReLU&lt;/td&gt;
+      &lt;td&gt;Overlapping Max pooling3x3, stride: 2&lt;/td&gt;
+      &lt;td&gt;Local Response Normalization&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Convolution Layer 3&lt;/td&gt;
+      &lt;td&gt;384x(3x3x256) kernels&lt;/td&gt;
+      &lt;td&gt;Conv3x3, stride: 1 kernel: 384, padding: 1&lt;/td&gt;
+      &lt;td&gt;ReLU&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;GPU Connection&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Convolution Layer 4&lt;/td&gt;
+      &lt;td&gt;384x(3x3x192) kernels&lt;/td&gt;
+      &lt;td&gt;Conv3x3, stride: 1 kernel: 384, padding: 1&lt;/td&gt;
+      &lt;td&gt;ReLU&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Convolution Layer 5&lt;/td&gt;
+      &lt;td&gt;256x(3x3x192) kernels&lt;/td&gt;
+      &lt;td&gt;Conv3x3, stride: 1 kernel: 256,padding: 1&lt;/td&gt;
+      &lt;td&gt;ReLU&lt;/td&gt;
+      &lt;td&gt;Overlapping Max pooling3x3, stride: 2&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Fully-Connected Layer 1&lt;/td&gt;
+      &lt;td&gt;4096 neurons&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;ReLU&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;GPU Connection&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Fully-Connected Layer 2&lt;/td&gt;
+      &lt;td&gt;4096 neurons&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;ReLU&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;GPU Connection&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Fully-Connected Layer 3&lt;/td&gt;
+      &lt;td&gt;1000 neurons&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;Softmax&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;GPU Connection&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;요약하자면 다음과 같다.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/alexnet_network_summary.png&quot; width=&quot;100%&quot; /&gt;
+&lt;/center&gt;
+
+&lt;h2 id=&quot;reducing-overfitting&quot;&gt;Reducing Overfitting&lt;/h2&gt;
+&lt;p&gt;6000만 개의 파라미터를 사용한다. ILSVRC에서는 1000개의 class를 학습시키는데 image-label mapping을 10 bit로 제약했고, 이는 많은 파라미터를 overfitting 없이 학습 시키기 불충분하다고 했다. 논문에서는 2가지 방법을 통해 overfitting을 막고자 했다.&lt;/p&gt;
+
+&lt;h3 id=&quot;data-augmentation&quot;&gt;Data Augmentation&lt;/h3&gt;
+&lt;p&gt;가장 간단하게 overfiitting을 줄이는 방법은 데이터셋을 인공적으로 늘리는 것이다. 
+논문에서는 2가지 방법을 사용하여 data augmentation을 했다.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;The first form of data augmentation consists of generating image translations and horizontal reflections.&lt;br /&gt;
+The second form of data augmentation consists of altering the intensities of the RGB channels in training images. Specifically, we perform PCA on the set of RGB pixel values throughout the ImageNet training set.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;첫번째 방법은 256x256 이미지에서 임의의 부분을 224x224로 자르는 것이다. 그렇게 하면 같은 label을 가진 데이터를 하나의 이미지로 여러 개의 이미지를 만들 수 있게 된다.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/alexnet_augmentation.png&quot; width=&quot;100%&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;256x256 크기의 이미지를 224x224로 crop하고, 수평 반전에도 똑같이 적용하여 데이터가 2048배 증가 시킬 수 있었고, 네트워크의 입력이 224x224인 이유이다.&lt;/p&gt;
+
+&lt;p&gt;두번째 방법은 PCA를 RGB에 적용하여 augmentation을 했다고 한다. PCA(Principal component analysis)는 고차원 데이터를 저차원 데이터로 환원 시키는 방법이라고 한다. 자세한 내용은 좀 더 공부해봐야 할 것 같다. RGB에 PCA를 적용하여 이미지의 eigenvalue $\lambda_{i}$와 eigenvetor $p_{i}$를 구하고, $\lambda_{i}$에 평균이 0이고 표준편차가 0.1인 guassian 분포의 random variable을 곱하여 augmentation을 했다고 한다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;center&gt;$I_{xy} = [I_{xy}^{R}, I_{xy}^{G},I_{xy}^{B}] + $[p_{1}, p_{2}, p_{3}][\alpha_{1}\lambda_{1}, \alpha_{2}\lambda_{2}, \alpha_{3}\lambda_{3}]$$&lt;/center&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;이 방법을 통해서 top-1 error rate를 1% 감소하는 효과를 얻었다.&lt;/p&gt;
+
+&lt;h3 id=&quot;dropout&quot;&gt;Dropout&lt;/h3&gt;
+&lt;p&gt;Computation cost를 줄이고, overfitting을 줄이기 위해 dropout을 적용했다. dropout은 각 hidden neuron에 값을 0으로 하는 확률을 0.5로 세팅하면서 구현했다고 한다. dropout으로 꺼진 neuron은 forward pass와 back-propagation에 관여하지 않는다. 매 학습마다 꺼지는 neuron은 다르지만, weight는 공유한다고 한다. 논문에서는 모든 neuron을 사용하고, 출력에 0.5를 곱했다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;At test time, we use all the neurons but multiply their outputs by 0.5, which is a reasonable approximation to taking the geometric mean of the predictive distributions produced by the exponentially-many dropout networks.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/dropout_2014.jpg&quot; /&gt;
+&lt;/center&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;‘ImageNet Classification with Deep Convolutional Neural Networks’&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/dropout.jpg&quot; /&gt;
+&lt;/center&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;‘Improving neural networks by preventing co-adaptation of feature detectors’&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;result&quot;&gt;Result&lt;/h3&gt;
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/alexnet_result.jpg&quot; /&gt;
+&lt;/center&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf&quot;&gt;Alex Krizhevsky, Ilya Sutskever, and Geoffrey E. Hinton,’ImageNet Classification with Deep Convolutional Neural Networks’, &lt;em&gt;Neural Information Processing Systems (NIPS)&lt;/em&gt;, 2012&lt;/a&gt;
+&lt;a href=&quot;https://stats.stackexchange.com/questions/174295/what-does-the-term-saturating-nonlinearities-mean&quot;&gt;https://stats.stackexchange.com/questions/174295/what-does-the-term-saturating-nonlinearities-mean&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/1207.0580.pdf&quot;&gt;G.E. Hinton, N. Srivastava, A. Krizhevsky, I. Sutskever and R.R. Salakhutdinov, ‘Improving neural networks by preventing co-adaptation of feature detectors’, 2012&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://dl.acm.org/doi/pdf/10.5555/2627435.2670313&quot;&gt;Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdinov, ‘ImageNet Classification with Deep Convolutional Neural Networks’, &lt;em&gt;The Journal of Machine Learning Research&lt;/em&gt;, vol.15, No.1, 2014&lt;/a&gt;&lt;/p&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="Review" /><summary type="html">AlexNet “ImageNet Classification with Deep Convolutional Neural Networks”의 저자 Alex Krizhevsky의 이름을 따서 network의 AlexNet이라는 명칭이 붙었다. ILSVRC-2012에서 top-5 test error를 15.3%를 기록 했으며, 26.2%었던 2등과 비교하여 무려 10%가 넘는 격차를 내고 우승했다. ReLU의 대유행을 만들어낸 의미 있는 모델이다.</summary></entry><entry><title type="html">Show Time 개인 정보 처리 방침</title><link href="http://localhost:4000/showtime/2020/04/22/showtime-policy.html" rel="alternate" type="text/html" title="Show Time 개인 정보 처리 방침" /><published>2020-04-22T00:00:00+09:00</published><updated>2020-04-22T00:00:00+09:00</updated><id>http://localhost:4000/showtime/2020/04/22/showtime-policy</id><content type="html" xml:base="http://localhost:4000/showtime/2020/04/22/showtime-policy.html">&lt;p&gt;&lt;strong&gt;1. 개인정보의 처리 목적&lt;/strong&gt; (‘https://hsoh0306.github.io/’이하 ‘Root Developer’) 은(는) 다음의 목적을 위하여 개인정보를 처리하고 있으며, 다음의 목적 이외의 용도로는 이용하지 않습니다.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;고객 가입의사 확인, 고객에 대한 서비스 제공에 따른 본인 식별.인증, 회원자격 유지.관리, 물품 또는 서비스 공급에 따른 금액 결제, 물품 또는 서비스의 공급.배송 등&lt;/li&gt;
 &lt;/ul&gt;
@@ -104,9 +339,7 @@
 
 &lt;ol&gt;
   &lt;li&gt;개인정보에 대한 접근 제한 개인정보를 처리하는 데이터베이스시스템에 대한 접근권한의 부여,변경,말소를 통하여 개인정보에 대한 접근통제를 위하여 필요한 조치를 하고 있으며 침입차단시스템을 이용하여 외부로부터의 무단 접근을 통제하고 있습니다.&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="ShowTime" /><summary type="html">1. 개인정보의 처리 목적 (‘https://hsoh0306.github.io/’이하 ‘Root Developer’) 은(는) 다음의 목적을 위하여 개인정보를 처리하고 있으며, 다음의 목적 이외의 용도로는 이용하지 않습니다. 고객 가입의사 확인, 고객에 대한 서비스 제공에 따른 본인 식별.인증, 회원자격 유지.관리, 물품 또는 서비스 공급에 따른 금액 결제, 물품 또는 서비스의 공급.배송 등 2. 개인정보의 처리 및 보유 기간 ① (‘https://hsoh0306.github.io/’이하 ‘Root Developer’) 은(는) 정보주체로부터 개인정보를 수집할 때 동의 받은 개인정보 보유․이용기간 또는 법령에 따른 개인정보 보유․이용기간 내에서 개인정보를 처리․보유합니다.</summary></entry><entry><title type="html">Init Blog</title><link href="http://localhost:4000/init/2020/03/11/init-blog.html" rel="alternate" type="text/html" title="Init Blog" /><published>2020-03-11T00:00:00+09:00</published><updated>2020-03-11T00:00:00+09:00</updated><id>http://localhost:4000/init/2020/03/11/init-blog</id><content type="html" xml:base="http://localhost:4000/init/2020/03/11/init-blog.html">&lt;p&gt;
-블로그 시작
-&lt;/p&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="Init" /><summary type="html">블로그 시작</summary></entry><entry><title type="html">[백준 1700] 멀티탭 스케줄링</title><link href="http://localhost:4000/algorithm/2020/03/11/boj-1700.html" rel="alternate" type="text/html" title="[백준 1700] 멀티탭 스케줄링" /><published>2020-03-11T00:00:00+09:00</published><updated>2020-03-11T00:00:00+09:00</updated><id>http://localhost:4000/algorithm/2020/03/11/boj-1700</id><content type="html" xml:base="http://localhost:4000/algorithm/2020/03/11/boj-1700.html">&lt;p&gt;
+&lt;/ol&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="ShowTime" /><summary type="html">1. 개인정보의 처리 목적 (‘https://hsoh0306.github.io/’이하 ‘Root Developer’) 은(는) 다음의 목적을 위하여 개인정보를 처리하고 있으며, 다음의 목적 이외의 용도로는 이용하지 않습니다. 고객 가입의사 확인, 고객에 대한 서비스 제공에 따른 본인 식별.인증, 회원자격 유지.관리, 물품 또는 서비스 공급에 따른 금액 결제, 물품 또는 서비스의 공급.배송 등 2. 개인정보의 처리 및 보유 기간 ① (‘https://hsoh0306.github.io/’이하 ‘Root Developer’) 은(는) 정보주체로부터 개인정보를 수집할 때 동의 받은 개인정보 보유․이용기간 또는 법령에 따른 개인정보 보유․이용기간 내에서 개인정보를 처리․보유합니다.</summary></entry><entry><title type="html">[백준 1700] 멀티탭 스케줄링</title><link href="http://localhost:4000/algorithm/2020/03/11/boj-1700.html" rel="alternate" type="text/html" title="[백준 1700] 멀티탭 스케줄링" /><published>2020-03-11T00:00:00+09:00</published><updated>2020-03-11T00:00:00+09:00</updated><id>http://localhost:4000/algorithm/2020/03/11/boj-1700</id><content type="html" xml:base="http://localhost:4000/algorithm/2020/03/11/boj-1700.html">&lt;p&gt;
 사실 이 블로그를 만든 이유는 이 문제때문이다.
 며칠전 친구가 갑자기 한번 풀어보라고 문제를 던져주었는데, 그 동안 알고리즘을 소홀히 한 대가로 고통 받았다.
 덕분에 알고리즘 공부에 대한 필요성을 회기시켰고, 이거 하나 제대로 못풀었다는 것에 열받아서 기록을 남기기 위해 블로그를 만들었다.
@@ -394,187 +627,6 @@ Line: 87-110
 &lt;p&gt;메인 함수는 입력을 받고, 필요한 변수를 초기화한 다음에 알고리즘에 변수를 넘기고, 결과 받고, 양식에 맞춰 출력해주는게 전부다.&lt;/p&gt;
 
 &lt;h4&gt;후기&lt;/h4&gt;
-&lt;p&gt;난 greedy가 싫다. 아무튼 싫다. 코드를 다시 읽어보니 내가 짰지만 왜 저렇게 짰는지 이해가 안가는 부분이 많이 보인다. 나름 정리한다고 했음에도 시행착오의 흔적이 남아있다. 그리고 작명센스를 키워야겠다는 필요성을 느꼈다. 이게 내 블로그 첫 포스트인데 글쓰는게 여간 불편한게 아니다. 내일은 짜파게티랑 불닭볶음면 섞어 먹어야겠다.&lt;/p&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="Algorithm" /><summary type="html">사실 이 블로그를 만든 이유는 이 문제때문이다. 며칠전 친구가 갑자기 한번 풀어보라고 문제를 던져주었는데, 그 동안 알고리즘을 소홀히 한 대가로 고통 받았다. 덕분에 알고리즘 공부에 대한 필요성을 회기시켰고, 이거 하나 제대로 못풀었다는 것에 열받아서 기록을 남기기 위해 블로그를 만들었다. (사실 문제 푼것보다 블로그 만드는거에 더 많은 시간을 썼다.)</summary></entry><entry><title type="html">My Example Post</title><link href="http://localhost:4000/2016/05/20/my-example-post.html" rel="alternate" type="text/html" title="My Example Post" /><published>2016-05-20T00:00:00+09:00</published><updated>2016-05-20T00:00:00+09:00</updated><id>http://localhost:4000/2016/05/20/my-example-post</id><content type="html" xml:base="http://localhost:4000/2016/05/20/my-example-post.html">&lt;p&gt;Eos eu docendi tractatos sapientem, brute option menandri in vix, quando vivendo accommodare te ius. Nec melius fastidii constituam id, viderer theophrastus ad sit, hinc semper periculis cum id. Noluisse postulant assentior est in, no choro sadipscing repudiandae vix. Vis in euismod delenit dignissim. Ex quod nostrum sit, suas decore animal id ius, nobis solet detracto quo te.&lt;/p&gt;
-
-&lt;p&gt;No laudem altera adolescens has, volumus lucilius eum no. Eam ei nulla audiam efficiantur. Suas affert per no, ei tale nibh sea. Sea ne magna harum, in denique scriptorem sea, cetero alienum tibique ei eos. Labores persequeris referrentur eos ei.&lt;/p&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><summary type="html">Eos eu docendi tractatos sapientem, brute option menandri in vix, quando vivendo accommodare te ius. Nec melius fastidii constituam id, viderer theophrastus ad sit, hinc semper periculis cum id. Noluisse postulant assentior est in, no choro sadipscing repudiandae vix. Vis in euismod delenit dignissim. Ex quod nostrum sit, suas decore animal id ius, nobis solet detracto quo te.</summary></entry><entry><title type="html">This post demonstrates post content styles</title><link href="http://localhost:4000/junk/2016/05/20/this-post-demonstrates-post-content-styles.html" rel="alternate" type="text/html" title="This post demonstrates post content styles" /><published>2016-05-20T00:00:00+09:00</published><updated>2016-05-20T00:00:00+09:00</updated><id>http://localhost:4000/junk/2016/05/20/this-post-demonstrates-post-content-styles</id><content type="html" xml:base="http://localhost:4000/junk/2016/05/20/this-post-demonstrates-post-content-styles.html">&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit.&lt;/p&gt;
-
-&lt;h2 id=&quot;some-great-heading-h2&quot;&gt;Some great heading (h2)&lt;/h2&gt;
-
-&lt;p&gt;Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu.&lt;/p&gt;
-
-&lt;p&gt;Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.&lt;/p&gt;
-
-&lt;h2 id=&quot;another-great-heading-h2&quot;&gt;Another great heading (h2)&lt;/h2&gt;
-
-&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit.&lt;/p&gt;
-
-&lt;h3 id=&quot;some-great-subheading-h3&quot;&gt;Some great subheading (h3)&lt;/h3&gt;
-
-&lt;p&gt;Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum.&lt;/p&gt;
-
-&lt;p&gt;Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc.&lt;/p&gt;
-
-&lt;h3 id=&quot;some-great-subheading-h3-1&quot;&gt;Some great subheading (h3)&lt;/h3&gt;
-
-&lt;p&gt;Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;This quote will &lt;em&gt;change&lt;/em&gt; your life. It will reveal the &lt;i&gt;secrets&lt;/i&gt; of the universe, and all the wonders of humanity. Don’t &lt;em&gt;misuse&lt;/em&gt; it.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt.&lt;/p&gt;
-
-&lt;h3 id=&quot;some-great-subheading-h3-2&quot;&gt;Some great subheading (h3)&lt;/h3&gt;
-
-&lt;p&gt;Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit. Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum.&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;Hello, World!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris.&lt;/p&gt;
-
-&lt;h4 id=&quot;you-might-want-a-sub-subheading-h4&quot;&gt;You might want a sub-subheading (h4)&lt;/h4&gt;
-
-&lt;p&gt;In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris.&lt;/p&gt;
-
-&lt;p&gt;In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris.&lt;/p&gt;
-
-&lt;h4 id=&quot;but-its-probably-overkill-h4&quot;&gt;But it’s probably overkill (h4)&lt;/h4&gt;
-
-&lt;p&gt;In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris.&lt;/p&gt;
-
-&lt;h5 id=&quot;could-be-a-smaller-sub-heading-pacman-h5&quot;&gt;Could be a smaller sub-heading, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pacman&lt;/code&gt; (h5)&lt;/h5&gt;
-
-&lt;p&gt;In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris.&lt;/p&gt;
-
-&lt;h6 id=&quot;small-yet-significant-sub-heading--h6&quot;&gt;Small yet significant sub-heading  (h6)&lt;/h6&gt;
-
-&lt;p&gt;In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris.&lt;/p&gt;
-
-&lt;h3 id=&quot;oh-hai-an-unordered-list&quot;&gt;Oh hai, an unordered list!!&lt;/h3&gt;
-
-&lt;p&gt;In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;First item, yo&lt;/li&gt;
-  &lt;li&gt;Second item, dawg&lt;/li&gt;
-  &lt;li&gt;Third item, what what?!&lt;/li&gt;
-  &lt;li&gt;Fourth item, fo sheezy my neezy&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;oh-hai-an-ordered-list&quot;&gt;Oh hai, an ordered list!!&lt;/h3&gt;
-
-&lt;p&gt;In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;First item, yo&lt;/li&gt;
-  &lt;li&gt;Second item, dawg&lt;/li&gt;
-  &lt;li&gt;Third item, what what?!&lt;/li&gt;
-  &lt;li&gt;Fourth item, fo sheezy my neezy&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;headings-are-cool-h2&quot;&gt;Headings are cool! (h2)&lt;/h2&gt;
-
-&lt;p&gt;Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.&lt;/p&gt;
-
-&lt;p&gt;Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.&lt;/p&gt;
-
-&lt;p&gt;Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc.&lt;/p&gt;
-
-&lt;h3 id=&quot;tables&quot;&gt;Tables&lt;/h3&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Title 1&lt;/th&gt;
-      &lt;th&gt;Title 2&lt;/th&gt;
-      &lt;th&gt;Title 3&lt;/th&gt;
-      &lt;th&gt;Title 4&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;lorem&lt;/td&gt;
-      &lt;td&gt;lorem ipsum&lt;/td&gt;
-      &lt;td&gt;lorem ipsum dolor&lt;/td&gt;
-      &lt;td&gt;lorem ipsum dolor sit&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;lorem ipsum dolor sit&lt;/td&gt;
-      &lt;td&gt;lorem ipsum dolor sit&lt;/td&gt;
-      &lt;td&gt;lorem ipsum dolor sit&lt;/td&gt;
-      &lt;td&gt;lorem ipsum dolor sit&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;lorem ipsum dolor sit&lt;/td&gt;
-      &lt;td&gt;lorem ipsum dolor sit&lt;/td&gt;
-      &lt;td&gt;lorem ipsum dolor sit&lt;/td&gt;
-      &lt;td&gt;lorem ipsum dolor sit&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;lorem ipsum dolor sit&lt;/td&gt;
-      &lt;td&gt;lorem ipsum dolor sit&lt;/td&gt;
-      &lt;td&gt;lorem ipsum dolor sit&lt;/td&gt;
-      &lt;td&gt;lorem ipsum dolor sit&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Title 1&lt;/th&gt;
-      &lt;th&gt;Title 2&lt;/th&gt;
-      &lt;th&gt;Title 3&lt;/th&gt;
-      &lt;th&gt;Title 4&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;lorem&lt;/td&gt;
-      &lt;td&gt;lorem ipsum&lt;/td&gt;
-      &lt;td&gt;lorem ipsum dolor&lt;/td&gt;
-      &lt;td&gt;lorem ipsum dolor sit&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;lorem ipsum dolor sit amet&lt;/td&gt;
-      &lt;td&gt;lorem ipsum dolor sit amet consectetur&lt;/td&gt;
-      &lt;td&gt;lorem ipsum dolor sit amet&lt;/td&gt;
-      &lt;td&gt;lorem ipsum dolor sit&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;lorem ipsum dolor&lt;/td&gt;
-      &lt;td&gt;lorem ipsum&lt;/td&gt;
-      &lt;td&gt;lorem&lt;/td&gt;
-      &lt;td&gt;lorem ipsum&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;lorem ipsum dolor&lt;/td&gt;
-      &lt;td&gt;lorem ipsum dolor sit&lt;/td&gt;
-      &lt;td&gt;lorem ipsum dolor sit amet&lt;/td&gt;
-      &lt;td&gt;lorem ipsum dolor sit amet consectetur&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;</content><author><name>[&quot;Bart Simpson&quot;, &quot;Nelson Mandela Muntz&quot;]</name></author><category term="junk" /><summary type="html">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit.</summary></entry><entry><title type="html">Welcome To Jekyll</title><link href="http://localhost:4000/2016/05/20/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome To Jekyll" /><published>2016-05-20T00:00:00+09:00</published><updated>2016-05-20T00:00:00+09:00</updated><id>http://localhost:4000/2016/05/20/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/2016/05/20/welcome-to-jekyll.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
-
-&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
-
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry><entry><title type="html">Some articles are just so long they deserve a really long title to see if things will break well</title><link href="http://localhost:4000/misc/2016/05/20/super-long-article.html" rel="alternate" type="text/html" title="Some articles are just so long they deserve a really long title to see if things will break well" /><published>2016-05-20T00:00:00+09:00</published><updated>2016-05-20T00:00:00+09:00</updated><id>http://localhost:4000/misc/2016/05/20/super-long-article</id><content type="html" xml:base="http://localhost:4000/misc/2016/05/20/super-long-article.html">&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit. Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.&lt;/p&gt;
-
-&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit. Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.&lt;/p&gt;
-
-&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit. Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.&lt;/p&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="misc" /><summary type="html">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit. Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.</summary></entry><entry><title type="html">Some articles are just so short that we have to make the footer stick</title><link href="http://localhost:4000/misc/2016/05/19/super-short-article.html" rel="alternate" type="text/html" title="Some articles are just so short that we have to make the footer stick" /><published>2016-05-19T00:00:00+09:00</published><updated>2016-05-19T00:00:00+09:00</updated><id>http://localhost:4000/misc/2016/05/19/super-short-article</id><content type="html" xml:base="http://localhost:4000/misc/2016/05/19/super-short-article.html">&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="misc" /><summary type="html">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</summary></entry></feed>
+&lt;p&gt;난 greedy가 싫다. 아무튼 싫다. 코드를 다시 읽어보니 내가 짰지만 왜 저렇게 짰는지 이해가 안가는 부분이 많이 보인다. 나름 정리한다고 했음에도 시행착오의 흔적이 남아있다. 그리고 작명센스를 키워야겠다는 필요성을 느꼈다. 이게 내 블로그 첫 포스트인데 글쓰는게 여간 불편한게 아니다. 내일은 짜파게티랑 불닭볶음면 섞어 먹어야겠다.&lt;/p&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="Algorithm" /><summary type="html">사실 이 블로그를 만든 이유는 이 문제때문이다. 며칠전 친구가 갑자기 한번 풀어보라고 문제를 던져주었는데, 그 동안 알고리즘을 소홀히 한 대가로 고통 받았다. 덕분에 알고리즘 공부에 대한 필요성을 회기시켰고, 이거 하나 제대로 못풀었다는 것에 열받아서 기록을 남기기 위해 블로그를 만들었다. (사실 문제 푼것보다 블로그 만드는거에 더 많은 시간을 썼다.)</summary></entry><entry><title type="html">Init Blog</title><link href="http://localhost:4000/init/2020/03/11/init-blog.html" rel="alternate" type="text/html" title="Init Blog" /><published>2020-03-11T00:00:00+09:00</published><updated>2020-03-11T00:00:00+09:00</updated><id>http://localhost:4000/init/2020/03/11/init-blog</id><content type="html" xml:base="http://localhost:4000/init/2020/03/11/init-blog.html">&lt;p&gt;
+블로그 시작
+&lt;/p&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="Init" /><summary type="html">블로그 시작</summary></entry></feed>
