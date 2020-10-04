@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-04T21:55:38+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Develope Yourself</title><subtitle>Just Do It!
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-04T21:59:12+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Develope Yourself</title><subtitle>Just Do It!
 </subtitle><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><entry><title type="html">[AlexNet] ImageNet Classification with Deep Convolutional Neural Networks 리뷰</title><link href="http://localhost:4000/review/2020/09/26/alexnet.html" rel="alternate" type="text/html" title="[AlexNet] ImageNet Classification with Deep Convolutional Neural Networks 리뷰" /><published>2020-09-26T00:00:00+09:00</published><updated>2020-09-26T00:00:00+09:00</updated><id>http://localhost:4000/review/2020/09/26/alexnet</id><content type="html" xml:base="http://localhost:4000/review/2020/09/26/alexnet.html">&lt;h2 id=&quot;alexnet&quot;&gt;AlexNet&lt;/h2&gt;
 &lt;p&gt;“ImageNet Classification with Deep Convolutional Neural Networks”의 저자 Alex Krizhevsky의 이름을 따서 network의  AlexNet이라는 명칭이 붙었다. ILSVRC-2012에서 top-5 test error를 15.3%를 기록 했으며, 26.2%었던 2등과 비교하여 무려 10%가 넘는 격차를 내고 우승했다. ReLU의 대유행을 만들어낸 의미 있는 모델이다.&lt;/p&gt;
 
@@ -211,18 +211,21 @@ The second form of data augmentation consists of altering the intensities of the
 &lt;center&gt;
 &lt;img src=&quot;/assets/img/dropout_2014.png&quot; /&gt;
 &lt;/center&gt;
+
 &lt;blockquote&gt;
-  &lt;p&gt;‘ImageNet Classification with Deep Convolutional Neural Networks’&lt;/p&gt;
+  &lt;p&gt;‘Dropout: A Simple Way to Prevent Neural Networks from Overfitting’&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;center&gt;
 &lt;img src=&quot;/assets/img/dropout.png&quot; /&gt;
 &lt;/center&gt;
+
 &lt;blockquote&gt;
   &lt;p&gt;‘Improving neural networks by preventing co-adaptation of feature detectors’&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h3 id=&quot;result&quot;&gt;Result&lt;/h3&gt;
+
 &lt;center&gt;
 &lt;img src=&quot;/assets/img/alexnet_result.png&quot; /&gt;
 &lt;/center&gt;
@@ -234,7 +237,7 @@ The second form of data augmentation consists of altering the intensities of the
 
 &lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/1207.0580.pdf&quot;&gt;G.E. Hinton, N. Srivastava, A. Krizhevsky, I. Sutskever and R.R. Salakhutdinov, ‘Improving neural networks by preventing co-adaptation of feature detectors’, 2012&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://dl.acm.org/doi/pdf/10.5555/2627435.2670313&quot;&gt;Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdinov, ‘ImageNet Classification with Deep Convolutional Neural Networks’, &lt;em&gt;The Journal of Machine Learning Research&lt;/em&gt;, vol.15, No.1, 2014&lt;/a&gt;&lt;/p&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="Review" /><summary type="html">AlexNet “ImageNet Classification with Deep Convolutional Neural Networks”의 저자 Alex Krizhevsky의 이름을 따서 network의 AlexNet이라는 명칭이 붙었다. ILSVRC-2012에서 top-5 test error를 15.3%를 기록 했으며, 26.2%었던 2등과 비교하여 무려 10%가 넘는 격차를 내고 우승했다. ReLU의 대유행을 만들어낸 의미 있는 모델이다.</summary></entry><entry><title type="html">Show Time 개인 정보 처리 방침</title><link href="http://localhost:4000/showtime/2020/04/22/showtime-policy.html" rel="alternate" type="text/html" title="Show Time 개인 정보 처리 방침" /><published>2020-04-22T00:00:00+09:00</published><updated>2020-04-22T00:00:00+09:00</updated><id>http://localhost:4000/showtime/2020/04/22/showtime-policy</id><content type="html" xml:base="http://localhost:4000/showtime/2020/04/22/showtime-policy.html">&lt;p&gt;&lt;strong&gt;1. 개인정보의 처리 목적&lt;/strong&gt; (‘https://hsoh0306.github.io/’이하 ‘Root Developer’) 은(는) 다음의 목적을 위하여 개인정보를 처리하고 있으며, 다음의 목적 이외의 용도로는 이용하지 않습니다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://dl.acm.org/doi/pdf/10.5555/2627435.2670313&quot;&gt;Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdinov, ‘Dropout: A Simple Way to Prevent Neural Networks from Overfitting’, vol.15, No.1, 2014&lt;/a&gt;&lt;/p&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="Review" /><summary type="html">AlexNet “ImageNet Classification with Deep Convolutional Neural Networks”의 저자 Alex Krizhevsky의 이름을 따서 network의 AlexNet이라는 명칭이 붙었다. ILSVRC-2012에서 top-5 test error를 15.3%를 기록 했으며, 26.2%었던 2등과 비교하여 무려 10%가 넘는 격차를 내고 우승했다. ReLU의 대유행을 만들어낸 의미 있는 모델이다.</summary></entry><entry><title type="html">Show Time 개인 정보 처리 방침</title><link href="http://localhost:4000/showtime/2020/04/22/showtime-policy.html" rel="alternate" type="text/html" title="Show Time 개인 정보 처리 방침" /><published>2020-04-22T00:00:00+09:00</published><updated>2020-04-22T00:00:00+09:00</updated><id>http://localhost:4000/showtime/2020/04/22/showtime-policy</id><content type="html" xml:base="http://localhost:4000/showtime/2020/04/22/showtime-policy.html">&lt;p&gt;&lt;strong&gt;1. 개인정보의 처리 목적&lt;/strong&gt; (‘https://hsoh0306.github.io/’이하 ‘Root Developer’) 은(는) 다음의 목적을 위하여 개인정보를 처리하고 있으며, 다음의 목적 이외의 용도로는 이용하지 않습니다.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;고객 가입의사 확인, 고객에 대한 서비스 제공에 따른 본인 식별.인증, 회원자격 유지.관리, 물품 또는 서비스 공급에 따른 금액 결제, 물품 또는 서비스의 공급.배송 등&lt;/li&gt;
 &lt;/ul&gt;
