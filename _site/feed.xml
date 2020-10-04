@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-04T21:49:07+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Develope Yourself</title><subtitle>Just Do It!
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-04T21:55:38+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Develope Yourself</title><subtitle>Just Do It!
 </subtitle><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><entry><title type="html">[AlexNet] ImageNet Classification with Deep Convolutional Neural Networks 리뷰</title><link href="http://localhost:4000/review/2020/09/26/alexnet.html" rel="alternate" type="text/html" title="[AlexNet] ImageNet Classification with Deep Convolutional Neural Networks 리뷰" /><published>2020-09-26T00:00:00+09:00</published><updated>2020-09-26T00:00:00+09:00</updated><id>http://localhost:4000/review/2020/09/26/alexnet</id><content type="html" xml:base="http://localhost:4000/review/2020/09/26/alexnet.html">&lt;h2 id=&quot;alexnet&quot;&gt;AlexNet&lt;/h2&gt;
 &lt;p&gt;“ImageNet Classification with Deep Convolutional Neural Networks”의 저자 Alex Krizhevsky의 이름을 따서 network의  AlexNet이라는 명칭이 붙었다. ILSVRC-2012에서 top-5 test error를 15.3%를 기록 했으며, 26.2%었던 2등과 비교하여 무려 10%가 넘는 격차를 내고 우승했다. ReLU의 대유행을 만들어낸 의미 있는 모델이다.&lt;/p&gt;
 
@@ -29,9 +29,9 @@ ImageNet은 variable-resolution 이미지로 구성되지만, constant input dim
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/img/sigmoid.jpg&quot; width=&quot;100%&quot; /&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/img/tanh.jpg&quot; width=&quot;90%&quot; /&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/img/relu.jpg&quot; width=&quot;100%&quot; /&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/img/sigmoid.png&quot; width=&quot;100%&quot; /&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/img/tanh.png&quot; width=&quot;90%&quot; /&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/img/relu.png&quot; width=&quot;100%&quot; /&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;$sigmoid(x) = (1+e^{-x})^{-1}$&lt;/td&gt;
@@ -44,7 +44,7 @@ ImageNet은 variable-resolution 이미지로 구성되지만, constant input dim
 &lt;p&gt;Sigmoid와 tanh에 비해서 ReLU의 식이 단순한 것으로 보아, 연산 속도를 빠르게 한다는 것을 직관적으로 추론이 가능한데, 결과는 다음과 같다.&lt;/p&gt;
 
 &lt;center&gt;
-&lt;img src=&quot;/assets/img/alexnet_relu.jpg&quot; width=&quot;60%&quot; /&gt;
+&lt;img src=&quot;/assets/img/alexnet_relu.png&quot; width=&quot;60%&quot; /&gt;
 &lt;/center&gt;
 
 &lt;p&gt;&lt;em&gt;Figure 1: A four-layer convolutional neural network with ReLUs (solid line) reaches a 25% training error rate on CIFAR-10 six times faster than an equivalent network with tanh neurons (dashed line). The learning rates for each network were chosen independently to make training as fast as possible. No regularization of any kind was employed. The magnitude of the effect demonstrated here varies with network architecture, but networks with ReLUs consistently learn several times faster than equivalents with saturating neurons.&lt;/em&gt;&lt;/p&gt;
@@ -84,7 +84,7 @@ $\alpha, \beta, (n)$ : hyperparmeters&lt;/p&gt;
 &lt;h3 id=&quot;architecture&quot;&gt;Architecture&lt;/h3&gt;
 
 &lt;center&gt;
-&lt;img src=&quot;/assets/img/alexnet.jpg&quot; width=&quot;100%&quot; /&gt;
+&lt;img src=&quot;/assets/img/alexnet.png&quot; width=&quot;100%&quot; /&gt;
 &lt;/center&gt;
 
 &lt;p&gt;&lt;em&gt;Figure 2: An illustration of the architecture of our CNN, explicitly showing the delineation of responsibilities between the two GPUs. One GPU runs the layer-parts at the top of the figure while the other runs the layer-parts at the bottom. The GPUs communicate only at certain layers. The network’s input is 150,528-dimensional, and the number of neurons in the network’s remaining layers is given by 253,440–186,624–64,896–64,896–43,264–4096–4096–1000.&lt;/em&gt;&lt;/p&gt;
@@ -209,14 +209,14 @@ The second form of data augmentation consists of altering the intensities of the
 &lt;/blockquote&gt;
 
 &lt;center&gt;
-&lt;img src=&quot;/assets/img/dropout_2014.jpg&quot; /&gt;
+&lt;img src=&quot;/assets/img/dropout_2014.png&quot; /&gt;
 &lt;/center&gt;
 &lt;blockquote&gt;
   &lt;p&gt;‘ImageNet Classification with Deep Convolutional Neural Networks’&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;center&gt;
-&lt;img src=&quot;/assets/img/dropout.jpg&quot; /&gt;
+&lt;img src=&quot;/assets/img/dropout.png&quot; /&gt;
 &lt;/center&gt;
 &lt;blockquote&gt;
   &lt;p&gt;‘Improving neural networks by preventing co-adaptation of feature detectors’&lt;/p&gt;
@@ -224,7 +224,7 @@ The second form of data augmentation consists of altering the intensities of the
 
 &lt;h3 id=&quot;result&quot;&gt;Result&lt;/h3&gt;
 &lt;center&gt;
-&lt;img src=&quot;/assets/img/alexnet_result.jpg&quot; /&gt;
+&lt;img src=&quot;/assets/img/alexnet_result.png&quot; /&gt;
 &lt;/center&gt;
 
 &lt;hr /&gt;
