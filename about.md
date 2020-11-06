@@ -13,3 +13,4 @@ Bolleh - 지하철역 중간 만남장소 찾기:
 Show Time(시간표, 위젯, 일정, 학점 계산기):
 [show time](https://play.google.com/store/apps/details?id=com.showtimetable)
 
+JunctionX Seoul 2020 Naver Zepeto track 3등 [Team Gorona: Zepetalk](https://github.com/hsoh0306/JunctionXSeoul2020)
