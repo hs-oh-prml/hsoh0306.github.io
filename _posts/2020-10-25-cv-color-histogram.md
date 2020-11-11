@@ -105,3 +105,6 @@ plt.tight_layout()
 plt.savefig('histogram_hsv.png', dpi=300)
 plt.show()
 ```
+
+### Reference
+[Elephant Image](https://medium.com/@jovana.savic9494/image-contrast-increase-866b7eeac8c2)
