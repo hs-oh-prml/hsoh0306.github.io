@@ -18,7 +18,7 @@ RGB는 가장 널리 사용되고 있는 color model이다. 모든 색을 빨강
 
 
 <center>
-<img src="/assets/img/rgb_model.png">
+<img src="/assets/img/rgb_model.PNG">
 </center>
 
 #### YCbCr (Luminance, Chrominance) Color Model
@@ -29,7 +29,7 @@ YCbCr은 encoded non-linear RGB라고 한다. 압축할 때 많이 써서, TV �
 <center>$Cb = B - Y$</center>
 
 <center>
-<img src="/assets/img/ycbcr_model.png">
+<img src="/assets/img/ycbcr_model.PNG">
 </center>
 
 #### Hue Saturation Value (HSV) Color Model
@@ -37,7 +37,7 @@ YCbCr은 encoded non-linear RGB라고 한다. 압축할 때 많이 써서, TV �
 HSV는 RGB보다 사람이 경험하는 색을 더 직관적으로 나타내는 model이다. HSV에서 H(Hue)는 [0, 1.0] 범위를 가지며 red, yellow, green, cyan, blue, magenta 그리고 다시 red를 나타낸다. S(Saturation)는 [0, 1.0]에 값을 가지면 색이 얼마나 saturate한지(0: gray, 1.0: no white componet)를 나타낸다.  V(Value)는 밝기 값을 의미하며 [0, 1.0]의 값을 가진다. H를 각도로 표현하여 [0, 360]도로 표현하는 방법도 있다. opencv에서는 HSV은 각각 H: [0, 180], S: [0, 255], V: [0, 255]로 표현된다.
 
 <center>
-<img src="/assets/img/hsv_model.png">
+<img src="/assets/img/hsv_model.PNG">
 </center>
 
 ### Proposed Skin Detection Algorithm
