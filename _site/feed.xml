@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-01-03T14:32:15+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Develope Yourself</title><subtitle>Just Do It!
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-01-03T14:40:28+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Develope Yourself</title><subtitle>Just Do It!
 </subtitle><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><entry><title type="html">[Computer Vision] Edge</title><link href="http://localhost:4000/computervision/2020/11/11/cv-edge.html" rel="alternate" type="text/html" title="[Computer Vision] Edge" /><published>2020-11-11T00:00:00+09:00</published><updated>2020-11-11T00:00:00+09:00</updated><id>http://localhost:4000/computervision/2020/11/11/cv-edge</id><content type="html" xml:base="http://localhost:4000/computervision/2020/11/11/cv-edge.html"></content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="ComputerVision" /><summary type="html"></summary></entry><entry><title type="html">[Computer Vision] Skin Color Detection</title><link href="http://localhost:4000/computervision/2020/11/11/cv-skin-color-detection.html" rel="alternate" type="text/html" title="[Computer Vision] Skin Color Detection" /><published>2020-11-11T00:00:00+09:00</published><updated>2020-11-11T00:00:00+09:00</updated><id>http://localhost:4000/computervision/2020/11/11/cv-skin-color-detection</id><content type="html" xml:base="http://localhost:4000/computervision/2020/11/11/cv-skin-color-detection.html">&lt;p&gt;강의자료에 재밌어 보이는 내용이 있어서 따로 포스팅한다. 사람의 피부색은 인종에 상관 없이 일정한 범위 내에 값을 가져서 색을 이용하여 피부색을 검출 할 수 있다고 한다. “Human Skin Detection Using RGB, HSV and YCbCr Color Models”는 색을 이용하여 사람의 피부를 검출하는 것을 연구한 논문이다. 기계학습을 이용하지 않고 threshold를 이용한 방법으로, 여러 color space를 조합한 방법을 제시했다. 구현하기 전에 Color space에 대해 간략하게 알아보자.&lt;/p&gt;
 
 &lt;h4 id=&quot;red-green-and-blue-rgb-color-model&quot;&gt;Red, Green, and Blue (RGB) Color Model&lt;/h4&gt;
@@ -10,7 +10,7 @@
 &lt;center&gt;$b = {B \over R + G + B}$&lt;/center&gt;
 
 &lt;center&gt;
-&lt;img src=&quot;/assets/img/rgb_model.PNG&quot; /&gt;
+&lt;img src=&quot;/assets/img/rgb_model.png&quot; /&gt;
 &lt;/center&gt;
 
 &lt;h4 id=&quot;ycbcr-luminance-chrominance-color-model&quot;&gt;YCbCr (Luminance, Chrominance) Color Model&lt;/h4&gt;
@@ -21,7 +21,7 @@
 &lt;center&gt;$Cb = B - Y$&lt;/center&gt;
 
 &lt;center&gt;
-&lt;img src=&quot;/assets/img/ycbcr_model.PNG&quot; /&gt;
+&lt;img src=&quot;/assets/img/ycbcr_model.png&quot; /&gt;
 &lt;/center&gt;
 
 &lt;h4 id=&quot;hue-saturation-value-hsv-color-model&quot;&gt;Hue Saturation Value (HSV) Color Model&lt;/h4&gt;
@@ -29,7 +29,7 @@
 &lt;p&gt;HSV는 RGB보다 사람이 경험하는 색을 더 직관적으로 나타내는 model이다. HSV에서 H(Hue)는 [0, 1.0] 범위를 가지며 red, yellow, green, cyan, blue, magenta 그리고 다시 red를 나타낸다. S(Saturation)는 [0, 1.0]에 값을 가지면 색이 얼마나 saturate한지(0: gray, 1.0: no white componet)를 나타낸다.  V(Value)는 밝기 값을 의미하며 [0, 1.0]의 값을 가진다. H를 각도로 표현하여 [0, 360]도로 표현하는 방법도 있다. opencv에서는 HSV은 각각 H: [0, 180], S: [0, 255], V: [0, 255]로 표현된다.&lt;/p&gt;
 
 &lt;center&gt;
-&lt;img src=&quot;/assets/img/hsv_model.PNG&quot; /&gt;
+&lt;img src=&quot;/assets/img/hsv_model.png&quot; /&gt;
 &lt;/center&gt;
 
 &lt;h3 id=&quot;proposed-skin-detection-algorithm&quot;&gt;Proposed Skin Detection Algorithm&lt;/h3&gt;
@@ -446,7 +446,7 @@ for(i = 0; i &amp;lt; 256; i++){
 &lt;/ul&gt;
 
 &lt;center&gt;
-&lt;img src=&quot;/assets/img/noise_ex.PNG&quot; /&gt;
+&lt;img src=&quot;/assets/img/noise_ex.png&quot; /&gt;
 &lt;/center&gt;
 
 &lt;h3 id=&quot;filtering-operations-using-masks&quot;&gt;Filtering Operations using masks&lt;/h3&gt;
