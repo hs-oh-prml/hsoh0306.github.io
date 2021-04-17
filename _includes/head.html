@@ -1,22 +1,5 @@
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script data-ad-client="pub-4590482182997446" async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <script data-ad-client="ca-pub-4590482182997446" async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
-  {%- seo -%}
-  <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
-  {%- feed_meta -%}
-  {%- if jekyll.environment == 'production' and site.google_analytics -%}
-    {%- include google-analytics.html -%}
-  {%- endif -%}
-
-  {%- include custom-head.html -%}
-
-  {% if page.use_math %}
-    {% include mathjax_support.html %}
-  {% endif %}
-</head>
+{% include head/meta.html %}
+{% include head/links.html %}
+{% include head/scripts.html %}
+{% include head/styles.html %}
+{% include my-head.html %}

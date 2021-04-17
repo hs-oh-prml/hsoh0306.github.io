@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "[Computer Vision] Color&Histogram"
-categories: 
- - ComputerVision
+title: Color&Histogram
+tags: [Computer Vision]
+
 use_math: true
 ---
 

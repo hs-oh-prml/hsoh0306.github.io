@@ -1,16 +1,14 @@
 ---
 layout: post
-title: "[Computer Vision] Point Processing: Arithmetic processing&Power-law transformation"
-categories: 
- - ComputerVision
-use_math: true
+title: "Point Processing: Arithmetic processing&Power-law transformation"
+tags: [Computer Vision]
 ---
 
 ### Point Processing
-$G(x,y)=T(f(x,y))$
-- $G()$: 결과 값
-- $T()$: 변환 함수
-- $f(x,y)$:  (x,y) 위치의 픽셀 값
+$$G(x,y)=T(f(x,y))$$
+- $$G()$$: 결과 값
+- $$T()$$: 변환 함수
+- $$f(x,y)$$:  (x,y) 위치의 픽셀 값
 
 모든 픽셀에 대하여 수행하지만, 공간적인 정보를 사용하지 않음
 
@@ -123,10 +121,10 @@ Gamma Transformation이라고도 하며 지수함수를 이용한 point processi
 <img src="/assets/img/power_law_trans.png">
 </center>
 
-> <center> $s = cr^{\gamma}$  </center>
-> <center> $c = 1$ </center>
+> <center> $$s = cr^{\gamma}$$  </center>
+> <center> $$c = 1$$ </center>
 
-power-law transformation을 하기 위해서 pixel의 값을 [0, 255]가 아닌 [0, 1]로 정규화한다. $c$는 1이고, $\gamma$ 값은 변수다. $\gamma$가 1보다 크면 영상은 어두워지고, 1보다 작으면 영상은 밝아진다. 
+power-law transformation을 하기 위해서 pixel의 값을 [0, 255]가 아닌 [0, 1]로 정규화한다. $$c$$는 1이고, $$\gamma$$ 값은 변수다. $$\gamma$$가 1보다 크면 영상은 어두워지고, 1보다 작으면 영상은 밝아진다. 
 
 <center>
 <img src="/assets/img/power_law_result.jpg">

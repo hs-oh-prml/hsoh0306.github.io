@@ -1,13 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-01-03T15:11:45+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Develope Yourself</title><subtitle>Just Do It!
-</subtitle><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><entry><title type="html">[Computer Vision] Edge</title><link href="http://localhost:4000/computervision/2020/11/11/cv-edge.html" rel="alternate" type="text/html" title="[Computer Vision] Edge" /><published>2020-11-11T00:00:00+09:00</published><updated>2020-11-11T00:00:00+09:00</updated><id>http://localhost:4000/computervision/2020/11/11/cv-edge</id><content type="html" xml:base="http://localhost:4000/computervision/2020/11/11/cv-edge.html"></content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="ComputerVision" /><summary type="html"></summary></entry><entry><title type="html">[Computer Vision] Skin Color Detection</title><link href="http://localhost:4000/computervision/2020/11/11/cv-skin-color-detection.html" rel="alternate" type="text/html" title="[Computer Vision] Skin Color Detection" /><published>2020-11-11T00:00:00+09:00</published><updated>2020-11-11T00:00:00+09:00</updated><id>http://localhost:4000/computervision/2020/11/11/cv-skin-color-detection</id><content type="html" xml:base="http://localhost:4000/computervision/2020/11/11/cv-skin-color-detection.html">&lt;p&gt;강의자료에 재밌어 보이는 내용이 있어서 따로 포스팅한다. 사람의 피부색은 인종에 상관 없이 일정한 범위 내에 값을 가져서 색을 이용하여 피부색을 검출 할 수 있다고 한다. “Human Skin Detection Using RGB, HSV and YCbCr Color Models”는 색을 이용하여 사람의 피부를 검출하는 것을 연구한 논문이다. 기계학습을 이용하지 않고 threshold를 이용한 방법으로, 여러 color space를 조합한 방법을 제시했다. 구현하기 전에 Color space에 대해 간략하게 알아보자.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2021-04-17T17:26:22+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Develope Yourself</title><subtitle>A Jekyll theme with JavaScript powers. &quot;Best Theme by a Mile&quot;. Combines the best of static sites and modern web apps. Open `_config.yml` to edit this text.
+</subtitle><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><entry><title type="html">Skin Color Detection</title><link href="http://localhost:4000/2020/11/11/cv-skin-color-detection/" rel="alternate" type="text/html" title="Skin Color Detection" /><published>2020-11-11T00:00:00+09:00</published><updated>2020-11-11T00:00:00+09:00</updated><id>http://localhost:4000/2020/11/11/cv-skin-color-detection</id><content type="html" xml:base="http://localhost:4000/2020/11/11/cv-skin-color-detection/">&lt;p&gt;강의자료에 재밌어 보이는 내용이 있어서 따로 포스팅한다. 사람의 피부색은 인종에 상관 없이 일정한 범위 내에 값을 가져서 색을 이용하여 피부색을 검출 할 수 있다고 한다. “Human Skin Detection Using RGB, HSV and YCbCr Color Models”는 색을 이용하여 사람의 피부를 검출하는 것을 연구한 논문이다. 기계학습을 이용하지 않고 threshold를 이용한 방법으로, 여러 color space를 조합한 방법을 제시했다. 구현하기 전에 Color space에 대해 간략하게 알아보자.&lt;/p&gt;
 
 &lt;h4 id=&quot;red-green-and-blue-rgb-color-model&quot;&gt;Red, Green, and Blue (RGB) Color Model&lt;/h4&gt;
 
 &lt;p&gt;RGB는 가장 널리 사용되고 있는 color model이다. 모든 색을 빨강(R), 초록(G), 파랑(B)의 합으로 표현하며, 디지털 이미지의 저장에 사용된다. 보통 하나의 color당 8-bit를 할당하며, [0, 255] 사이 값을 가진다. normalized RGB는 이를 [0, 1]로 정규화한 표현으로 다음과 같이 쓰면 된다.&lt;/p&gt;
 
-&lt;center&gt;$r = {R \over R + G + B}$&lt;/center&gt;
-&lt;center&gt;$g = {G \over R + G + B}$&lt;/center&gt;
-&lt;center&gt;$b = {B \over R + G + B}$&lt;/center&gt;
+\[\begin{aligned}
+r = {R \over R + G + B} \\
+g = {G \over R + G + B} \\
+b = {B \over R + G + B}
+\end{aligned}\]
 
 &lt;center&gt;
 &lt;img src=&quot;/assets/img/rgb_model.jpg&quot; /&gt;
@@ -16,9 +18,11 @@
 &lt;h4 id=&quot;ycbcr-luminance-chrominance-color-model&quot;&gt;YCbCr (Luminance, Chrominance) Color Model&lt;/h4&gt;
 &lt;p&gt;YCbCr은 encoded non-linear RGB라고 한다. 압축할 때 많이 써서, TV 송신, 비디오,  JPEG, MPEG1, MPEG2, MPEG4 등에 사용된다. YCbCr에서 Y는 luminance, Cb는 blue값과 기준 값(Y)의 차이,  Cr은 red값과 기준 값(Y)의 차이를 나타낸다.&lt;/p&gt;
 
-&lt;center&gt;$Y = 0.299R + 0.287G + 0.11B$&lt;/center&gt;
-&lt;center&gt;$Cr = R - Y$&lt;/center&gt;
-&lt;center&gt;$Cb = B - Y$&lt;/center&gt;
+\[\begin{aligned}
+Y = 0.299R + 0.287G + 0.11B \\
+Cr = R - Y \\
+Cb = B - Y
+\end{aligned}\]
 
 &lt;center&gt;
 &lt;img src=&quot;/assets/img/ycbcr_model.jpg&quot; /&gt;
@@ -147,15 +151,14 @@ else {
 &lt;p&gt;threshold만 사용한 방법이라 좀 애매할 거 같았는데 생각보다 꽤 괜찮은 결과를 내었다. 인종에 크게 상관이 없는 거 같고, HSV보다 YCbCr을 사용한 것이 결과가 더 잘나오는 거 같다.&lt;/p&gt;
 
 &lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&quot;https://arxiv.org/ftp/arxiv/papers/1708/1708.02694.pdf&quot;&gt;S. Kolkur, D. Kalbande, P. Shimpi, C. Bapat, and J. Jatakia,’Human Skin Detection Using RGB, HSV and YCbCr Color Models’, &lt;em&gt;ICCASP/ICMMD&lt;/em&gt;, 2016, Vol. 137, pp.324-332&lt;/a&gt;&lt;/p&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="ComputerVision" /><summary type="html">강의자료에 재밌어 보이는 내용이 있어서 따로 포스팅한다. 사람의 피부색은 인종에 상관 없이 일정한 범위 내에 값을 가져서 색을 이용하여 피부색을 검출 할 수 있다고 한다. “Human Skin Detection Using RGB, HSV and YCbCr Color Models”는 색을 이용하여 사람의 피부를 검출하는 것을 연구한 논문이다. 기계학습을 이용하지 않고 threshold를 이용한 방법으로, 여러 color space를 조합한 방법을 제시했다. 구현하기 전에 Color space에 대해 간략하게 알아보자.</summary></entry><entry><title type="html">[Computer Vision] Contrast</title><link href="http://localhost:4000/computervision/2020/11/06/cv-contrast.html" rel="alternate" type="text/html" title="[Computer Vision] Contrast" /><published>2020-11-06T00:00:00+09:00</published><updated>2020-11-06T00:00:00+09:00</updated><id>http://localhost:4000/computervision/2020/11/06/cv-contrast</id><content type="html" xml:base="http://localhost:4000/computervision/2020/11/06/cv-contrast.html">&lt;h3 id=&quot;contrast&quot;&gt;Contrast&lt;/h3&gt;
-&lt;p&gt;대비(Contrast)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://arxiv.org/ftp/arxiv/papers/1708/1708.02694.pdf&quot;&gt;S. Kolkur, D. Kalbande, P. Shimpi, C. Bapat, and J. Jatakia,’Human Skin Detection Using RGB, HSV and YCbCr Color Models’, &lt;em&gt;ICCASP/ICMMD&lt;/em&gt;, 2016, Vol. 137, pp.324-332&lt;/a&gt;&lt;/p&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">강의자료에 재밌어 보이는 내용이 있어서 따로 포스팅한다. 사람의 피부색은 인종에 상관 없이 일정한 범위 내에 값을 가져서 색을 이용하여 피부색을 검출 할 수 있다고 한다. “Human Skin Detection Using RGB, HSV and YCbCr Color Models”는 색을 이용하여 사람의 피부를 검출하는 것을 연구한 논문이다. 기계학습을 이용하지 않고 threshold를 이용한 방법으로, 여러 color space를 조합한 방법을 제시했다. 구현하기 전에 Color space에 대해 간략하게 알아보자.</summary></entry><entry><title type="html">Contrast</title><link href="http://localhost:4000/2020/11/06/cv-contrast/" rel="alternate" type="text/html" title="Contrast" /><published>2020-11-06T00:00:00+09:00</published><updated>2020-11-06T00:00:00+09:00</updated><id>http://localhost:4000/2020/11/06/cv-contrast</id><content type="html" xml:base="http://localhost:4000/2020/11/06/cv-contrast/">&lt;p&gt;대비(Contrast)&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;가장 어두운 영역으로부터 가장 밝은 영역의 범위&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;blockquote&gt;
-  &lt;center&gt;$Contast = {I_{max}-I_{min} \over I_{max} + I_{min}}$&lt;/center&gt;
+  &lt;center&gt;$$Contast = {I_{max}-I_{min} \over I_{max} + I_{min}}$$&lt;/center&gt;
 &lt;/blockquote&gt;
 
 &lt;ul&gt;
@@ -199,9 +202,7 @@ else {
   &lt;li&gt;모든 범위의 화소 값을 포함하도록 영상을 확장&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;blockquote&gt;
-  &lt;center&gt;$new pixel = {old pixel - low \over high - low} * 255$&lt;/center&gt;
-&lt;/blockquote&gt;
+\[new pixel = {old pixel - low \over high - low} * 255\]
 
 &lt;center&gt;
 &lt;img src=&quot;/assets/img/basic_contrast_stretching.png&quot; /&gt;
@@ -435,8 +436,7 @@ for(i = 0; i &amp;lt; 256; i++){
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;물론 opencv에서 같은 기능으로 equalizeHist라는 함수를 제공한다. 그냥 이거 쓰면 될거같다.&lt;/p&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="ComputerVision" /><summary type="html">Contrast 대비(Contrast)</summary></entry><entry><title type="html">[Computer Vision] Noise&amp;amp;Convolution</title><link href="http://localhost:4000/computervision/2020/11/06/cv-noise.html" rel="alternate" type="text/html" title="[Computer Vision] Noise&amp;amp;Convolution" /><published>2020-11-06T00:00:00+09:00</published><updated>2020-11-06T00:00:00+09:00</updated><id>http://localhost:4000/computervision/2020/11/06/cv-noise</id><content type="html" xml:base="http://localhost:4000/computervision/2020/11/06/cv-noise.html">&lt;h3 id=&quot;noise&quot;&gt;Noise&lt;/h3&gt;
-&lt;p&gt;디지털 영상에서 noise는 영상을 왜곡하여 특징을 추출하는 것을 방해한다.&lt;/p&gt;
+&lt;p&gt;물론 opencv에서 같은 기능으로 equalizeHist라는 함수를 제공한다. 그냥 이거 쓰면 될거같다.&lt;/p&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">대비(Contrast)</summary></entry><entry><title type="html">Noise</title><link href="http://localhost:4000/2020/11/06/cv-noise/" rel="alternate" type="text/html" title="Noise" /><published>2020-11-06T00:00:00+09:00</published><updated>2020-11-06T00:00:00+09:00</updated><id>http://localhost:4000/2020/11/06/cv-noise</id><content type="html" xml:base="http://localhost:4000/2020/11/06/cv-noise/">&lt;p&gt;디지털 영상에서 noise는 영상을 왜곡하여 특징을 추출하는 것을 방해한다.&lt;/p&gt;
 
 &lt;h4 id=&quot;common-types-of-noise&quot;&gt;Common types of noise&lt;/h4&gt;
 &lt;ul&gt;
@@ -466,10 +466,10 @@ for(i = 0; i &amp;lt; 256; i++){
   &lt;p&gt;A convolution operation is a cross-correlation where the filter is flipped both horizontally and vertically before being applied to the image.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;blockquote&gt;
-  &lt;center&gt;$G[i, j] = \sum_{u=-k}^{k} \sum_{v=-k}^{k} {H[u, v]F[i-u, j-u]}$&lt;/center&gt;
-  &lt;center&gt;$G = H*F $&lt;/center&gt;
-&lt;/blockquote&gt;
+\[\begin{aligned}
+G[i, j] = \sum_{u=-k}^{k} \sum_{v=-k}^{k} {H[u, v]F[i-u, j-u]} \\
+G = H*F
+\end{aligned}\]
 
 &lt;h4 id=&quot;kernel-convolution-mask-window-filter&quot;&gt;Kernel (Convolution mask, window, filter)&lt;/h4&gt;
 &lt;p&gt;가중치에 따라 다른 결과를 생성한다.&lt;/p&gt;
@@ -580,12 +580,11 @@ for(i = 0; i &amp;lt; 256; i++){
 &lt;img src=&quot;/assets/img/smoothing.jpg&quot; /&gt;
 &lt;/center&gt;
 
-&lt;p&gt;color image에 대해서는, RGB일 경우 R, G, B 각 채널에 대하여 convolution을 하면 되고, HSI는 intensity에 대해 convolution하면 된다.&lt;/p&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="ComputerVision" /><summary type="html">Noise 디지털 영상에서 noise는 영상을 왜곡하여 특징을 추출하는 것을 방해한다.</summary></entry><entry><title type="html">[Computer Vision] Point Processing: Arithmetic processing&amp;amp;Power-law transformation</title><link href="http://localhost:4000/computervision/2020/10/25/cv-point-processing.html" rel="alternate" type="text/html" title="[Computer Vision] Point Processing: Arithmetic processing&amp;amp;Power-law transformation" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>http://localhost:4000/computervision/2020/10/25/cv-point-processing</id><content type="html" xml:base="http://localhost:4000/computervision/2020/10/25/cv-point-processing.html">&lt;h3 id=&quot;point-processing&quot;&gt;Point Processing&lt;/h3&gt;
-&lt;p&gt;$G(x,y)=T(f(x,y))$&lt;/p&gt;
+&lt;p&gt;color image에 대해서는, RGB일 경우 R, G, B 각 채널에 대하여 convolution을 하면 되고, HSI는 intensity에 대해 convolution하면 된다.&lt;/p&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">디지털 영상에서 noise는 영상을 왜곡하여 특징을 추출하는 것을 방해한다.</summary></entry><entry><title type="html">Point Processing</title><link href="http://localhost:4000/2020/10/25/cv-point-processing/" rel="alternate" type="text/html" title="Point Processing" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>http://localhost:4000/2020/10/25/cv-point-processing</id><content type="html" xml:base="http://localhost:4000/2020/10/25/cv-point-processing/">&lt;p&gt;\(G(x,y)=T(f(x,y))\)&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;$G()$: 결과 값&lt;/li&gt;
-  &lt;li&gt;$T()$: 변환 함수&lt;/li&gt;
-  &lt;li&gt;$f(x,y)$:  (x,y) 위치의 픽셀 값&lt;/li&gt;
+  &lt;li&gt;\(G()\): 결과 값&lt;/li&gt;
+  &lt;li&gt;\(T()\): 변환 함수&lt;/li&gt;
+  &lt;li&gt;\(f(x,y)\):  (x,y) 위치의 픽셀 값&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;모든 픽셀에 대하여 수행하지만, 공간적인 정보를 사용하지 않음&lt;/p&gt;
@@ -705,11 +704,11 @@ for(i = 0; i &amp;lt; 256; i++){
 &lt;/center&gt;
 
 &lt;blockquote&gt;
-  &lt;center&gt; $s = cr^{\gamma}$  &lt;/center&gt;
-  &lt;center&gt; $c = 1$ &lt;/center&gt;
+  &lt;center&gt; $$s = cr^{\gamma}$$  &lt;/center&gt;
+  &lt;center&gt; $$c = 1$$ &lt;/center&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;power-law transformation을 하기 위해서 pixel의 값을 [0, 255]가 아닌 [0, 1]로 정규화한다. $c$는 1이고, $\gamma$ 값은 변수다. $\gamma$가 1보다 크면 영상은 어두워지고, 1보다 작으면 영상은 밝아진다.&lt;/p&gt;
+&lt;p&gt;power-law transformation을 하기 위해서 pixel의 값을 [0, 255]가 아닌 [0, 1]로 정규화한다. \(c\)는 1이고, \(\gamma\) 값은 변수다. \(\gamma\)가 1보다 크면 영상은 어두워지고, 1보다 작으면 영상은 밝아진다.&lt;/p&gt;
 
 &lt;center&gt;
 &lt;img src=&quot;/assets/img/power_law_result.jpg&quot; /&gt;
@@ -745,8 +744,7 @@ for(i = 0; i &amp;lt; 256; i++){
 
 &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;waitKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;destroyAllWindows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="ComputerVision" /><summary type="html">Point Processing $G(x,y)=T(f(x,y))$ $G()$: 결과 값 $T()$: 변환 함수 $f(x,y)$: (x,y) 위치의 픽셀 값</summary></entry><entry><title type="html">[Computer Vision] Color&amp;amp;Histogram</title><link href="http://localhost:4000/computervision/2020/10/25/cv-color-histogram.html" rel="alternate" type="text/html" title="[Computer Vision] Color&amp;amp;Histogram" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>http://localhost:4000/computervision/2020/10/25/cv-color-histogram</id><content type="html" xml:base="http://localhost:4000/computervision/2020/10/25/cv-color-histogram.html">&lt;h3 id=&quot;basic-techinques-in-digital-image-processing&quot;&gt;Basic Techinques in Digital Image Processing&lt;/h3&gt;
-&lt;ul&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">\(G(x,y)=T(f(x,y))\) \(G()\): 결과 값 \(T()\): 변환 함수 \(f(x,y)\): (x,y) 위치의 픽셀 값</summary></entry><entry><title type="html">Basic Techinques in Digital Image Processing</title><link href="http://localhost:4000/2020/10/25/cv-color-histogram/" rel="alternate" type="text/html" title="Basic Techinques in Digital Image Processing" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>http://localhost:4000/2020/10/25/cv-color-histogram</id><content type="html" xml:base="http://localhost:4000/2020/10/25/cv-color-histogram/">&lt;ul&gt;
   &lt;li&gt;Image Representation&amp;amp;Storage&lt;/li&gt;
   &lt;li&gt;Image Enhancement&amp;amp;Filtering
     &lt;ul&gt;
@@ -860,74 +858,194 @@ for(i = 0; i &amp;lt; 256; i++){
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&quot;https://medium.com/@jovana.savic9494/image-contrast-increase-866b7eeac8c2&quot;&gt;Elephant Image&lt;/a&gt;&lt;/p&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="ComputerVision" /><summary type="html">Basic Techinques in Digital Image Processing Image Representation&amp;amp;Storage Image Enhancement&amp;amp;Filtering Contrast stretching, smoothing, sharpening Feature Extraction Color: color space, histogram Texture: Wavelet transformation, Discrete cosine transformation Shape: Edge detector, HOG, SIFT/SURF</summary></entry><entry><title type="html">[Computer Vision] Region Segmentation</title><link href="http://localhost:4000/computervision/2020/10/25/computervision-segmentation.html" rel="alternate" type="text/html" title="[Computer Vision] Region Segmentation" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>http://localhost:4000/computervision/2020/10/25/computervision-segmentation</id><content type="html" xml:base="http://localhost:4000/computervision/2020/10/25/computervision-segmentation.html">&lt;h2 id=&quot;image-segmentation&quot;&gt;Image Segmentation&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://medium.com/@jovana.savic9494/image-contrast-increase-866b7eeac8c2&quot;&gt;Elephant Image&lt;/a&gt;&lt;/p&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Image Representation&amp;amp;Storage Image Enhancement&amp;amp;Filtering Contrast stretching, smoothing, sharpening Feature Extraction Color: color space, histogram Texture: Wavelet transformation, Discrete cosine transformation Shape: Edge detector, HOG, SIFT/SURF</summary></entry><entry><title type="html">Shapes</title><link href="http://localhost:4000/2020/10/25/computervision3/" rel="alternate" type="text/html" title="Shapes" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>http://localhost:4000/2020/10/25/computervision3</id><content type="html" xml:base="http://localhost:4000/2020/10/25/computervision3/">&lt;p&gt;Shape은 color랑 texture보다 더 나아간 단계의 feautre다. Color랑 texture는 둘 다 global attribute지만, shape은 특정 region에 대한 attribute이다.&lt;/p&gt;
 
-&lt;p&gt;Image segmentation이란 이미지를 여러 개의 픽셀 집합(region)으로 나누는 것이다.&lt;/p&gt;
+&lt;h3 id=&quot;shape-descriptors&quot;&gt;Shape Descriptors&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Region Descriptor&lt;/li&gt;
+  &lt;li&gt;Boundary&lt;/li&gt;
+  &lt;li&gt;Interest points(corners)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;region-based-shape-descriptors&quot;&gt;Region based Shape Descriptors&lt;/h3&gt;
+&lt;h4 id=&quot;geometric-and-shape-properties&quot;&gt;Geometric and Shape Properties&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;area&lt;/li&gt;
+  &lt;li&gt;centroid&lt;/li&gt;
+  &lt;li&gt;perimeter&lt;/li&gt;
+  &lt;li&gt;perimeter length&lt;/li&gt;
+  &lt;li&gt;circularity, elongation&lt;/li&gt;
+  &lt;li&gt;mean and standard deviation of radial distance&lt;/li&gt;
+  &lt;li&gt;second order moments (row, column, mixed)&lt;/li&gt;
+  &lt;li&gt;bounding box&lt;/li&gt;
+  &lt;li&gt;extremal axis length from bounding box&lt;/li&gt;
+  &lt;li&gt;lengths and orientations of axes of best-fit ellipse&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;Often want features independent of position, orientation, scale&lt;/em&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;zero-order-moment&quot;&gt;Zero-order moment&lt;/h4&gt;
+&lt;p&gt;Moment를 사용하는 이유: 
+서로 다른 차수의 기하학적 모멘트는 이미지 분포의 공간적 특성을 나타낸다.
+Zero-order moment란:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+\[A = \sum_i^n \sum_j^m {B[i,j]}\]
+  &lt;/li&gt;
+  &lt;li&gt;전체 intensity를 의미&lt;/li&gt;
+  &lt;li&gt;binary image에서는 area를 의미&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;centroid&quot;&gt;Centroid&lt;/h4&gt;
+&lt;p&gt;이미지 내의 object의 위치가 공간 위치에 의해 정해진다.&lt;/p&gt;
+
+&lt;p&gt;Center of area(centroid, center of mass): First order moment&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;\(\bar{x} = {\sum_i^n \sum_j^m {jB[i,j]} \over A}\) (object의 pixel간에 j 좌표의 평균)&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;\(\bar{y} = {\sum_i^n \sum_j^m {iB[i,j]} \over A}\) (object의 pixel간에 i 좌표의 평균)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;intensity centroid&lt;/li&gt;
+  &lt;li&gt;binary image의 기하학적 중심&lt;/li&gt;
+  &lt;li&gt;Centroid는 분석과 매칭에서 interesting point가 될 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;second-moments&quot;&gt;Second moments&lt;/h4&gt;
+
+&lt;p&gt;Second-order row moment&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+\[\mu_{rr} = {1 \over A} \sum_{(r,c) \in R}  {(r - \bar{r})^2}\]
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Second-order mixed moment&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+\[\mu_{rc} = {1 \over A} \sum_{(r,c) \in R}  {(r - \bar{r})(c - \bar{c})}\]
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Second-order column moment&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+\[\mu_{cc} = {1 \over A} \sum_{(r,c) \in R}  {(c - \bar{c})^2}\]
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;moment-invariants&quot;&gt;Moment Invariants&lt;/h4&gt;
+&lt;p&gt;기하 변형: translation, scale, mirroring, rotation&lt;/p&gt;
+
+&lt;h4 id=&quot;perimeter-and-perimeter-length&quot;&gt;Perimeter and Perimeter Length&lt;/h4&gt;
+
+&lt;p&gt;Perimeter&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;목표: 이미지 내에서 coherent region을 찾는 것
-Coherent region은 비슷한 속성을 가지는 픽셀들을 포함한다.&lt;/p&gt;
+\[P_4 = \\{ (r,c) \in R \| N_8(r,c) - R \neq \varnothing \\}\]
   &lt;/li&gt;
-  &lt;li&gt;장점: noise에 강하다.&lt;/li&gt;
-  &lt;li&gt;단점: Oversegmented, Undersegmented 문제 발생&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;creteria&quot;&gt;Creteria&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;$\cup S_i = S$ : 모든 region의 합은 원본 이미지와 같다.&lt;/li&gt;
-  &lt;li&gt;$S_i \cap S_j = \emptyset, i \neq j$: 각 region은 overlap이 되지 않는다.&lt;/li&gt;
-  &lt;li&gt;$\forall S_i, P(S_i) = true$: 같은 region에 있는 pixel들은 similarity property를 가진다.&lt;/li&gt;
-  &lt;li&gt;$P(S_i \cup S_j) = false$: 다른 region의 pixel과는 dissimilarity하다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;region-growing&quot;&gt;Region Growing&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;region일 가능성이 높은 한 pixel에서 시작&lt;/li&gt;
-  &lt;li&gt;인접 pixel과 비교하여 dissimilar한 pixel을 만나기 전까지 확장&lt;/li&gt;
   &lt;li&gt;
-    &lt;ul&gt;
-      &lt;li&gt;seed pixel은 image 내에서 unlabelled pixel로 설정한다.&lt;/li&gt;
-    &lt;/ul&gt;
+\[P_8 = \\{ (r,c) \in R \| N_4(r,c) - R \neq \varnothing \\}\]
   &lt;/li&gt;
-  &lt;li&gt;통계적 테스트를 통해서 어떤 pixel이 region이 될 가능성이  큰 지 결정한다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;splitmerge&quot;&gt;Split&amp;amp;Merge&lt;/h3&gt;
+&lt;p&gt;Perimeter Length&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;영상을 4분할 하고, 모든 region $R_i$의 $Q(R_i)=false$이다.&lt;/li&gt;
-  &lt;li&gt;더 이상 분할 할 수 없을 때까지 분할하고, $Q(R_i \cup R_j) = true$인 인접 region끼리 merge한다.&lt;/li&gt;
-  &lt;li&gt;더 이상 merge할 수 없으면 종료&lt;/li&gt;
+  &lt;li&gt;
+\[\| P \| = \| \\{ k \| (r_{k+1}, c_{k+1}) \in N_4(r_k, c_k) \\} \| + \sqrt(2) \| \\{ k \| ( r_{k+1}, c_{k+1}) \in N_8(r_k, c_k) - N_4(r_k, c_k) \\} \|\]
+  &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;clustering&quot;&gt;Clustering&lt;/h3&gt;
+&lt;h4 id=&quot;circularity&quot;&gt;Circularity&lt;/h4&gt;
+&lt;p&gt;간단하게 circularity를 측정하는 방법은 둘레의 제곱을 면적으로 나누는 것이다.&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;object의 set을 grouping하는 것&lt;/li&gt;
-  &lt;li&gt;같은 group의 object(cluster)는 서로 similar하다.&lt;/li&gt;
-  &lt;li&gt;어떤 cluster object는 다른 cluster의 object와 다르다.&lt;/li&gt;
-  &lt;li&gt;ex) Connectivity model, centroid model, distribution model, density model, graph based model, hard clustering, soft clustering…&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;\(C_1 = { \| P \| ^2 \over A}\)
+같은 면적일때, 원에 가까울수록 둘레가 작아지므로 \(C_1\)은 작아진다. 
+그렇게 할 경우 정사각형이 원보다 circularity가 좋게 나오는 경우가 발생하기 때문에 다음과 같은 방법이 있다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+\[C_2 = { \mu_R \over \sigma_R}\]
+  &lt;/li&gt;
+  &lt;li&gt;
+\[\mu_R = {1 \over K} \sum_{k=0}^{K-1} \parallel (r_k, c_k) - (\bar{r}, \bar{c}) \parallel\]
+  &lt;/li&gt;
+  &lt;li&gt;
+\[\sigma_R^2 = {1 \over K} \sum_{k=0}^{K-1} [\parallel (r_k, c_k) - (\bar{r}, \bar{c}) \parallel - \mu_R]^2\]
+  &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;clustering-centroid-model&quot;&gt;Clustering: Centroid Model&lt;/h3&gt;
+&lt;p&gt;분산과 표준 편차를 이용하여 계산하는 방법이다. 원에 가까울 수록 표준편차가 작아지므로, \(C_2\)는 커진다.&lt;/p&gt;
+
+&lt;h4 id=&quot;orientation&quot;&gt;Orientation&lt;/h4&gt;
+&lt;p&gt;object의 방향을 연장선의 축(axis) 방향으로 정의한다.&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;연산량이 작다&lt;/li&gt;
-  &lt;li&gt;사용자가 classifying하기 전에 cluster의 수를 결정해줘야한다.&lt;/li&gt;
-  &lt;li&gt;ex) K-means method&lt;/li&gt;
-  &lt;li&gt;K 개의 클러스터&lt;/li&gt;
-  &lt;li&gt;Least-squares error: $D=\sum_{k=1}^K \sum_{x_i \in C_k} | x_i - m_k | ^2$&lt;/li&gt;
-  &lt;li&gt;K cluster가 가능한 모든 점에서 $D$를 최소화하는 곳 찾기&lt;/li&gt;
+  &lt;li&gt;second order moment(분산, 데이터의 퍼짐)를 최소화하는 부분&lt;/li&gt;
+  &lt;li&gt;
+\[\min_{line} \chi^2 = \min_{line} \sum_{i=1}^n \sum_{j=1}^n {r_{ij}^2 B[i,j]}\]
+  &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;k-means-clustering&quot;&gt;K means clustering&lt;/h3&gt;
-&lt;p&gt;n-dimensional vector에서 K-means cluster&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;ic(iteration count)를 1로 설정&lt;/li&gt;
-  &lt;li&gt;random으로 K means set, means $m_1(1),…, m_k(1)$을 고른다.&lt;/li&gt;
-  &lt;li&gt;각 vector $x_i$에 대하여 $D(x_i, m_k(ic)), k=1,…,K$ 계산하고, $x_i$를 가장 가까운 mean의 cluster $C_j$에 할당&lt;/li&gt;
-  &lt;li&gt;ic를 1증가 시키고, means $m_1(ic),…, m_k(ic)$로 업데이트&lt;/li&gt;
-  &lt;li&gt;모든 k에 대하여 $C_k(ic) = C_k(ic+1)$가 될 때까지, 3-4과정 반복&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="ComputerVision" /><summary type="html">Image Segmentation</summary></entry><entry><title type="html">[Computer Vision] Mid Level Image Feature: Texture</title><link href="http://localhost:4000/computervision/2020/10/25/computervision2.html" rel="alternate" type="text/html" title="[Computer Vision] Mid Level Image Feature: Texture" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>http://localhost:4000/computervision/2020/10/25/computervision2</id><content type="html" xml:base="http://localhost:4000/computervision/2020/10/25/computervision2.html">&lt;h2 id=&quot;texture&quot;&gt;Texture&lt;/h2&gt;
+&lt;p&gt;\(r_{ij}^2\)는 object 내의 점 \([i,j]\)과 축의 수직 거리다.&lt;/p&gt;
+
+&lt;p&gt;직선을 극좌표로 표현&lt;/p&gt;
 &lt;ul&gt;
+  &lt;li&gt;
+\[y = ax + b\]
+  &lt;/li&gt;
+  &lt;li&gt;
+\[(x,y) \centerdot (\cos{\theta}, \sin{\theta}) = \rho\]
+  &lt;/li&gt;
+  &lt;li&gt;\(\centerdot\) is projection$$&lt;/li&gt;
+  &lt;li&gt;
+\[x\cos{\theta} + y\sin{\theta}=\rho\]
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Axis with Least Second Moment&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+\[\tan{2\alpha} = {2\sum(r-\bar{r})(c-\bar{c}) \over \sum(r-\bar{r})(r-\bar{r}) \sum(c-\bar{c})(c-\bar{c})}\]
+  &lt;/li&gt;
+  &lt;li&gt;
+\[= { {1 \over A} 2\sum(r-\bar{r})(c-\bar{c}) \over {1 \over A} \sum(r-\bar{r})(r-\bar{r}) {1 \over A} \sum(c-\bar{c})(c-\bar{c})}\]
+  &lt;/li&gt;
+  &lt;li&gt;
+\[= {2 \mu_{rc} \over \mu_{rr} - \mu_{cc}}\]
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;topological-region-descriptors&quot;&gt;Topological Region Descriptors&lt;/h4&gt;
+&lt;p&gt;Hole Counting&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;external corner has 3(1)s and 1(0)&lt;/li&gt;
+  &lt;li&gt;internal corner has 3(0)s and 1(1)&lt;/li&gt;
+  &lt;li&gt;Holes computed from only these patterns!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Algorithm&lt;/p&gt;
+&lt;pre&gt;
+&lt;code&gt;
+Input a binary image and output the number of holes it contains 
+
+- M is a binary image of R rows of C columns 
+- 1 represents material through which light has not passed
+- 0 represents absence of material indicated by light passing 
+- Each region of 0s must be 4-connected and all image border pixels must be 1s 
+- E is the count of *external corners* (3 ones and 1 zero) 
+- I is the count of *internal corners* (3 zeros and 1 one) 
+
+integer procedure Count_Holes(M)
+{
+    examine entire image, 2 rows at a time;
+    count external corners E;
+    count internal corners I;
+    return (number_of_holes = (E-I)/4);
+}
+&lt;/code&gt;
+&lt;/pre&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Shape은 color랑 texture보다 더 나아간 단계의 feautre다. Color랑 texture는 둘 다 global attribute지만, shape은 특정 region에 대한 attribute이다.</summary></entry><entry><title type="html">Texture</title><link href="http://localhost:4000/2020/10/25/computervision2/" rel="alternate" type="text/html" title="Texture" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>http://localhost:4000/2020/10/25/computervision2</id><content type="html" xml:base="http://localhost:4000/2020/10/25/computervision2/">&lt;ul&gt;
   &lt;li&gt;Texture는 이미지를 interest region으로 나누고 그런 region을 classify하기 위해 사용되는 feature다.&lt;/li&gt;
   &lt;li&gt;Texture는 이미지의 color 또는 intensity의 공간적 정보를 제공한다.&lt;/li&gt;
   &lt;li&gt;Texture는 인접 pixel들의 intensity level의 공간 분포로 특징된다.&lt;/li&gt;
@@ -1289,176 +1407,411 @@ Coherent region은 비슷한 속성을 가지는 픽셀들을 포함한다.&lt;/
   &lt;li&gt;Coarse texture: function drops off slowly&lt;/li&gt;
   &lt;li&gt;Fine texture : function drops off rapidly&lt;/li&gt;
   &lt;li&gt;Can drop differently for row and column&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="ComputerVision" /><summary type="html">Texture Texture는 이미지를 interest region으로 나누고 그런 region을 classify하기 위해 사용되는 feature다. Texture는 이미지의 color 또는 intensity의 공간적 정보를 제공한다. Texture는 인접 pixel들의 intensity level의 공간 분포로 특징된다. Texture는 이미지 intensity에서 local variation의 반복되는 pattern이다. 따라서 point에서 정의될 수 없다.</summary></entry><entry><title type="html">[Computer Vision] Mid Level Image Features: Shapes</title><link href="http://localhost:4000/computervision/2020/10/25/computervision3.html" rel="alternate" type="text/html" title="[Computer Vision] Mid Level Image Features: Shapes" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>http://localhost:4000/computervision/2020/10/25/computervision3</id><content type="html" xml:base="http://localhost:4000/computervision/2020/10/25/computervision3.html">&lt;h2 id=&quot;shapes&quot;&gt;Shapes&lt;/h2&gt;
-&lt;p&gt;Shape은 color랑 texture보다 더 나아간 단계의 feautre다. Color랑 texture는 둘 다 global attribute지만, shape은 특정 region에 대한 attribute이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;shape-descriptors&quot;&gt;Shape Descriptors&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Region Descriptor&lt;/li&gt;
-  &lt;li&gt;Boundary&lt;/li&gt;
-  &lt;li&gt;Interest points(corners)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;region-based-shape-descriptors&quot;&gt;Region based Shape Descriptors&lt;/h3&gt;
-&lt;h4 id=&quot;geometric-and-shape-properties&quot;&gt;Geometric and Shape Properties&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;area&lt;/li&gt;
-  &lt;li&gt;centroid&lt;/li&gt;
-  &lt;li&gt;perimeter&lt;/li&gt;
-  &lt;li&gt;perimeter length&lt;/li&gt;
-  &lt;li&gt;circularity, elongation&lt;/li&gt;
-  &lt;li&gt;mean and standard deviation of radial distance&lt;/li&gt;
-  &lt;li&gt;second order moments (row, column, mixed)&lt;/li&gt;
-  &lt;li&gt;bounding box&lt;/li&gt;
-  &lt;li&gt;extremal axis length from bounding box&lt;/li&gt;
-  &lt;li&gt;lengths and orientations of axes of best-fit ellipse&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;em&gt;Often want features independent of position, orientation, scale&lt;/em&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;zero-order-moment&quot;&gt;Zero-order moment&lt;/h4&gt;
-&lt;p&gt;Moment를 사용하는 이유: 
-서로 다른 차수의 기하학적 모멘트는 이미지 분포의 공간적 특성을 나타낸다.
-Zero-order moment란:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;$A = \sum_i^n \sum_j^m {B[i,j]}$&lt;/li&gt;
-  &lt;li&gt;전체 intensity를 의미&lt;/li&gt;
-  &lt;li&gt;binary image에서는 area를 의미&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;centroid&quot;&gt;Centroid&lt;/h4&gt;
-&lt;p&gt;이미지 내의 object의 위치가 공간 위치에 의해 정해진다.&lt;/p&gt;
-
-&lt;p&gt;Center of area(centroid, center of mass): First order moment&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;$\bar{x} = {\sum_i^n \sum_j^m {jB[i,j]} \over A}$ (object의 pixel간에 j 좌표의 평균)&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;$\bar{y} = {\sum_i^n \sum_j^m {iB[i,j]} \over A}$ (object의 pixel간에 i 좌표의 평균)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;intensity centroid&lt;/li&gt;
-  &lt;li&gt;binary image의 기하학적 중심&lt;/li&gt;
-  &lt;li&gt;Centroid는 분석과 매칭에서 interesting point가 될 수 있다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;second-moments&quot;&gt;Second moments&lt;/h4&gt;
-
-&lt;p&gt;Second-order row moment&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;$\mu_{rr} = {1 \over A} \sum_{(r,c) \in R}  {(r - \bar{r})^2}$&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Second-order mixed moment&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;$\mu_{rc} = {1 \over A} \sum_{(r,c) \in R}  {(r - \bar{r})(c - \bar{c})}$&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Second-order column moment&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;$\mu_{cc} = {1 \over A} \sum_{(r,c) \in R}  {(c - \bar{c})^2}$&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;moment-invariants&quot;&gt;Moment Invariants&lt;/h4&gt;
-&lt;p&gt;기하 변형: translation, scale, mirroring, rotation&lt;/p&gt;
-
-&lt;h4 id=&quot;perimeter-and-perimeter-length&quot;&gt;Perimeter and Perimeter Length&lt;/h4&gt;
-
-&lt;p&gt;Perimeter&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Texture는 이미지를 interest region으로 나누고 그런 region을 classify하기 위해 사용되는 feature다. Texture는 이미지의 color 또는 intensity의 공간적 정보를 제공한다. Texture는 인접 pixel들의 intensity level의 공간 분포로 특징된다. Texture는 이미지 intensity에서 local variation의 반복되는 pattern이다. 따라서 point에서 정의될 수 없다.</summary></entry><entry><title type="html">Image Segmentation</title><link href="http://localhost:4000/2020/10/25/computervision-segmentation/" rel="alternate" type="text/html" title="Image Segmentation" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>http://localhost:4000/2020/10/25/computervision-segmentation</id><content type="html" xml:base="http://localhost:4000/2020/10/25/computervision-segmentation/">&lt;p&gt;Image segmentation이란 이미지를 여러 개의 픽셀 집합(region)으로 나누는 것이다.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;$ P_4 = \{ (r,c) \in R | N_8(r,c) - R \neq \varnothing \} $&lt;/p&gt;
+    &lt;p&gt;목표: 이미지 내에서 coherent region을 찾는 것
+Coherent region은 비슷한 속성을 가지는 픽셀들을 포함한다.&lt;/p&gt;
   &lt;/li&gt;
+  &lt;li&gt;장점: noise에 강하다.&lt;/li&gt;
+  &lt;li&gt;단점: Oversegmented, Undersegmented 문제 발생&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;creteria&quot;&gt;Creteria&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;\(\cup S_i = S\) : 모든 region의 합은 원본 이미지와 같다.&lt;/li&gt;
+  &lt;li&gt;\(S_i \cap S_j = \emptyset, i \neq j\): 각 region은 overlap이 되지 않는다.&lt;/li&gt;
+  &lt;li&gt;\(\forall S_i, P(S_i) = true\): 같은 region에 있는 pixel들은 similarity property를 가진다.&lt;/li&gt;
+  &lt;li&gt;\(P(S_i \cup S_j) = false\): 다른 region의 pixel과는 dissimilarity하다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;region-growing&quot;&gt;Region Growing&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;region일 가능성이 높은 한 pixel에서 시작&lt;/li&gt;
+  &lt;li&gt;인접 pixel과 비교하여 dissimilar한 pixel을 만나기 전까지 확장&lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;$ P_8 = \{ (r,c) \in R | N_4(r,c) - R \neq \varnothing \} $&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;seed pixel은 image 내에서 unlabelled pixel로 설정한다.&lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/li&gt;
+  &lt;li&gt;통계적 테스트를 통해서 어떤 pixel이 region이 될 가능성이  큰 지 결정한다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Perimeter Length&lt;/p&gt;
+&lt;h3 id=&quot;splitmerge&quot;&gt;Split&amp;amp;Merge&lt;/h3&gt;
 &lt;ul&gt;
-  &lt;li&gt;$ | P | = | \{ k | (r_{k+1}, c_{k+1}) \in N_4(r_k, c_k) \} | + \sqrt(2) | \{ k | ( r_{k+1}, c_{k+1}) \in N_8(r_k, c_k) - N_4(r_k, c_k) \} |$&lt;/li&gt;
+  &lt;li&gt;영상을 4분할 하고, 모든 region \(R_i\)의 \(Q(R_i)=false\)이다.&lt;/li&gt;
+  &lt;li&gt;더 이상 분할 할 수 없을 때까지 분할하고, \(Q(R_i \cup R_j) = true\)인 인접 region끼리 merge한다.&lt;/li&gt;
+  &lt;li&gt;더 이상 merge할 수 없으면 종료&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;circularity&quot;&gt;Circularity&lt;/h4&gt;
-&lt;p&gt;간단하게 circularity를 측정하는 방법은 둘레의 제곱을 면적으로 나누는 것이다.&lt;/p&gt;
+&lt;h3 id=&quot;clustering&quot;&gt;Clustering&lt;/h3&gt;
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;$C_1 = { | P | ^2 \over A}$
-같은 면적일때, 원에 가까울수록 둘레가 작아지므로 $C_1$은 작아진다. 
-그렇게 할 경우 정사각형이 원보다 circularity가 좋게 나오는 경우가 발생하기 때문에 다음과 같은 방법이 있다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;$C_2 = { \mu_R \over \sigma_R}$&lt;/li&gt;
-  &lt;li&gt;$\mu_R = {1 \over K} \sum_{k=0}^{K-1} \parallel (r_k, c_k) - (\bar{r}, \bar{c}) \parallel$&lt;/li&gt;
-  &lt;li&gt;$\sigma_R^2 = {1 \over K} \sum_{k=0}^{K-1} [\parallel (r_k, c_k) - (\bar{r}, \bar{c}) \parallel - \mu_R]^2$&lt;/li&gt;
+  &lt;li&gt;object의 set을 grouping하는 것&lt;/li&gt;
+  &lt;li&gt;같은 group의 object(cluster)는 서로 similar하다.&lt;/li&gt;
+  &lt;li&gt;어떤 cluster object는 다른 cluster의 object와 다르다.&lt;/li&gt;
+  &lt;li&gt;ex) Connectivity model, centroid model, distribution model, density model, graph based model, hard clustering, soft clustering…&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;분산과 표준 편차를 이용하여 계산하는 방법이다. 원에 가까울 수록 표준편차가 작아지므로, $C_2$는 커진다.&lt;/p&gt;
-
-&lt;h4 id=&quot;orientation&quot;&gt;Orientation&lt;/h4&gt;
-&lt;p&gt;object의 방향을 연장선의 축(axis) 방향으로 정의한다.&lt;/p&gt;
+&lt;h3 id=&quot;clustering-centroid-model&quot;&gt;Clustering: Centroid Model&lt;/h3&gt;
 &lt;ul&gt;
-  &lt;li&gt;second order moment(분산, 데이터의 퍼짐)를 최소화하는 부분&lt;/li&gt;
-  &lt;li&gt;$\min_{line} \chi^2 = \min_{line} \sum_{i=1}^n \sum_{j=1}^n {r_{ij}^2 B[i,j]}$&lt;/li&gt;
+  &lt;li&gt;연산량이 작다&lt;/li&gt;
+  &lt;li&gt;사용자가 classifying하기 전에 cluster의 수를 결정해줘야한다.&lt;/li&gt;
+  &lt;li&gt;ex) K-means method&lt;/li&gt;
+  &lt;li&gt;K 개의 클러스터&lt;/li&gt;
+  &lt;li&gt;Least-squares error: \(D=\sum_{k=1}^K \sum_{x_i \in C_k} \| x_i - m_k \| ^2\)&lt;/li&gt;
+  &lt;li&gt;K cluster가 가능한 모든 점에서 \(D\)를 최소화하는 곳 찾기&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;$r_{ij}^2$는 object 내의 점 $[i,j]$과 축의 수직 거리다.&lt;/p&gt;
+&lt;h3 id=&quot;k-means-clustering&quot;&gt;K means clustering&lt;/h3&gt;
+&lt;p&gt;n-dimensional vector에서 K-means cluster&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;ic(iteration count)를 1로 설정&lt;/li&gt;
+  &lt;li&gt;random으로 K means set, means \(m_1(1),..., m_k(1)\)을 고른다.&lt;/li&gt;
+  &lt;li&gt;각 vector \(x_i\)에 대하여 \(D(x_i, m_k(ic)), k=1,...,K\) 계산하고, \(x_i\)를 가장 가까운 mean의 cluster \(C_j\)에 할당&lt;/li&gt;
+  &lt;li&gt;ic를 1증가 시키고, means \(m_1(ic),..., m_k(ic)\)로 업데이트&lt;/li&gt;
+  &lt;li&gt;모든 k에 대하여 \(C_k(ic) = C_k(ic+1)\)가 될 때까지, 3-4과정 반복&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Image segmentation이란 이미지를 여러 개의 픽셀 집합(region)으로 나누는 것이다.</summary></entry><entry><title type="html">AlexNet</title><link href="http://localhost:4000/2020/09/26/alexnet/" rel="alternate" type="text/html" title="AlexNet" /><published>2020-09-26T00:00:00+09:00</published><updated>2020-09-26T00:00:00+09:00</updated><id>http://localhost:4000/2020/09/26/alexnet</id><content type="html" xml:base="http://localhost:4000/2020/09/26/alexnet/">&lt;p&gt;“ImageNet Classification with Deep Convolutional Neural Networks”의 저자 Alex Krizhevsky의 이름을 따서 network의  AlexNet이라는 명칭이 붙었다. ILSVRC-2012에서 top-5 test error를 15.3%를 기록 했으며, 26.2%었던 2등과 비교하여 무려 10%가 넘는 격차를 내고 우승했다. ReLU의 대유행을 만들어낸 의미 있는 모델이다.&lt;/p&gt;
 
-&lt;p&gt;직선을 극좌표로 표현&lt;/p&gt;
+&lt;h2 id=&quot;dataset&quot;&gt;Dataset&lt;/h2&gt;
+&lt;p&gt;ImageNet은 약 22000 가지의 class에 속하는 1500만개의 고해상도 이미지 데이터 셋이다. 데이터는 Amazon’s Mechanical Turk crowd-sourcing tool를 사용하여 사람이 labeling하여 수집된다고 한다. ILSVRC(ImageNet Large-Scale Visual Acception Challenge)에서는 ImageNet에서 약 1000장의 이미지를 가진 1000개의 class를 사용한다. 전체적으로 120만 장의 학습 이미지와 5만 장의 검증 이미지, 15만 장의 테스트 이미지가 있다. top-1과 top-5 error를 ImageNet에 보고하는데, 여기서 top-5 error는 모델이 가장 가능성이 높다고 출력한 5 개의 label에 대해서 정답이 없는 비율이다. 
+ImageNet은 variable-resolution 이미지로 구성되지만, constant input dimensionality를 필요로 때문에, 이미지를 256x256으로 down sampling을 했다고 한다. 이미지를 자르는 작업 외에 다른 전처리를 하지않고, 픽셀의 R,G,B 원래의 값을 사용했다.&lt;/p&gt;
+
+&lt;h2 id=&quot;alexnet-network-architecture&quot;&gt;AlexNet Network Architecture&lt;/h2&gt;
+&lt;p&gt;네트워크는 5개의 convolutional layer와 3개의 fully-connected layer로 총 8개의 layer로 구성된다. 네트워크 설계에 사용된 4개의 큰 특징을 소개한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;relu-nonlinearity&quot;&gt;ReLU Nonlinearity&lt;/h3&gt;
+&lt;p&gt;ReLU가 유행하기 전까지 활성화 함수는 tanh가 많이 사용됐다. 논문에서는 경사 하강법에서 saturating nonlinearities는 non-saturating nonlinearity보다 훨씬 느리다고 했다. saturating nonlinearities와 non-saturating nonlinearity가 뭔지 찾아보니&lt;br /&gt;&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;$y = ax + b$&lt;/li&gt;
-  &lt;li&gt;$(x,y) \centerdot (\cos{\theta}, \sin{\theta}) = \rho $&lt;/li&gt;
-  &lt;li&gt;$\centerdot$ is projection$&lt;/li&gt;
-  &lt;li&gt;$x\cos{\theta} + y\sin{\theta}=\rho$&lt;/li&gt;
+  &lt;li&gt;\(f\) is non-saturating iff \((\|\lim\limits_{z \to -\infty} f(z)\|= +\infty)∨(\|\lim\limits_{z \to \infty} f(z)\|= +\infty)\) &lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;\(f\) is saturating iff \(f\) is not non-saturating.&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Axis with Least Second Moment&lt;/p&gt;
+&lt;p&gt;\(f\)가 무한으로 발산하면 non-saturating이고, 그렇지 않으면 saturating이란다. 즉, ReLU는 무한으로 발산하므로, non-saturating이고, [-1, 1] 수렴하는 tanh나 [0, 1]로 수렴하는 sigmoid는 saturating에 해당된다.&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;$\tan{2\alpha} = {2\sum(r-\bar{r})(c-\bar{c}) \over \sum(r-\bar{r})(r-\bar{r}) \sum(c-\bar{c})(c-\bar{c})}$&lt;/li&gt;
-  &lt;li&gt;$ = { {1 \over A} 2\sum(r-\bar{r})(c-\bar{c}) \over {1 \over A} \sum(r-\bar{r})(r-\bar{r}) {1 \over A} \sum(c-\bar{c})(c-\bar{c})} $&lt;/li&gt;
-  &lt;li&gt;$ = {2 \mu_{rc} \over \mu_{rr} - \mu_{cc}}$&lt;/li&gt;
-&lt;/ul&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Sigmoid&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;tanh&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;ReLU&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/img/sigmoid.png&quot; width=&quot;100%&quot; /&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/img/tanh.png&quot; width=&quot;90%&quot; /&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/assets/img/relu.png&quot; width=&quot;100%&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\(sigmoid(x) = (1+e^{-x})^{-1}\)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\(tanh(x) = (1-e^{-x})/(1+e^{-x})\)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\(ReLU(x) = max(0, x)\)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
-&lt;h4 id=&quot;topological-region-descriptors&quot;&gt;Topological Region Descriptors&lt;/h4&gt;
-&lt;p&gt;Hole Counting&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;external corner has 3(1)s and 1(0)&lt;/li&gt;
-  &lt;li&gt;internal corner has 3(0)s and 1(1)&lt;/li&gt;
-  &lt;li&gt;Holes computed from only these patterns!&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;Sigmoid와 tanh에 비해서 ReLU의 식이 단순한 것으로 보아, 연산 속도를 빠르게 한다는 것을 직관적으로 추론이 가능한데, 결과는 다음과 같다.&lt;/p&gt;
 
-&lt;p&gt;Algorithm&lt;/p&gt;
-&lt;pre&gt;
-&lt;code&gt;
-Input a binary image and output the number of holes it contains 
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/alexnet_relu.png&quot; width=&quot;60%&quot; /&gt;
+&lt;/center&gt;
 
-- M is a binary image of R rows of C columns 
-- 1 represents material through which light has not passed
-- 0 represents absence of material indicated by light passing 
-- Each region of 0s must be 4-connected and all image border pixels must be 1s 
-- E is the count of *external corners* (3 ones and 1 zero) 
-- I is the count of *internal corners* (3 zeros and 1 one) 
+&lt;p&gt;&lt;em&gt;Figure 1: A four-layer convolutional neural network with ReLUs (solid line) reaches a 25% training error rate on CIFAR-10 six times faster than an equivalent network with tanh neurons (dashed line). The learning rates for each network were chosen independently to make training as fast as possible. No regularization of any kind was employed. The magnitude of the effect demonstrated here varies with network architecture, but networks with ReLUs consistently learn several times faster than equivalents with saturating neurons.&lt;/em&gt;&lt;/p&gt;
 
-integer procedure Count_Holes(M)
-{
-    examine entire image, 2 rows at a time;
-    count external corners E;
-    count internal corners I;
-    return (number_of_holes = (E-I)/4);
-}
-&lt;/code&gt;
-&lt;/pre&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="ComputerVision" /><summary type="html">Shapes Shape은 color랑 texture보다 더 나아간 단계의 feautre다. Color랑 texture는 둘 다 global attribute지만, shape은 특정 region에 대한 attribute이다.</summary></entry><entry><title type="html">[GAN] Generative Adversarial Nets 리뷰</title><link href="http://localhost:4000/review/2020/10/16/gan.html" rel="alternate" type="text/html" title="[GAN] Generative Adversarial Nets 리뷰" /><published>2020-10-16T00:00:00+09:00</published><updated>2020-10-16T00:00:00+09:00</updated><id>http://localhost:4000/review/2020/10/16/gan</id><content type="html" xml:base="http://localhost:4000/review/2020/10/16/gan.html">&lt;h2 id=&quot;generative-adversarial-nets&quot;&gt;Generative Adversarial Nets&lt;/h2&gt;
-&lt;p&gt;그 유명한 Ian Goodfellow의 GAN이다. 2014년에 발표되었지만 2016년에 대유행을 일으켰다. 페이스북의 Yann Lecun 교수가 GAN은 최근 10~20년간 기계학습 분야에서 나온 아이디어 중 최고라고 극찬을 했다는 일화조차도 유명하다. GAN이 뭐길래 이렇게 핫한지 논문을 읽어보자.&lt;/p&gt;
+&lt;p&gt;실선이 ReLU를 사용한 결과고, 점선은 tanh를 사용한 실험 결과다. 결과로 보았을 때, ReLU가 tanh를 사용했을 때보다 6배 이상 빠른 것을 알 수 있다. 이렇게 빨라진 속도는 대량의 학습 데이터를 사용하는 것을 가능하게 했다.&lt;/p&gt;
 
-&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;저자는 기계학습에 있어서 기깔찬 framework를 제안했다.&lt;/p&gt;
+&lt;h3 id=&quot;training-on-multiple-gpu&quot;&gt;Training on Multiple GPU&lt;/h3&gt;
+&lt;p&gt;저자는 실험을 위해 GTX 580 GPU를 2개를 사용했다고 한다. 120만개의 학습 데이터를 충분히 학습 시킬만한 크기의 네트워크를 로드하는데 3GB짜리 GPU하나로는 부족했다. 현대의 GPU는 호스트의 메모리를 통하지 않고, 다른 GPU로 직접 I/O를 할 수 있어 병렬화에 적합하다. 네트크를 반으로 분리하여 각 GPU에 로드하여, 학습을 진행한다. 특정 레이어에서는 각 GPU의 파라미터를 모두 받으며 통신을 했다고 한다. 이 방법을 통해서 top-1 error를 1.7%, top-5 error를 1.2% 감소시켰으며, 단일 GPU를 사용했을 때보다 학습시간을 더 단축시킬 수 있었다.&lt;/p&gt;
+
+&lt;h3 id=&quot;local-response-normalization&quot;&gt;Local Response Normalization&lt;/h3&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;a generative model G that captures the data distribution, and a discriminative model D that estimates the probability that a sample came from the training data rather than G.&lt;/p&gt;
+  &lt;p&gt;ReLUs have the desirable property that they do not require input normalization to prevent them from saturating. If at least some training examples produce a positive input to a ReLU, learning will happen in that neuron. However, we still find that the following local normalization scheme aids generalization.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;데이터 분포를 포착하는 Generative model G와 G에서 나온 데이터가 아니라 실제 training data의 확률을 추측하는 Discriminative D가 있다.&lt;/p&gt;
+&lt;p&gt;ReLU는 input에 대하여 nomalization이 필요 없고, Local Response Normalizaation은 generalization에 도움이 된다는 것을 발견했다고 한다. Local Response Normalizaation은 다음과 같다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;center&gt; $$b_{x,y}^{i} = a_{x,y}^{i} / (k+\alpha \displaystyle\sum_{j=max(0,i-n/2)}^{min(N-1,i+n/2)} (a_{x,y}^j)^{2})^\beta$$ &lt;/center&gt;
+  &lt;p&gt;where&lt;br /&gt;
+\(b_{x,y}^{i}\) : regularized output for kernel \(i\) at position \(x, y\)&lt;br /&gt;
+\(a_{x,y}^{i}\) : source output of kernel \(i\) applied at position \(x, y\)&lt;br /&gt;
+\(N\) : total number of kernels&lt;br /&gt;
+\(n\) : size of normalization neigborhood&lt;br /&gt;
+\(\alpha, \beta, (n)\) : hyperparmeters&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;\(a_{x,y}^{i}\)는 input으로 \(i\)번째 kernel에서 \(x, y\) 값을 의미하고, \(b_{x,y}^{i}\)는 output을 의미한다. 논문에서는 \(k=2, n=5, \alpha=10^{-4}, \beta=0.75\)로 설정하고, top-1 error를 1.4%, top-5 error를 1.2% 감소시키는 효과를 얻었다고 한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;overlapping-pooling&quot;&gt;Overlapping Pooling&lt;/h3&gt;
+&lt;p&gt;전통적인 CNN에서는 non-overlapping pooling을 사용했지만, overlapping pooling을 통해 약간의 overfit을 개선하는데 효과를 봤다고 한다. overlapping pooling은 kernel의 크기보다 stride의 크기를 작게하면서 구현된다. kernel의 크기와 stride의 크기가 같은 경우 non-overlapping pooling이 된다. kernel의 크기보다, stride가 작게하여 시각화하면 다음과 같은 결과가 나온다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/overlapping_pooling.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;논문에서는 이 방법을 이용하여 top-1, top-5 error를 0.4%, 0.3% 감소시켰다고한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;architecture&quot;&gt;Architecture&lt;/h3&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/alexnet.png&quot; width=&quot;100%&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;em&gt;Figure 2: An illustration of the architecture of our CNN, explicitly showing the delineation of responsibilities between the two GPUs. One GPU runs the layer-parts at the top of the figure while the other runs the layer-parts at the bottom. The GPUs communicate only at certain layers. The network’s input is 150,528-dimensional, and the number of neurons in the network’s remaining layers is given by 253,440–186,624–64,896–64,896–43,264–4096–4096–1000.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;네트크는 5개의 convolution layer와 3개의 fully-connected layer로 구성된다. 마지막 fully-connected layer는 softmax를 통해 각 1000개의 class label에 대한 확률을 출력한다. 3번째 layer와 모든 fully-connected layer에서 GPU connection이 이루어져 parameter를 공유한다. Local Response Normalization은 첫번째와 두번째 layer에서 이루어진다. 첫번째와 두번째, 다섯번째 layer에서 max-pooling이 된다. ReLU는 모든 layer에 적용된다. 입력 이미지의 크기는 224x224x3이다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Convolution Layer 1&lt;/td&gt;
+      &lt;td&gt;96x(11x11x3) kernels&lt;/td&gt;
+      &lt;td&gt;Conv5x5, stride: 1 kernel: 256, padding: 2&lt;/td&gt;
+      &lt;td&gt;ReLU&lt;/td&gt;
+      &lt;td&gt;Overlapping Max pooling3x3, stride: 2&lt;/td&gt;
+      &lt;td&gt;Local Response Normalization&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Convolution Layer 2&lt;/td&gt;
+      &lt;td&gt;256x(5x5x48) kernels&lt;/td&gt;
+      &lt;td&gt;Conv3x3, stride: 1 kernel: 384, padding: 1&lt;/td&gt;
+      &lt;td&gt;ReLU&lt;/td&gt;
+      &lt;td&gt;Overlapping Max pooling3x3, stride: 2&lt;/td&gt;
+      &lt;td&gt;Local Response Normalization&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Convolution Layer 3&lt;/td&gt;
+      &lt;td&gt;384x(3x3x256) kernels&lt;/td&gt;
+      &lt;td&gt;Conv3x3, stride: 1 kernel: 384, padding: 1&lt;/td&gt;
+      &lt;td&gt;ReLU&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;GPU Connection&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Convolution Layer 4&lt;/td&gt;
+      &lt;td&gt;384x(3x3x192) kernels&lt;/td&gt;
+      &lt;td&gt;Conv3x3, stride: 1 kernel: 384, padding: 1&lt;/td&gt;
+      &lt;td&gt;ReLU&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Convolution Layer 5&lt;/td&gt;
+      &lt;td&gt;256x(3x3x192) kernels&lt;/td&gt;
+      &lt;td&gt;Conv3x3, stride: 1 kernel: 256,padding: 1&lt;/td&gt;
+      &lt;td&gt;ReLU&lt;/td&gt;
+      &lt;td&gt;Overlapping Max pooling3x3, stride: 2&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Fully-Connected Layer 1&lt;/td&gt;
+      &lt;td&gt;4096 neurons&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;ReLU&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;GPU Connection&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Fully-Connected Layer 2&lt;/td&gt;
+      &lt;td&gt;4096 neurons&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;ReLU&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;GPU Connection&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Fully-Connected Layer 3&lt;/td&gt;
+      &lt;td&gt;1000 neurons&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;Softmax&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;GPU Connection&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;요약하자면 다음과 같다.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/alexnet_network_summary.png&quot; width=&quot;100%&quot; /&gt;
+&lt;/center&gt;
+
+&lt;h2 id=&quot;reducing-overfitting&quot;&gt;Reducing Overfitting&lt;/h2&gt;
+&lt;p&gt;6000만 개의 파라미터를 사용한다. ILSVRC에서는 1000개의 class를 학습시키는데 image-label mapping을 10 bit로 제약했고, 이는 많은 파라미터를 overfitting 없이 학습 시키기 불충분하다고 했다. 논문에서는 2가지 방법을 통해 overfitting을 막고자 했다.&lt;/p&gt;
+
+&lt;h3 id=&quot;data-augmentation&quot;&gt;Data Augmentation&lt;/h3&gt;
+&lt;p&gt;가장 간단하게 overfiitting을 줄이는 방법은 데이터셋을 인공적으로 늘리는 것이다. 
+논문에서는 2가지 방법을 사용하여 data augmentation을 했다.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;The first form of data augmentation consists of generating image translations and horizontal reflections.&lt;br /&gt;
+The second form of data augmentation consists of altering the intensities of the RGB channels in training images. Specifically, we perform PCA on the set of RGB pixel values throughout the ImageNet training set.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;첫번째 방법은 256x256 이미지에서 임의의 부분을 224x224로 자르는 것이다. 그렇게 하면 같은 label을 가진 데이터를 하나의 이미지로 여러 개의 이미지를 만들 수 있게 된다.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/alexnet_augmentation.png&quot; width=&quot;100%&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;256x256 크기의 이미지를 224x224로 crop하고, 수평 반전에도 똑같이 적용하여 데이터가 2048배 증가 시킬 수 있었고, 네트워크의 입력이 224x224인 이유이다.&lt;/p&gt;
+
+&lt;p&gt;두번째 방법은 PCA를 RGB에 적용하여 augmentation을 했다고 한다. PCA(Principal component analysis)는 고차원 데이터를 저차원 데이터로 환원 시키는 방법이라고 한다. 자세한 내용은 좀 더 공부해봐야 할 것 같다. RGB에 PCA를 적용하여 이미지의 eigenvalue \(\lambda_{i}\)와 eigenvetor \(p_{i}\)를 구하고, \(\lambda_{i}\)에 평균이 0이고 표준편차가 0.1인 guassian 분포의 random variable을 곱하여 augmentation을 했다고 한다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;center&gt;$$I_{xy} = [I_{xy}^{R}, I_{xy}^{G},I_{xy}^{B}] + [p_{1}, p_{2}, p_{3}][\alpha_{1}\lambda_{1}, \alpha_{2}\lambda_{2}, \alpha_{3}\lambda_{3}]^{T}$$&lt;/center&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;이 방법을 통해서 top-1 error rate를 1% 감소하는 효과를 얻었다.&lt;/p&gt;
+
+&lt;h3 id=&quot;dropout&quot;&gt;Dropout&lt;/h3&gt;
+&lt;p&gt;Computation cost를 줄이고, overfitting을 줄이기 위해 dropout을 적용했다. dropout은 각 hidden neuron에 값을 0으로 하는 확률을 0.5로 세팅하면서 구현했다고 한다. dropout으로 꺼진 neuron은 forward pass와 back-propagation에 관여하지 않는다. 매 학습마다 꺼지는 neuron은 다르지만, weight는 공유한다고 한다. 논문에서는 모든 neuron을 사용하고, 출력에 0.5를 곱했다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;At test time, we use all the neurons but multiply their outputs by 0.5, which is a reasonable approximation to taking the geometric mean of the predictive distributions produced by the exponentially-many dropout networks.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/dropout_2014.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;‘Dropout: A Simple Way to Prevent Neural Networks from Overfitting’&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/dropout.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;‘Improving neural networks by preventing co-adaptation of feature detectors’&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;result&quot;&gt;Result&lt;/h3&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/alexnet_result.png&quot; /&gt;
+&lt;/center&gt;
 
 &lt;hr /&gt;
 &lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&quot;https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf&quot;&gt;Ian J. Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, and Yoshua Bengio,’Generative Adversarial Nets’, &lt;em&gt;Neural Information Processing Systems (NIPS)&lt;/em&gt;, 2014&lt;/a&gt;&lt;/p&gt;</content><author><name>GitHub User</name><email>dhgudtjr0306@gmail.com</email></author><category term="Review" /><summary type="html">Generative Adversarial Nets 그 유명한 Ian Goodfellow의 GAN이다. 2014년에 발표되었지만 2016년에 대유행을 일으켰다. 페이스북의 Yann Lecun 교수가 GAN은 최근 10~20년간 기계학습 분야에서 나온 아이디어 중 최고라고 극찬을 했다는 일화조차도 유명하다. GAN이 뭐길래 이렇게 핫한지 논문을 읽어보자.</summary></entry></feed>
+&lt;p&gt;&lt;a href=&quot;http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf&quot;&gt;Alex Krizhevsky, Ilya Sutskever, and Geoffrey E. Hinton,’ImageNet Classification with Deep Convolutional Neural Networks’, &lt;em&gt;Neural Information Processing Systems (NIPS)&lt;/em&gt;, 2012&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/1207.0580.pdf&quot;&gt;G.E. Hinton, N. Srivastava, A. Krizhevsky, I. Sutskever and R.R. Salakhutdinov, ‘Improving neural networks by preventing co-adaptation of feature detectors’, 2012&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://dl.acm.org/doi/pdf/10.5555/2627435.2670313&quot;&gt;Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdinov, ‘Dropout: A Simple Way to Prevent Neural Networks from Overfitting’, vol.15, No.1, 2014&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://stats.stackexchange.com/questions/174295/what-does-the-term-saturating-nonlinearities-mean&quot;&gt;https://stats.stackexchange.com/questions/174295/what-does-the-term-saturating-nonlinearities-mean&lt;/a&gt;&lt;/p&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="AI" /><summary type="html">“ImageNet Classification with Deep Convolutional Neural Networks”의 저자 Alex Krizhevsky의 이름을 따서 network의 AlexNet이라는 명칭이 붙었다. ILSVRC-2012에서 top-5 test error를 15.3%를 기록 했으며, 26.2%었던 2등과 비교하여 무려 10%가 넘는 격차를 내고 우승했다. ReLU의 대유행을 만들어낸 의미 있는 모델이다.</summary></entry><entry><title type="html">Show Time 개인 정보 처리 방침</title><link href="http://localhost:4000/2020/04/22/showtime-policy/" rel="alternate" type="text/html" title="Show Time 개인 정보 처리 방침" /><published>2020-04-22T00:00:00+09:00</published><updated>2020-04-22T00:00:00+09:00</updated><id>http://localhost:4000/2020/04/22/showtime-policy</id><content type="html" xml:base="http://localhost:4000/2020/04/22/showtime-policy/">&lt;p&gt;&lt;strong&gt;1. 개인정보의 처리 목적&lt;/strong&gt; (‘https://hsoh0306.github.io/’이하 ‘Root Developer’) 은(는) 다음의 목적을 위하여 개인정보를 처리하고 있으며, 다음의 목적 이외의 용도로는 이용하지 않습니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;고객 가입의사 확인, 고객에 대한 서비스 제공에 따른 본인 식별.인증, 회원자격 유지.관리, 물품 또는 서비스 공급에 따른 금액 결제, 물품 또는 서비스의 공급.배송 등&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;2. 개인정보의 처리 및 보유 기간&lt;/strong&gt;
+① (‘https://hsoh0306.github.io/’이하 ‘Root Developer’) 은(는) 정보주체로부터 개인정보를 수집할 때 동의 받은 개인정보 보유․이용기간 또는 법령에 따른 개인정보 보유․이용기간 내에서 개인정보를 처리․보유합니다.&lt;/p&gt;
+
+&lt;p&gt;② 구체적인 개인정보 처리 및 보유 기간은 다음과 같습니다.
+☞ 아래 예시를 참고하여 개인정보 처리업무와 개인정보 처리업무에 대한 보유기간 및 관련 법령, 근거 등을 기재합니다.
+(예시)- 고객 가입 및 관리 : 서비스 이용계약 또는 회원가입 해지시까지, 다만 채권․채무관계 잔존시에는 해당 채권․채무관계 정산시까지- 전자상거래에서의 계약․청약철회, 대금결제, 재화 등 공급기록 : 5년&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. 개인정보의 제3자 제공에 관한 사항&lt;/strong&gt; ① &lt;em&gt;(‘https://hsoh0306.github.io/’이하 ‘Root Developer’)&lt;/em&gt;은(는) 정보주체의 동의, 법률의 특별한 규정 등 개인정보 보호법 제17조 및 제18조에 해당하는 경우에만 개인정보를 제3자에게 제공합니다.&lt;/p&gt;
+
+&lt;p&gt;② &lt;em&gt;(‘https://hsoh0306.github.io/’)&lt;/em&gt;은(는) 다음과 같이 개인정보를 제3자에게 제공하고 있습니다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;ul&gt;
+      &lt;li&gt;개인정보를 제공받는 자 : ShowTime&lt;/li&gt;
+      &lt;li&gt;제공받는 자의 개인정보 이용목적 : 없음&lt;/li&gt;
+      &lt;li&gt;제공받는 자의 보유.이용기간: 지체없이 파기&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;4. 개인정보처리 위탁&lt;/strong&gt; 
+① &lt;em&gt;(‘Root Developer’)&lt;/em&gt;은(는) 원활한 개인정보 업무처리를 위하여 다음과 같이 개인정보 처리업무를 위탁하고 있습니다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;ul&gt;
+      &lt;li&gt;위탁받는 자 (수탁자) : 오형석&lt;/li&gt;
+      &lt;li&gt;위탁하는 업무의 내용 : 없음&lt;/li&gt;
+      &lt;li&gt;위탁기간 : 지체없이 파기&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;② &lt;em&gt;(‘https://hsoh0306.github.io/’이하 ‘Root Developer’)&lt;/em&gt;은(는) 위탁계약 체결시 개인정보 보호법 제25조에 따라 위탁업무 수행목적 외 개인정보 처리금지, 기술적․관리적 보호조치, 재위탁 제한, 수탁자에 대한 관리․감독, 손해배상 등 책임에 관한 사항을 계약서 등 문서에 명시하고, 수탁자가 개인정보를 안전하게 처리하는지를 감독하고 있습니다.③ 위탁업무의 내용이나 수탁자가 변경될 경우에는 지체없이 본 개인정보 처리방침을 통하여 공개하도록 하겠습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5. 정보주체와 법정대리인의 권리·의무 및 그 행사방법 이용자는 개인정보주체로써 다음과 같은 권리를 행사할 수 있습니다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;① 정보주체는 Showtime(‘https://hsoh0306.github.io/’이하 ‘Root Developer) 에 대해 언제든지 다음 각 호의 개인정보 보호 관련 권리를 행사할 수 있습니다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;개인정보 열람요구&lt;/li&gt;
+  &lt;li&gt;오류 등이 있을 경우 정정 요구&lt;/li&gt;
+  &lt;li&gt;삭제요구&lt;/li&gt;
+  &lt;li&gt;처리정지 요구&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;6. 처리하는 개인정보의 항목 작성&lt;/strong&gt;
+① &lt;em&gt;(‘https://hsoh0306.github.io/’이하 ‘Root Developer’)&lt;/em&gt;은(는) 다음의 개인정보 항목을 처리하고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;1&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;필수항목 : 없음&lt;/li&gt;
+  &lt;li&gt;선택항목 : 없음&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;7. 개인정보의 파기&lt;/strong&gt; &lt;em&gt;(‘Root Developer’)&lt;/em&gt; &lt;strong&gt;은(는) 원칙적으로 개인정보 처리목적이 달성된 경우에는 지체없이 해당 개인정보를 파기합니다. 파기의 절차, 기한 및 방법은 다음과 같습니다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;-파기절차
+이용자가 입력한 정보는 목적 달성 후 별도의 DB에 옮겨져(종이의 경우 별도의 서류) 내부 방침 및 기타 관련 법령에 따라 일정기간 저장된 후 혹은 즉시 파기됩니다. 이 때, DB로 옮겨진 개인정보는 법률에 의한 경우가 아니고서는 다른 목적으로 이용되지 않습니다.&lt;/p&gt;
+
+&lt;p&gt;-파기기한
+이용자의 개인정보는 개인정보의 보유기간이 경과된 경우에는 보유기간의 종료일로부터 5일 이내에, 개인정보의 처리 목적 달성, 해당 서비스의 폐지, 사업의 종료 등 그 개인정보가 불필요하게 되었을 때에는 개인정보의 처리가 불필요한 것으로 인정되는 날로부터 5일 이내에 그 개인정보를 파기합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;8. 개인정보 자동 수집 장치의 설치•운영 및 거부에 관한 사항&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Showtime 은 정보주체의 이용정보를 저장하고 수시로 불러오는 ‘쿠키’를 사용하지 않습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;9. 개인정보 보호책임자 작성&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;① Showtime(‘https://hsoh0306.github.io/’이하 ‘Root Developer) 은(는) 개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 정보주체의 불만처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;▶ 개인정보 보호책임자&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;성명 :오형석&lt;/li&gt;
+  &lt;li&gt;직책 :대표&lt;/li&gt;
+  &lt;li&gt;직급 :대표&lt;/li&gt;
+  &lt;li&gt;연락처 :01095347136, dhgudtjr0306@gmail.com,&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;※ 개인정보 보호 담당부서로 연결됩니다.&lt;/p&gt;
+
+&lt;p&gt;▶ 개인정보 보호 담당부서&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;부서명 :&lt;/li&gt;
+  &lt;li&gt;담당자 :&lt;/li&gt;
+  &lt;li&gt;연락처 :&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;② 정보주체께서는 Showtime(‘https://hsoh0306.github.io/’이하 ‘Root Developer) 의 서비스(또는 사업)을 이용하시면서 발생한 모든 개인정보 보호 관련 문의, 불만처리, 피해구제 등에 관한 사항을 개인정보 보호책임자 및 담당부서로 문의하실 수 있습니다. Showtime(‘https://hsoh0306.github.io/’이하 ‘Root Developer) 은(는) 정보주체의 문의에 대해 지체 없이 답변 및 처리해드릴 것입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;10. 개인정보 처리방침 변경&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;①이 개인정보처리방침은 시행일로부터 적용되며, 법령 및 방침에 따른 변경내용의 추가, 삭제 및 정정이 있는 경우에는 변경사항의 시행 7일 전부터 공지사항을 통하여 고지할 것입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;11. 개인정보의 안전성 확보 조치&lt;/strong&gt; &lt;em&gt;(‘Root Developer’)&lt;/em&gt; &lt;strong&gt;은(는) 개인정보보호법 제29조에 따라 다음과 같이 안전성 확보에 필요한 기술적/관리적 및 물리적 조치를 하고 있습니다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;개인정보에 대한 접근 제한 개인정보를 처리하는 데이터베이스시스템에 대한 접근권한의 부여,변경,말소를 통하여 개인정보에 대한 접근통제를 위하여 필요한 조치를 하고 있으며 침입차단시스템을 이용하여 외부로부터의 무단 접근을 통제하고 있습니다.&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="ShowTime" /><summary type="html">1. 개인정보의 처리 목적 (‘https://hsoh0306.github.io/’이하 ‘Root Developer’) 은(는) 다음의 목적을 위하여 개인정보를 처리하고 있으며, 다음의 목적 이외의 용도로는 이용하지 않습니다. 고객 가입의사 확인, 고객에 대한 서비스 제공에 따른 본인 식별.인증, 회원자격 유지.관리, 물품 또는 서비스 공급에 따른 금액 결제, 물품 또는 서비스의 공급.배송 등 2. 개인정보의 처리 및 보유 기간 ① (‘https://hsoh0306.github.io/’이하 ‘Root Developer’) 은(는) 정보주체로부터 개인정보를 수집할 때 동의 받은 개인정보 보유․이용기간 또는 법령에 따른 개인정보 보유․이용기간 내에서 개인정보를 처리․보유합니다.</summary></entry></feed>

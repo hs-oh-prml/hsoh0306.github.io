@@ -1,8 +1,7 @@
 ---
 layout: post
 title: Show Time 개인 정보 처리 방침
-categories: 
- - ShowTime
+tags: [ShowTime]
 ---
 **1. 개인정보의 처리 목적** (‘https://hsoh0306.github.io/’이하 ‘Root Developer’) 은(는) 다음의 목적을 위하여 개인정보를 처리하고 있으며, 다음의 목적 이외의 용도로는 이용하지 않습니다. 
  - 고객 가입의사 확인, 고객에 대한 서비스 제공에 따른 본인 식별.인증, 회원자격 유지.관리, 물품 또는 서비스 공급에 따른 금액 결제, 물품 또는 서비스의 공급.배송 등 

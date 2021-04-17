@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "[Computer Vision] Mid Level Image Feature: Texture"
-categories: 
- - ComputerVision
+title: "Mid Level Image Feature: Texture"
+tags: [Computer Vision]
+
 use_math: true
 ---
 

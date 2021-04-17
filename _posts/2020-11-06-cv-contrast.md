@@ -1,9 +1,7 @@
 ---
 layout: post
-title: "[Computer Vision] Contrast"
-categories: 
- - ComputerVision
-use_math: true
+title: Contrast
+tags: [Computer Vision]
 ---
 
 ### Contrast
@@ -11,7 +9,7 @@ use_math: true
 
 - 가장 어두운 영역으로부터 가장 밝은 영역의 범위
 
-> <center>$Contast = {I_{max}-I_{min} \over I_{max} + I_{min}}$</center>
+> <center>$$Contast = {I_{max}-I_{min} \over I_{max} + I_{min}}$$</center>
 
 - 지각 작용은 순수한 광도의 강도에 민감하기보다는 광도의 대비에 더 민감하다. 
 
@@ -44,7 +42,7 @@ Mach Band: 서로 다른 광도가 인접해 있는 경우 발생하는 효과
 - 특정부분, 중앙에 명암 값이 치우치는 히스토그램을 가진 영상에 가장 잘 적용
 - 모든 범위의 화소 값을 포함하도록 영상을 확장
 
-> <center>$new pixel = {old pixel - low \over high - low} * 255$</center>
+$$new pixel = {old pixel - low \over high - low} * 255$$
 
 <center>
 <img src="/assets/img/basic_contrast_stretching.png">

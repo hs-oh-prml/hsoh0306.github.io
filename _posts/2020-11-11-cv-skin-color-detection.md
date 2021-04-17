@@ -1,9 +1,7 @@
 ---
 layout: post
-title: "[Computer Vision] Skin Color Detection"
-categories: 
- - ComputerVision
-use_math: true
+title: Skin Color Detection
+tags: [Computer Vision]
 ---
 
 강의자료에 재밌어 보이는 내용이 있어서 따로 포스팅한다. 사람의 피부색은 인종에 상관 없이 일정한 범위 내에 값을 가져서 색을 이용하여 피부색을 검출 할 수 있다고 한다. "Human Skin Detection Using RGB, HSV and YCbCr Color Models"는 색을 이용하여 사람의 피부를 검출하는 것을 연구한 논문이다. 기계학습을 이용하지 않고 threshold를 이용한 방법으로, 여러 color space를 조합한 방법을 제시했다. 구현하기 전에 Color space에 대해 간략하게 알아보자.
@@ -12,10 +10,13 @@ use_math: true
 
 RGB는 가장 널리 사용되고 있는 color model이다. 모든 색을 빨강(R), 초록(G), 파랑(B)의 합으로 표현하며, 디지털 이미지의 저장에 사용된다. 보통 하나의 color당 8-bit를 할당하며, [0, 255] 사이 값을 가진다. normalized RGB는 이를 [0, 1]로 정규화한 표현으로 다음과 같이 쓰면 된다.
 
-<center>$r = {R \over R + G + B}$</center>
-<center>$g = {G \over R + G + B}$</center>
-<center>$b = {B \over R + G + B}$</center>
-
+$$ 
+\begin{aligned}
+r = {R \over R + G + B} \\
+g = {G \over R + G + B} \\
+b = {B \over R + G + B}
+\end{aligned}
+$$
 
 <center>
 <img src="/assets/img/rgb_model.jpg">
@@ -24,9 +25,13 @@ RGB는 가장 널리 사용되고 있는 color model이다. 모든 색을 빨강
 #### YCbCr (Luminance, Chrominance) Color Model
 YCbCr은 encoded non-linear RGB라고 한다. 압축할 때 많이 써서, TV 송신, 비디오,  JPEG, MPEG1, MPEG2, MPEG4 등에 사용된다. YCbCr에서 Y는 luminance, Cb는 blue값과 기준 값(Y)의 차이,  Cr은 red값과 기준 값(Y)의 차이를 나타낸다. 
 
-<center>$Y = 0.299R + 0.287G + 0.11B$</center>
-<center>$Cr = R - Y$</center>
-<center>$Cb = B - Y$</center>
+$$
+\begin{aligned}
+Y = 0.299R + 0.287G + 0.11B \\
+Cr = R - Y \\
+Cb = B - Y
+\end{aligned}
+$$
 
 <center>
 <img src="/assets/img/ycbcr_model.jpg">

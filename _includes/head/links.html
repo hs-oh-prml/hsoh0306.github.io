@@ -1,0 +1,38 @@
+{% if plugins contains 'jekyll-feed' %}{% include head/feed-tag.html %}{% endif %}
+
+{% assign lang = page.lang | default:site.lang | default:'en' %}
+<link rel="alternate" href="{{ page.url | absolute_url }}" hreflang="{{ lang | downcase | replace:'_','-' }}">
+
+<link rel="shortcut icon" href="{{ '/assets/icons/favicon.ico' | relative_url }}">
+<link rel="apple-touch-icon" href="{{ '/assets/icons/icon.png' | relative_url }}">
+
+<link rel="manifest" href="{{ '/assets/manifest.json' | relative_url }}">
+
+{% unless site.hydejack.no_google_fonts or site.no_google_fonts %}
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+{% endunless %}
+{% if site.google_analytics %}
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
+{% endif %}
+
+{% assign disqus = site.disqus | default:site.disqus_shortname %}
+{% if disqus %}
+<link id="_disqusJS" rel="dns-prefetch" href="https://{{ disqus }}.disqus.com/embed.js">
+{% endif %}
+
+{% comment %}<!--
+The links below are here so that we can use their `href` in JS (see `_js/src/katex.js`).
+This way, CDN optimizers or other tools can modify the URL and we avoid hard-coding it in JavaScript.
+-->{% endcomment %}
+<link id="_katexJS"  rel="dns-prefetch" href="{{ '/assets/bower_components/katex/dist/katex.min.js'  | relative_url }}">
+<link id="_katexCSS" rel="dns-prefetch" href="{{ '/assets/bower_components/katex/dist/katex.min.css' | relative_url }}">
+
+<!-- <link id="_katexCSS" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.2/dist/katex.min.css" integrity="sha384-Cqd8ihRLum0CCg8rz0hYKPoLZ3uw+gES2rXQXycqnL5pgVQIflxAUDS7ZSjITLb5" crossorigin="anonymous"> -->
+
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<!-- <script id="_katexJS" defer src="https://cdn.jsdelivr.net/npm/katex@0.13.2/dist/katex.min.js" integrity="sha384-1Or6BdeNQb0ezrmtGeqQHFpppNd7a/gw29xeiSikBbsb44xu3uAo8c7FwbF5jhbd" crossorigin="anonymous"></script> -->
+
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<!-- <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.2/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script> -->
