@@ -1,0 +1,288 @@
+I"��<h3 id="contrast">Contrast</h3>
+<p>대비(Contrast)</p>
+
+<ul>
+  <li>가장 어두운 영역으로부터 가장 밝은 영역의 범위</li>
+</ul>
+
+<blockquote>
+  <center>$$Contast = {I_{max}-I_{min} \over I_{max} + I_{min}}$$</center>
+</blockquote>
+
+<ul>
+  <li>지각 작용은 순수한 광도의 강도에 민감하기보다는 광도의 대비에 더 민감하다.</li>
+</ul>
+
+<center>
+<img src="/assets/img/contrast1.png" />
+</center>
+
+<ul>
+  <li>두 이미지의 중앙의 색은 같지만 대비가 더 큰 왼쪽의 이미지가 부각되어 보인다.</li>
+</ul>
+
+<p>Mach Band: 서로 다른 광도가 인접해 있는 경우 발생하는 효과</p>
+<ul>
+  <li>광도가 급격히 변화하는 것에 대한 시각 시스템의 반응은 경계 부분을 더 강조하여 보는 경향이 있다.</li>
+</ul>
+
+<center>
+<img src="/assets/img/mach_band.jpg" />
+</center>
+
+<h3 id="contrast-stretching">Contrast Stretching</h3>
+<ul>
+  <li>Contrast stretching은 이미지의 intensity 범위를 늘려 원하는 값 범위에 걸쳐 이미지의 대비를 향상시키는 이미지 enhancement 기술이다.</li>
+  <li>Basic contrast stretching</li>
+  <li>Ends-in-search</li>
+  <li>Simple transformation</li>
+  <li>Histogram processing
+    <ul>
+      <li>Histogram equalization</li>
+      <li>Histogram specification</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="basic-contrast-stretching">Basic contrast stretching</h3>
+<ul>
+  <li>특정부분, 중앙에 명암 값이 치우치는 히스토그램을 가진 영상에 가장 잘 적용</li>
+  <li>모든 범위의 화소 값을 포함하도록 영상을 확장</li>
+</ul>
+
+\[new pixel = {old pixel - low \over high - low} * 255\]
+
+<center>
+<img src="/assets/img/basic_contrast_stretching.png" />
+</center>
+
+<ul>
+  <li>낮은 명암대비를 가진 영상의 질을 향상시킬 수있는 유용한 도구로서 가우시안(Gaussian) 분포를 가질때 가장 잘 적용</li>
+</ul>
+
+<center>
+<img src="/assets/img/basic_contrast_stretching_fail.png" />
+</center>
+
+<p>반면에 intensity가 전역에 퍼져있으면 전혀 효과가 없음을 알 수 있다.</p>
+
+<h3 id="ends-in-search">Ends-in search</h3>
+<ul>
+  <li>모든범위의 명암값을 갖지만 히스토그램의 특정 부분에 화소들이 치우친 영상에 가장 잘 적용</li>
+  <li>일정한 양의 화소를 흰색 또는 검은색을 갖도록 지정</li>
+  <li>알고리즘: 2개의 임계값(low, high)을 사용
+    <ul>
+      <li>low : 낮은 범위에서 지정한 양 이후의 화소의 pixel intensity</li>
+      <li>high: 높은 범위에서 지정한 양 이후의 화소의 pixel intensity</li>
+    </ul>
+  </li>
+</ul>
+
+<center>
+<img src="/assets/img/ends_in_search.png" />
+</center>
+
+<p>low 값을 30으로, high 값을 220으로 정하고 ends-in search한 결과다. Basic contrast stretching으로 대비 개선 할 수 없었던 이미지에 대하여, ends-in search는 효과가 있는 것을 알 수 있다.</p>
+
+<center>
+<img src="/assets/img/compare_result.jpg" />
+</center>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="k">def</span> <span class="nf">basic_contrast_stretching</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>                                 <span class="c1"># Basic Contrast Stretching
+</span>    <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="n">shape</span>                                       <span class="c1"># 이미지 크기 
+</span>    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">uint8</span><span class="p">)</span>           <span class="c1"># 결과 이미지
+</span>    <span class="n">low</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">min</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>                                               <span class="c1"># 최소 값
+</span>    <span class="n">high</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">max</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>                                              <span class="c1"># 최대 값
+</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width</span><span class="p">):</span>
+            <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">uint8</span><span class="p">(((</span><span class="n">img</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">low</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">high</span> <span class="o">-</span> <span class="n">low</span><span class="p">))</span> <span class="o">*</span> <span class="mi">255</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+<span class="k">def</span> <span class="nf">ends_in_search</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span>                                 <span class="c1"># Ends-in Search
+</span>    <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="n">shape</span>                                       <span class="c1"># 이미지 크기 
+</span>    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">uint8</span><span class="p">)</span>           <span class="c1"># 결과 이미지
+</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">img</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">low</span><span class="p">:</span>
+                <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">elif</span> <span class="n">img</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">high</span><span class="p">:</span>
+                <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">uint8</span><span class="p">(((</span><span class="n">img</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">low</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">high</span> <span class="o">-</span> <span class="n">low</span><span class="p">))</span> <span class="o">*</span> <span class="mi">255</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
+<span class="c1"># img = cv2.imread('bean.jpg', cv2.IMREAD_GRAYSCALE)              # 이미지 로드
+</span><span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'elephant.jpeg'</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>              <span class="c1"># 이미지 로드
+</span>
+<span class="n">bcs</span> <span class="o">=</span> <span class="n">basic_contrast_stretching</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+<span class="n">eis</span> <span class="o">=</span> <span class="n">ends_in_search</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">220</span><span class="p">)</span>
+
+<span class="c1"># Histogram 
+</span><span class="n">hist_o</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">calcHist</span><span class="p">([</span><span class="n">img</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">None</span><span class="p">,</span> <span class="p">[</span><span class="mi">256</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">])</span>    
+<span class="n">hist_bcs</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">calcHist</span><span class="p">([</span><span class="n">bcs</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">None</span><span class="p">,</span> <span class="p">[</span><span class="mi">256</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">])</span>    
+<span class="n">hist_eis</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">calcHist</span><span class="p">([</span><span class="n">eis</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">None</span><span class="p">,</span> <span class="p">[</span><span class="mi">256</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">])</span>    
+
+<span class="c1"># 그래프 
+</span><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="s">"Histogram"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">321</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Image'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'gray'</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">322</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Histogram'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hist_o</span><span class="p">)),</span> <span class="n">hist_o</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">323</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Basic Contrast Stretching'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">bcs</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'gray'</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">324</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Basic Contrast Stretching Result Histogram'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hist_bcs</span><span class="p">)),</span> <span class="n">hist_bcs</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">325</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Ends-in Search'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">eis</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'gray'</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">326</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Ends-in Search Result Histogram'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hist_eis</span><span class="p">)),</span> <span class="n">hist_eis</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">'ends_in_search.png'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">cv2</span><span class="p">.</span><span class="n">putText</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="s">"Image"</span><span class="p">,</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">cv2</span><span class="p">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">LINE_AA</span><span class="p">)</span>
+<span class="n">cv2</span><span class="p">.</span><span class="n">putText</span><span class="p">(</span><span class="n">bcs</span><span class="p">,</span> <span class="s">"Basic Contrast Stretching"</span><span class="p">,</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">cv2</span><span class="p">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">LINE_AA</span><span class="p">)</span>
+<span class="n">cv2</span><span class="p">.</span><span class="n">putText</span><span class="p">(</span><span class="n">eis</span><span class="p">,</span> <span class="s">"Ends-in Search"</span><span class="p">,</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">cv2</span><span class="p">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">LINE_AA</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">hconcat</span><span class="p">([</span><span class="n">img</span><span class="p">,</span> <span class="n">bcs</span><span class="p">,</span> <span class="n">eis</span><span class="p">])</span>
+<span class="n">cv2</span><span class="p">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s">'compare_result.jpg'</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+
+
+</code></pre></div></div>
+
+<h3 id="histogram-equalization">Histogram Equalization</h3>
+<p>Histogram Equalization은 두 가지를 충족시켜야한다.</p>
+
+<ul>
+  <li>output image는 gray-level 모든 값을 사용해야한다.</li>
+  <li>output image의 모든 픽셀은 gray-level의 값을 골고루 분포해야한다.</li>
+</ul>
+
+<h4 id="process">Process</h4>
+<ol>
+  <li>input image의 히스토그램을 만든다.</li>
+  <li>normalized sum of histogram을 계산하여 look-up table을 만든다.</li>
+  <li>look-up table을 기반으로 input image를 tranform한다.</li>
+</ol>
+
+<h4 id="pseudo-code">Pseudo code</h4>
+<pre>
+<code>
+/* clear histogram to 0 */
+for(i = 0; i &lt; 256; i++){
+  histogram[i] = 0;
+}
+/* caculate histogram */
+for(i = 0; # of pixel; i++){
+  histogram[buffer[i]]++;
+}
+/* calculate normalized sum of histogram */
+sum = 0;
+scale_factor = 255.0
+for(i = 0; i &lt; 256; i++){
+  sum += histogram[i];
+  sum_hist[i] = (sum * scale_factor) + 0.5;
+}
+/* transform image using new sum_histogram as a LUT */
+for(i = 0; i &lt; 256; i++){
+  buffer[i] = sum_hist[buffer[i]];
+}
+</code>
+</pre>
+
+<center>
+<img src="/assets/img/histogram_equalization.png" />
+</center>
+
+<p>Color image에 대해서 histogram equalization을 하고 싶다면 HSV로 변환하여 intensity를 함수에 집어 넣으면 된다.</p>
+
+<center>
+<img src="/assets/img/histogram_equalization_color.png" />
+</center>
+
+<p>꽤 잘작동한다는 것을 확인할 수 있다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="k">def</span> <span class="nf">histogram_equalization</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>                                      <span class="c1"># Histogram Equalization
+</span>    <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="n">shape</span>                                         <span class="c1"># 이미지 크기 
+</span>    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">uint8</span><span class="p">)</span>             <span class="c1"># 결과 이미지
+</span>    
+    <span class="nb">sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">scale_factor</span> <span class="o">=</span> <span class="mi">255</span> <span class="o">/</span> <span class="p">(</span><span class="n">height</span> <span class="o">*</span> <span class="n">width</span><span class="p">)</span>                           
+    <span class="n">sum_hist</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="n">hist</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">calcHist</span><span class="p">([</span><span class="n">img</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">None</span><span class="p">,</span> <span class="p">[</span><span class="mi">256</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hist</span><span class="p">)):</span>                                      <span class="c1"># Normalizaed sum histogram 계산
+</span>        <span class="nb">sum</span> <span class="o">=</span> <span class="nb">sum</span> <span class="o">+</span> <span class="n">hist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">sum_hist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">uint8</span><span class="p">(</span><span class="nb">sum</span> <span class="o">*</span> <span class="n">scale_factor</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>                                         <span class="c1"># Look-up table 기반으로 transform
+</span>        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width</span><span class="p">):</span>
+            <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">sum_hist</span><span class="p">[</span><span class="n">img</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+<span class="c1">### RGB channel  
+# img = cv2.imread('april_2.jpg')                                   # 이미지 로드
+# img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)                        # matplot에 이미지를 올리기 위해 RGB로 변환
+</span>
+<span class="c1"># hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)                        # HSV로 변환
+# hist_o = cv2.calcHist([hsv], [2], None, [256], [0, 255])          # Intensity histogram 계산
+</span>
+<span class="c1"># hsv[:,:,2] = histogram_equalization(hsv[:,:,2])                   # Intensity channel만 histogram equalization
+# hist_he = cv2.calcHist([hsv], [2], None, [256], [0, 255])         # 결과 Intensity histogram 계산
+</span>
+<span class="c1"># he = cv2.cvtColor(hsv, cv2.COLOR_HSV2RGB)                         # 다시 RGB로 변환
+</span>
+<span class="c1">### Gray level 
+</span><span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'elephant.jpeg'</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>             <span class="c1"># 이미지 로드
+</span><span class="n">he</span> <span class="o">=</span> <span class="n">histogram_equalization</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+
+<span class="c1">### OpenCV function                                                 # OpenCV에서 제공하는 함수
+# he = cv2.equalizeHist(img)
+</span>
+<span class="c1"># Histogram 
+</span><span class="n">hist_o</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">calcHist</span><span class="p">([</span><span class="n">img</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">None</span><span class="p">,</span> <span class="p">[</span><span class="mi">256</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">])</span>
+<span class="n">hist_he</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">calcHist</span><span class="p">([</span><span class="n">he</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">None</span><span class="p">,</span> <span class="p">[</span><span class="mi">256</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">])</span>
+
+<span class="c1"># 그래프 
+</span><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="s">"Histogram"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Image'</span><span class="p">)</span>
+<span class="c1"># plt.imshow(img)                               # RGB Channel  
+</span><span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'gray'</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>  <span class="c1"># Gray level
+</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Histogram'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hist_o</span><span class="p">)),</span> <span class="n">hist_o</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Histogram Equalization'</span><span class="p">)</span>
+<span class="c1"># plt.imshow(he)                                # RGB Channel
+</span><span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">he</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'gray'</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>   <span class="c1"># Gray level
+</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Histogram Equalization Result Histogram'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hist_he</span><span class="p">)),</span> <span class="n">hist_he</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="c1"># plt.savefig('histogram_equalization_color.png')
+</span><span class="n">plt</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">'histogram_equalization.png'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+</code></pre></div></div>
+
+<p>물론 opencv에서 같은 기능으로 equalizeHist라는 함수를 제공한다. 그냥 이거 쓰면 될거같다.</p>
+:ET

@@ -1,0 +1,190 @@
+I"|<h2 id="shapes">Shapes</h2>
+<p>Shape은 color랑 texture보다 더 나아간 단계의 feautre다. Color랑 texture는 둘 다 global attribute지만, shape은 특정 region에 대한 attribute이다.</p>
+
+<h3 id="shape-descriptors">Shape Descriptors</h3>
+<ul>
+  <li>Region Descriptor</li>
+  <li>Boundary</li>
+  <li>Interest points(corners)</li>
+</ul>
+
+<h3 id="region-based-shape-descriptors">Region based Shape Descriptors</h3>
+<h4 id="geometric-and-shape-properties">Geometric and Shape Properties</h4>
+<ul>
+  <li>area</li>
+  <li>centroid</li>
+  <li>perimeter</li>
+  <li>perimeter length</li>
+  <li>circularity, elongation</li>
+  <li>mean and standard deviation of radial distance</li>
+  <li>second order moments (row, column, mixed)</li>
+  <li>bounding box</li>
+  <li>extremal axis length from bounding box</li>
+  <li>lengths and orientations of axes of best-fit ellipse</li>
+</ul>
+
+<p><em>Often want features independent of position, orientation, scale</em></p>
+
+<h4 id="zero-order-moment">Zero-order moment</h4>
+<p>Moment를 사용하는 이유: 
+서로 다른 차수의 기하학적 모멘트는 이미지 분포의 공간적 특성을 나타낸다.
+Zero-order moment란:</p>
+<ul>
+  <li>
+\[A = \sum_i^n \sum_j^m {B[i,j]}\]
+  </li>
+  <li>전체 intensity를 의미</li>
+  <li>binary image에서는 area를 의미</li>
+</ul>
+
+<h4 id="centroid">Centroid</h4>
+<p>이미지 내의 object의 위치가 공간 위치에 의해 정해진다.</p>
+
+<p>Center of area(centroid, center of mass): First order moment</p>
+
+<ul>
+  <li>\(\bar{x} = {\sum_i^n \sum_j^m {jB[i,j]} \over A}\) (object의 pixel간에 j 좌표의 평균)</li>
+  <li>
+    <p>\(\bar{y} = {\sum_i^n \sum_j^m {iB[i,j]} \over A}\) (object의 pixel간에 i 좌표의 평균)</p>
+  </li>
+  <li>intensity centroid</li>
+  <li>binary image의 기하학적 중심</li>
+  <li>Centroid는 분석과 매칭에서 interesting point가 될 수 있다.</li>
+</ul>
+
+<h4 id="second-moments">Second moments</h4>
+
+<p>Second-order row moment</p>
+<ul>
+  <li>
+\[\mu_{rr} = {1 \over A} \sum_{(r,c) \in R}  {(r - \bar{r})^2}\]
+  </li>
+</ul>
+
+<p>Second-order mixed moment</p>
+<ul>
+  <li>
+\[\mu_{rc} = {1 \over A} \sum_{(r,c) \in R}  {(r - \bar{r})(c - \bar{c})}\]
+  </li>
+</ul>
+
+<p>Second-order column moment</p>
+<ul>
+  <li>
+\[\mu_{cc} = {1 \over A} \sum_{(r,c) \in R}  {(c - \bar{c})^2}\]
+  </li>
+</ul>
+
+<h4 id="moment-invariants">Moment Invariants</h4>
+<p>기하 변형: translation, scale, mirroring, rotation</p>
+
+<h4 id="perimeter-and-perimeter-length">Perimeter and Perimeter Length</h4>
+
+<p>Perimeter</p>
+
+<ul>
+  <li>
+\[P_4 = \\{ (r,c) \in R \| N_8(r,c) - R \neq \varnothing \\}\]
+  </li>
+  <li>
+\[P_8 = \\{ (r,c) \in R \| N_4(r,c) - R \neq \varnothing \\}\]
+  </li>
+</ul>
+
+<p>Perimeter Length</p>
+<ul>
+  <li>
+\[\| P \| = \| \\{ k \| (r_{k+1}, c_{k+1}) \in N_4(r_k, c_k) \\} \| + \sqrt(2) \| \\{ k \| ( r_{k+1}, c_{k+1}) \in N_8(r_k, c_k) - N_4(r_k, c_k) \\} \|\]
+  </li>
+</ul>
+
+<h4 id="circularity">Circularity</h4>
+<p>간단하게 circularity를 측정하는 방법은 둘레의 제곱을 면적으로 나누는 것이다.</p>
+<ul>
+  <li>
+    <p>\(C_1 = { \| P \| ^2 \over A}\)
+같은 면적일때, 원에 가까울수록 둘레가 작아지므로 \(C_1\)은 작아진다. 
+그렇게 할 경우 정사각형이 원보다 circularity가 좋게 나오는 경우가 발생하기 때문에 다음과 같은 방법이 있다.</p>
+  </li>
+  <li>
+\[C_2 = { \mu_R \over \sigma_R}\]
+  </li>
+  <li>
+\[\mu_R = {1 \over K} \sum_{k=0}^{K-1} \parallel (r_k, c_k) - (\bar{r}, \bar{c}) \parallel\]
+  </li>
+  <li>
+\[\sigma_R^2 = {1 \over K} \sum_{k=0}^{K-1} [\parallel (r_k, c_k) - (\bar{r}, \bar{c}) \parallel - \mu_R]^2\]
+  </li>
+</ul>
+
+<p>분산과 표준 편차를 이용하여 계산하는 방법이다. 원에 가까울 수록 표준편차가 작아지므로, \(C_2\)는 커진다.</p>
+
+<h4 id="orientation">Orientation</h4>
+<p>object의 방향을 연장선의 축(axis) 방향으로 정의한다.</p>
+<ul>
+  <li>second order moment(분산, 데이터의 퍼짐)를 최소화하는 부분</li>
+  <li>
+\[\min_{line} \chi^2 = \min_{line} \sum_{i=1}^n \sum_{j=1}^n {r_{ij}^2 B[i,j]}\]
+  </li>
+</ul>
+
+<p>\(r_{ij}^2\)는 object 내의 점 \([i,j]\)과 축의 수직 거리다.</p>
+
+<p>직선을 극좌표로 표현</p>
+<ul>
+  <li>
+\[y = ax + b\]
+  </li>
+  <li>
+\[(x,y) \centerdot (\cos{\theta}, \sin{\theta}) = \rho\]
+  </li>
+  <li>\(\centerdot\) is projection$$</li>
+  <li>
+\[x\cos{\theta} + y\sin{\theta}=\rho\]
+  </li>
+</ul>
+
+<p>Axis with Least Second Moment</p>
+
+<ul>
+  <li>
+\[\tan{2\alpha} = {2\sum(r-\bar{r})(c-\bar{c}) \over \sum(r-\bar{r})(r-\bar{r}) \sum(c-\bar{c})(c-\bar{c})}\]
+  </li>
+  <li>
+\[= { {1 \over A} 2\sum(r-\bar{r})(c-\bar{c}) \over {1 \over A} \sum(r-\bar{r})(r-\bar{r}) {1 \over A} \sum(c-\bar{c})(c-\bar{c})}\]
+  </li>
+  <li>
+\[= {2 \mu_{rc} \over \mu_{rr} - \mu_{cc}}\]
+  </li>
+</ul>
+
+<h4 id="topological-region-descriptors">Topological Region Descriptors</h4>
+<p>Hole Counting</p>
+<ul>
+  <li>external corner has 3(1)s and 1(0)</li>
+  <li>internal corner has 3(0)s and 1(1)</li>
+  <li>Holes computed from only these patterns!</li>
+</ul>
+
+<p>Algorithm</p>
+<pre>
+<code>
+Input a binary image and output the number of holes it contains 
+
+- M is a binary image of R rows of C columns 
+- 1 represents material through which light has not passed
+- 0 represents absence of material indicated by light passing 
+- Each region of 0s must be 4-connected and all image border pixels must be 1s 
+- E is the count of *external corners* (3 ones and 1 zero) 
+- I is the count of *internal corners* (3 zeros and 1 one) 
+
+integer procedure Count_Holes(M)
+{
+    examine entire image, 2 rows at a time;
+    count external corners E;
+    count internal corners I;
+    return (number_of_holes = (E-I)/4);
+}
+</code>
+</pre>
+:ET

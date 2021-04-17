@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2021-04-17T18:22:38+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Develope Yourself</title><subtitle>A Jekyll theme with JavaScript powers. &quot;Best Theme by a Mile&quot;. Combines the best of static sites and modern web apps. Open `_config.yml` to edit this text.
-</subtitle><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><entry><title type="html">Skin Color Detection</title><link href="http://localhost:4000/2020/11/11/cv-skin-color-detection/" rel="alternate" type="text/html" title="Skin Color Detection" /><published>2020-11-11T00:00:00+09:00</published><updated>2020-11-11T00:00:00+09:00</updated><id>http://localhost:4000/2020/11/11/cv-skin-color-detection</id><content type="html" xml:base="http://localhost:4000/2020/11/11/cv-skin-color-detection/">&lt;p&gt;강의자료에 재밌어 보이는 내용이 있어서 따로 포스팅한다. 사람의 피부색은 인종에 상관 없이 일정한 범위 내에 값을 가져서 색을 이용하여 피부색을 검출 할 수 있다고 한다. “Human Skin Detection Using RGB, HSV and YCbCr Color Models”는 색을 이용하여 사람의 피부를 검출하는 것을 연구한 논문이다. 기계학습을 이용하지 않고 threshold를 이용한 방법으로, 여러 color space를 조합한 방법을 제시했다. 구현하기 전에 Color space에 대해 간략하게 알아보자.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://hsoh0306.github.io//feed.xml" rel="self" type="application/atom+xml" /><link href="https://hsoh0306.github.io//" rel="alternate" type="text/html" hreflang="en" /><updated>2021-04-17T18:47:42+09:00</updated><id>https://hsoh0306.github.io//feed.xml</id><title type="html">Develope Yourself</title><subtitle>A Jekyll theme with JavaScript powers. &quot;Best Theme by a Mile&quot;. Combines the best of static sites and modern web apps. Open `_config.yml` to edit this text.
+</subtitle><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><entry><title type="html">Skin Color Detection</title><link href="https://hsoh0306.github.io//2020/11/11/cv-skin-color-detection/" rel="alternate" type="text/html" title="Skin Color Detection" /><published>2020-11-11T00:00:00+09:00</published><updated>2020-11-11T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/11/11/cv-skin-color-detection</id><content type="html" xml:base="https://hsoh0306.github.io//2020/11/11/cv-skin-color-detection/">&lt;p&gt;강의자료에 재밌어 보이는 내용이 있어서 따로 포스팅한다. 사람의 피부색은 인종에 상관 없이 일정한 범위 내에 값을 가져서 색을 이용하여 피부색을 검출 할 수 있다고 한다. “Human Skin Detection Using RGB, HSV and YCbCr Color Models”는 색을 이용하여 사람의 피부를 검출하는 것을 연구한 논문이다. 기계학습을 이용하지 않고 threshold를 이용한 방법으로, 여러 color space를 조합한 방법을 제시했다. 구현하기 전에 Color space에 대해 간략하게 알아보자.&lt;/p&gt;
 
 &lt;h4 id=&quot;red-green-and-blue-rgb-color-model&quot;&gt;Red, Green, and Blue (RGB) Color Model&lt;/h4&gt;
 
@@ -151,7 +151,8 @@ else {
 &lt;p&gt;threshold만 사용한 방법이라 좀 애매할 거 같았는데 생각보다 꽤 괜찮은 결과를 내었다. 인종에 크게 상관이 없는 거 같고, HSV보다 YCbCr을 사용한 것이 결과가 더 잘나오는 거 같다.&lt;/p&gt;
 
 &lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&quot;https://arxiv.org/ftp/arxiv/papers/1708/1708.02694.pdf&quot;&gt;S. Kolkur, D. Kalbande, P. Shimpi, C. Bapat, and J. Jatakia,’Human Skin Detection Using RGB, HSV and YCbCr Color Models’, &lt;em&gt;ICCASP/ICMMD&lt;/em&gt;, 2016, Vol. 137, pp.324-332&lt;/a&gt;&lt;/p&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">강의자료에 재밌어 보이는 내용이 있어서 따로 포스팅한다. 사람의 피부색은 인종에 상관 없이 일정한 범위 내에 값을 가져서 색을 이용하여 피부색을 검출 할 수 있다고 한다. “Human Skin Detection Using RGB, HSV and YCbCr Color Models”는 색을 이용하여 사람의 피부를 검출하는 것을 연구한 논문이다. 기계학습을 이용하지 않고 threshold를 이용한 방법으로, 여러 color space를 조합한 방법을 제시했다. 구현하기 전에 Color space에 대해 간략하게 알아보자.</summary></entry><entry><title type="html">Contrast</title><link href="http://localhost:4000/2020/11/06/cv-contrast/" rel="alternate" type="text/html" title="Contrast" /><published>2020-11-06T00:00:00+09:00</published><updated>2020-11-06T00:00:00+09:00</updated><id>http://localhost:4000/2020/11/06/cv-contrast</id><content type="html" xml:base="http://localhost:4000/2020/11/06/cv-contrast/">&lt;p&gt;대비(Contrast)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://arxiv.org/ftp/arxiv/papers/1708/1708.02694.pdf&quot;&gt;S. Kolkur, D. Kalbande, P. Shimpi, C. Bapat, and J. Jatakia,’Human Skin Detection Using RGB, HSV and YCbCr Color Models’, &lt;em&gt;ICCASP/ICMMD&lt;/em&gt;, 2016, Vol. 137, pp.324-332&lt;/a&gt;&lt;/p&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">강의자료에 재밌어 보이는 내용이 있어서 따로 포스팅한다. 사람의 피부색은 인종에 상관 없이 일정한 범위 내에 값을 가져서 색을 이용하여 피부색을 검출 할 수 있다고 한다. “Human Skin Detection Using RGB, HSV and YCbCr Color Models”는 색을 이용하여 사람의 피부를 검출하는 것을 연구한 논문이다. 기계학습을 이용하지 않고 threshold를 이용한 방법으로, 여러 color space를 조합한 방법을 제시했다. 구현하기 전에 Color space에 대해 간략하게 알아보자.</summary></entry><entry><title type="html">Contrast</title><link href="https://hsoh0306.github.io//2020/11/06/cv-contrast/" rel="alternate" type="text/html" title="Contrast" /><published>2020-11-06T00:00:00+09:00</published><updated>2020-11-06T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/11/06/cv-contrast</id><content type="html" xml:base="https://hsoh0306.github.io//2020/11/06/cv-contrast/">&lt;h3 id=&quot;contrast&quot;&gt;Contrast&lt;/h3&gt;
+&lt;p&gt;대비(Contrast)&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;가장 어두운 영역으로부터 가장 밝은 영역의 범위&lt;/li&gt;
@@ -436,7 +437,8 @@ for(i = 0; i &amp;lt; 256; i++){
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;물론 opencv에서 같은 기능으로 equalizeHist라는 함수를 제공한다. 그냥 이거 쓰면 될거같다.&lt;/p&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">대비(Contrast)</summary></entry><entry><title type="html">Noise</title><link href="http://localhost:4000/2020/11/06/cv-noise/" rel="alternate" type="text/html" title="Noise" /><published>2020-11-06T00:00:00+09:00</published><updated>2020-11-06T00:00:00+09:00</updated><id>http://localhost:4000/2020/11/06/cv-noise</id><content type="html" xml:base="http://localhost:4000/2020/11/06/cv-noise/">&lt;p&gt;디지털 영상에서 noise는 영상을 왜곡하여 특징을 추출하는 것을 방해한다.&lt;/p&gt;
+&lt;p&gt;물론 opencv에서 같은 기능으로 equalizeHist라는 함수를 제공한다. 그냥 이거 쓰면 될거같다.&lt;/p&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Contrast 대비(Contrast)</summary></entry><entry><title type="html">Noise&amp;amp;Convolution</title><link href="https://hsoh0306.github.io//2020/11/06/cv-noise/" rel="alternate" type="text/html" title="Noise&amp;amp;Convolution" /><published>2020-11-06T00:00:00+09:00</published><updated>2020-11-06T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/11/06/cv-noise</id><content type="html" xml:base="https://hsoh0306.github.io//2020/11/06/cv-noise/">&lt;h3 id=&quot;noise&quot;&gt;Noise&lt;/h3&gt;
+&lt;p&gt;디지털 영상에서 noise는 영상을 왜곡하여 특징을 추출하는 것을 방해한다.&lt;/p&gt;
 
 &lt;h4 id=&quot;common-types-of-noise&quot;&gt;Common types of noise&lt;/h4&gt;
 &lt;ul&gt;
@@ -580,7 +582,8 @@ G = H*F
 &lt;img src=&quot;/assets/img/smoothing.jpg&quot; /&gt;
 &lt;/center&gt;
 
-&lt;p&gt;color image에 대해서는, RGB일 경우 R, G, B 각 채널에 대하여 convolution을 하면 되고, HSI는 intensity에 대해 convolution하면 된다.&lt;/p&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">디지털 영상에서 noise는 영상을 왜곡하여 특징을 추출하는 것을 방해한다.</summary></entry><entry><title type="html">Point Processing</title><link href="http://localhost:4000/2020/10/25/cv-point-processing/" rel="alternate" type="text/html" title="Point Processing" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>http://localhost:4000/2020/10/25/cv-point-processing</id><content type="html" xml:base="http://localhost:4000/2020/10/25/cv-point-processing/">&lt;p&gt;\(G(x,y)=T(f(x,y))\)&lt;/p&gt;
+&lt;p&gt;color image에 대해서는, RGB일 경우 R, G, B 각 채널에 대하여 convolution을 하면 되고, HSI는 intensity에 대해 convolution하면 된다.&lt;/p&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Noise 디지털 영상에서 noise는 영상을 왜곡하여 특징을 추출하는 것을 방해한다.</summary></entry><entry><title type="html">Point Processing: Arithmetic processing&amp;amp;Power-law transformation</title><link href="https://hsoh0306.github.io//2020/10/25/cv-point-processing/" rel="alternate" type="text/html" title="Point Processing: Arithmetic processing&amp;amp;Power-law transformation" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/10/25/cv-point-processing</id><content type="html" xml:base="https://hsoh0306.github.io//2020/10/25/cv-point-processing/">&lt;h3 id=&quot;point-processing&quot;&gt;Point Processing&lt;/h3&gt;
+&lt;p&gt;\(G(x,y)=T(f(x,y))\)&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;\(G()\): 결과 값&lt;/li&gt;
   &lt;li&gt;\(T()\): 변환 함수&lt;/li&gt;
@@ -744,7 +747,8 @@ G = H*F
 
 &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;waitKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;destroyAllWindows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">\(G(x,y)=T(f(x,y))\) \(G()\): 결과 값 \(T()\): 변환 함수 \(f(x,y)\): (x,y) 위치의 픽셀 값</summary></entry><entry><title type="html">Basic Techinques in Digital Image Processing</title><link href="http://localhost:4000/2020/10/25/cv-color-histogram/" rel="alternate" type="text/html" title="Basic Techinques in Digital Image Processing" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>http://localhost:4000/2020/10/25/cv-color-histogram</id><content type="html" xml:base="http://localhost:4000/2020/10/25/cv-color-histogram/">&lt;ul&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Point Processing \(G(x,y)=T(f(x,y))\) \(G()\): 결과 값 \(T()\): 변환 함수 \(f(x,y)\): (x,y) 위치의 픽셀 값</summary></entry><entry><title type="html">Color&amp;amp;Histogram</title><link href="https://hsoh0306.github.io//2020/10/25/cv-color-histogram/" rel="alternate" type="text/html" title="Color&amp;amp;Histogram" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/10/25/cv-color-histogram</id><content type="html" xml:base="https://hsoh0306.github.io//2020/10/25/cv-color-histogram/">&lt;h3 id=&quot;basic-techinques-in-digital-image-processing&quot;&gt;Basic Techinques in Digital Image Processing&lt;/h3&gt;
+&lt;ul&gt;
   &lt;li&gt;Image Representation&amp;amp;Storage&lt;/li&gt;
   &lt;li&gt;Image Enhancement&amp;amp;Filtering
     &lt;ul&gt;
@@ -858,7 +862,8 @@ G = H*F
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&quot;https://medium.com/@jovana.savic9494/image-contrast-increase-866b7eeac8c2&quot;&gt;Elephant Image&lt;/a&gt;&lt;/p&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Image Representation&amp;amp;Storage Image Enhancement&amp;amp;Filtering Contrast stretching, smoothing, sharpening Feature Extraction Color: color space, histogram Texture: Wavelet transformation, Discrete cosine transformation Shape: Edge detector, HOG, SIFT/SURF</summary></entry><entry><title type="html">Shapes</title><link href="http://localhost:4000/2020/10/25/computervision3/" rel="alternate" type="text/html" title="Shapes" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>http://localhost:4000/2020/10/25/computervision3</id><content type="html" xml:base="http://localhost:4000/2020/10/25/computervision3/">&lt;p&gt;Shape은 color랑 texture보다 더 나아간 단계의 feautre다. Color랑 texture는 둘 다 global attribute지만, shape은 특정 region에 대한 attribute이다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://medium.com/@jovana.savic9494/image-contrast-increase-866b7eeac8c2&quot;&gt;Elephant Image&lt;/a&gt;&lt;/p&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Basic Techinques in Digital Image Processing Image Representation&amp;amp;Storage Image Enhancement&amp;amp;Filtering Contrast stretching, smoothing, sharpening Feature Extraction Color: color space, histogram Texture: Wavelet transformation, Discrete cosine transformation Shape: Edge detector, HOG, SIFT/SURF</summary></entry><entry><title type="html">Mid Level Image Features: Shapes</title><link href="https://hsoh0306.github.io//2020/10/25/computervision3/" rel="alternate" type="text/html" title="Mid Level Image Features: Shapes" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/10/25/computervision3</id><content type="html" xml:base="https://hsoh0306.github.io//2020/10/25/computervision3/">&lt;h2 id=&quot;shapes&quot;&gt;Shapes&lt;/h2&gt;
+&lt;p&gt;Shape은 color랑 texture보다 더 나아간 단계의 feautre다. Color랑 texture는 둘 다 global attribute지만, shape은 특정 region에 대한 attribute이다.&lt;/p&gt;
 
 &lt;h3 id=&quot;shape-descriptors&quot;&gt;Shape Descriptors&lt;/h3&gt;
 &lt;ul&gt;
@@ -1045,7 +1050,8 @@ integer procedure Count_Holes(M)
     return (number_of_holes = (E-I)/4);
 }
 &lt;/code&gt;
-&lt;/pre&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Shape은 color랑 texture보다 더 나아간 단계의 feautre다. Color랑 texture는 둘 다 global attribute지만, shape은 특정 region에 대한 attribute이다.</summary></entry><entry><title type="html">Texture</title><link href="http://localhost:4000/2020/10/25/computervision2/" rel="alternate" type="text/html" title="Texture" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>http://localhost:4000/2020/10/25/computervision2</id><content type="html" xml:base="http://localhost:4000/2020/10/25/computervision2/">&lt;ul&gt;
+&lt;/pre&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Shapes Shape은 color랑 texture보다 더 나아간 단계의 feautre다. Color랑 texture는 둘 다 global attribute지만, shape은 특정 region에 대한 attribute이다.</summary></entry><entry><title type="html">Mid Level Image Feature: Texture</title><link href="https://hsoh0306.github.io//2020/10/25/computervision2/" rel="alternate" type="text/html" title="Mid Level Image Feature: Texture" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/10/25/computervision2</id><content type="html" xml:base="https://hsoh0306.github.io//2020/10/25/computervision2/">&lt;h2 id=&quot;texture&quot;&gt;Texture&lt;/h2&gt;
+&lt;ul&gt;
   &lt;li&gt;Texture는 이미지를 interest region으로 나누고 그런 region을 classify하기 위해 사용되는 feature다.&lt;/li&gt;
   &lt;li&gt;Texture는 이미지의 color 또는 intensity의 공간적 정보를 제공한다.&lt;/li&gt;
   &lt;li&gt;Texture는 인접 pixel들의 intensity level의 공간 분포로 특징된다.&lt;/li&gt;
@@ -1117,7 +1123,7 @@ integer procedure Count_Holes(M)
 
 &lt;h4 id=&quot;local-binary-patternlbp&quot;&gt;Local Binary Pattern(LBP)&lt;/h4&gt;
 &lt;ul&gt;
-  &lt;li&gt;For each pixel $p$, create an 8-bit number $b_1$ $b_2$ $b_3$ $b_4$ $b_5$ $b_6$ $b_7$ $b_8$, where $b_i = 0$ if neighbor $i$ has value less than or equal to $p$’s value and 1 otherwise.&lt;/li&gt;
+  &lt;li&gt;For each pixel \(p\), create an 8-bit number \(b_1\) \(b_2\) \(b_3\) \(b_4\) \(b_5\) \(b_6\) \(b_7\) \(b_8\), where \(b_i = 0\) if neighbor \(i\) has value less than or equal to \(p\)’s value and 1 otherwise.&lt;/li&gt;
   &lt;li&gt;Represent the texture in the image (or a region) by the histogram of these numbers&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -1139,34 +1145,34 @@ integer procedure Count_Holes(M)
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;A GLCM $P_d[i,j]$ is defined by first specifying a displacement vector $d=(dx,dy)$ and counting all pairs of pixels separated by d having gray levels $i$ and $j$.&lt;/p&gt;
+    &lt;p&gt;A GLCM \(P_d[i,j]\) is defined by first specifying a displacement vector \(d=(dx,dy)\) and counting all pairs of pixels separated by d having gray levels \(i\) and \(j\).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The GLCM is defined by: $P_d[i,j] = n_{ij}$&lt;/p&gt;
+    &lt;p&gt;The GLCM is defined by: \(P_d[i,j] = n_{ij}\)&lt;/p&gt;
 
     &lt;ul&gt;
-      &lt;li&gt;$n_{ij}$ is the number of occurrences of the pixel values $(i,j)$ lying at distance $d$ in the image&lt;/li&gt;
-      &lt;li&gt;The co-occurrence matrix $P_d$has dimension n×n, where n is the number of gray levels in the image&lt;/li&gt;
+      &lt;li&gt;\(n_{ij}\) is the number of occurrences of the pixel values \((i,j)\) lying at distance \(d\) in the image&lt;/li&gt;
+      &lt;li&gt;The co-occurrence matrix \(P_d\)has dimension n×n, where n is the number of gray levels in the image&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;displacement vector $d=(dx,dy)$를 정의하고, 모든 pair를 counting한다.&lt;/p&gt;
+&lt;p&gt;displacement vector \(d=(dx,dy)\)를 정의하고, 모든 pair를 counting한다.&lt;/p&gt;
 
 &lt;h5 id=&quot;algorithm&quot;&gt;Algorithm&lt;/h5&gt;
 &lt;ol&gt;
-  &lt;li&gt;Count all pairs of pixels in which the first pixel has a value $i$, and its matching pair displaced from the first pixel by d has a value of $j$&lt;/li&gt;
-  &lt;li&gt;This count is entered in the ith row and jth column of the matrix $P_d[i,j]$&lt;/li&gt;
-  &lt;li&gt;Note that $P_d[i,j]$ is not symmetric, since the number of pairs of pixels having gray levels $[i,j]$ does not necessarily equal the number of pixel pairs having gray levels $[j,i]$&lt;/li&gt;
+  &lt;li&gt;Count all pairs of pixels in which the first pixel has a value \(i\), and its matching pair displaced from the first pixel by d has a value of \(j\)&lt;/li&gt;
+  &lt;li&gt;This count is entered in the ith row and jth column of the matrix \(P_d[i,j]\)&lt;/li&gt;
+  &lt;li&gt;Note that \(P_d[i,j]\) is not symmetric, since the number of pairs of pixels having gray levels \([i,j]\) does not necessarily equal the number of pixel pairs having gray levels \([j,i]\)&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h4 id=&quot;normalized-glcm&quot;&gt;Normalized GLCM&lt;/h4&gt;
-&lt;p&gt;The elements of $P_d[i,j]$ can be normalized by dividing each entry by the total number of pixel pairs&lt;/p&gt;
+&lt;p&gt;The elements of \(P_d[i,j]\) can be normalized by dividing each entry by the total number of pixel pairs&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;Normalized GLCM, $N[i,j]$ is defined by:&lt;/p&gt;
+    &lt;p&gt;Normalized GLCM, \(N[i,j]\) is defined by:&lt;/p&gt;
 
-    &lt;p&gt;$N[i,j]= {P[i,j] \over \sum_i \sum_j  P[i,j]}$&lt;/p&gt;
+\[N[i,j]= {P[i,j] \over \sum_i \sum_j  P[i,j]}\]
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;It normalizes the co-occurrence values to lie between 0 and 1, and allows them to be thought of as probabilites&lt;/p&gt;
@@ -1193,7 +1199,9 @@ integer procedure Count_Holes(M)
   &lt;li&gt;This is simply the largest entry in the matrix, and corresponds to the strongest response
     &lt;ul&gt;
       &lt;li&gt;This could be the maximum in any of the matrices or the maximum overall&lt;/li&gt;
-      &lt;li&gt;$C_m=\max_{i,j} P_d[i,j]$&lt;/li&gt;
+      &lt;li&gt;
+\[C_m=\max_{i,j} P_d[i,j]\]
+      &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
@@ -1202,12 +1210,16 @@ integer procedure Count_Holes(M)
 &lt;ul&gt;
   &lt;li&gt;The order k element difference moment can be defined as:
     &lt;ul&gt;
-      &lt;li&gt;$MOM_k = \sum_i \sum_j (i-j)^k P_d[i,j]$&lt;/li&gt;
+      &lt;li&gt;
+\[MOM_k = \sum_i \sum_j (i-j)^k P_d[i,j]\]
+      &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;This descriptor has small values in cases where the largest elements in $P$ are along the principal diagonal. The opposite effect can be achieved using the inverse moment
+  &lt;li&gt;This descriptor has small values in cases where the largest elements in \(P\) are along the principal diagonal. The opposite effect can be achieved using the inverse moment
     &lt;ul&gt;
-      &lt;li&gt;$MOM_k = \sum_i \sum_j {P_d[i,j] \over (i-j)^k}, i \neq j$&lt;/li&gt;
+      &lt;li&gt;
+\[MOM_k = \sum_i \sum_j {P_d[i,j] \over (i-j)^k}, i \neq j\]
+      &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
@@ -1219,21 +1231,23 @@ integer procedure Count_Holes(M)
 
     &lt;ul&gt;
       &lt;li&gt;
-        &lt;p&gt;$MOM_k = \sum_i \sum_j (i-j)^k P_d[i,j]^n$&lt;/p&gt;
+\[MOM_k = \sum_i \sum_j (i-j)^k P_d[i,j]^n\]
       &lt;/li&gt;
       &lt;li&gt;If there is a large amount of variation in an image the P[i,j]’s will be concentrated away from the main diagonal and contrast will be high&lt;/li&gt;
-      &lt;li&gt;Typically, $k=2$ and $n=1$&lt;/li&gt;
+      &lt;li&gt;Typically, \(k=2\) and \(n=1\)&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h5 id=&quot;homogeneity&quot;&gt;Homogeneity&lt;/h5&gt;
 &lt;ul&gt;
-  &lt;li&gt;A homogeneous image will result in a co-occurrence matrix with a combination of high and low $P[i,j]$’s
+  &lt;li&gt;A homogeneous image will result in a co-occurrence matrix with a combination of high and low \(P[i,j]\)’s
     &lt;ul&gt;
-      &lt;li&gt;$C_h = \sum_i \sum_j {P_d{i,j} \over 1 + |i-j|}$&lt;/li&gt;
+      &lt;li&gt;
+\[C_h = \sum_i \sum_j {P_d{i,j} \over 1 + \|i-j\|}\]
+      &lt;/li&gt;
       &lt;li&gt;Where the range of gray levels is small, the P[i,j] will tend to be clustered around the main diagonal&lt;/li&gt;
-      &lt;li&gt;A heterogeneous image will result in an even spread of $P[i,j]$’s&lt;/li&gt;
+      &lt;li&gt;A heterogeneous image will result in an even spread of \(P[i,j]\)’s&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
@@ -1243,17 +1257,21 @@ integer procedure Count_Holes(M)
   &lt;li&gt;Entropy is a measure of information content&lt;/li&gt;
   &lt;li&gt;It measures the randomness of intensity distribution
     &lt;ul&gt;
-      &lt;li&gt;$C_e = - \sum_i \sum_j P_d[i, j]ln P_d[i,j]$&lt;/li&gt;
+      &lt;li&gt;
+\[C_e = - \sum_i \sum_j P_d[i, j]ln P_d[i,j]\]
+      &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Entropy is highest when all entries in $P[i,j]$ are of similar magnitude, and small when the entries in $P[i,j]$ are unequal&lt;/li&gt;
+  &lt;li&gt;Entropy is highest when all entries in \(P[i,j]\) are of similar magnitude, and small when the entries in \(P[i,j]\) are unequal&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h5 id=&quot;correlation&quot;&gt;Correlation&lt;/h5&gt;
 &lt;ul&gt;
   &lt;li&gt;Correlation is a measure of image linearity
     &lt;ul&gt;
-      &lt;li&gt;$C_e = {\sum_i \sum_j ij P_d[i,j] - \mu_i \mu_j \over \sigma_i \sigma_j}, \mu_i = \sum i P_d[i,j], \sigma_i^2= \sum i^2 P_d[i,j] - \mu_i^2$&lt;/li&gt;
+      &lt;li&gt;
+\[C_e = {\sum_i \sum_j ij P_d[i,j] - \mu_i \mu_j \over \sigma_i \sigma_j}, \mu_i = \sum i P_d[i,j], \sigma_i^2= \sum i^2 P_d[i,j] - \mu_i^2\]
+      &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;Correlation will be high if an image contains a considerable amount of linear structure&lt;/li&gt;
@@ -1262,16 +1280,18 @@ integer procedure Count_Holes(M)
 &lt;h4 id=&quot;problem-with-glcm&quot;&gt;Problem with GLCM&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;One problem with deriving texture measures from co-occurrence matrices is how to choose the displacement vector $d$&lt;/p&gt;
+    &lt;p&gt;One problem with deriving texture measures from co-occurrence matrices is how to choose the displacement vector \(d\)&lt;/p&gt;
 
     &lt;ul&gt;
       &lt;li&gt;The choice of the displacement vector is an important parameter in the definition of the GLCM&lt;/li&gt;
-      &lt;li&gt;Occasionally the GLCM is computed from several values of d and the one which maximizes a statistical measure computed from $P[i,j]$ is used&lt;/li&gt;
+      &lt;li&gt;Occasionally the GLCM is computed from several values of d and the one which maximizes a statistical measure computed from \(P[i,j]\) is used&lt;/li&gt;
       &lt;li&gt;
-        &lt;p&gt;Zucker and Terzopoulos used a $\chi^2$ measure to select the values of d that have the most structure, i.e., to maximize the value&lt;/p&gt;
+        &lt;p&gt;Zucker and Terzopoulos used a \(\chi^2\) measure to select the values of d that have the most structure, i.e., to maximize the value&lt;/p&gt;
 
         &lt;ul&gt;
-          &lt;li&gt;$\chi^2(d)= \sum_i \sum_j {P_d^2[i,j] \over P_d[i] P_d[j]} - 1$&lt;/li&gt;
+          &lt;li&gt;
+\[\chi^2(d)= \sum_i \sum_j {P_d^2[i,j] \over P_d[i] P_d[j]} - 1\]
+          &lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
@@ -1298,14 +1318,18 @@ integer procedure Count_Holes(M)
     &lt;p&gt;Edgeness per unit area for a region R&lt;/p&gt;
 
     &lt;ul&gt;
-      &lt;li&gt;$Fedgeness = |{ p | gradient_magnitude(p) ≥ threshold} | / N$&lt;/li&gt;
+      &lt;li&gt;
+\[Fedgeness = \|{ p \| gradient_magnitude(p) ≥ threshold} \| / N\]
+      &lt;/li&gt;
       &lt;li&gt;N is the size of the unit area&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Histograms of edge magnitude and direction for a region R&lt;/p&gt;
     &lt;ul&gt;
-      &lt;li&gt;$F_magdir = ( H_magnitude, H_direction )$&lt;/li&gt;
+      &lt;li&gt;
+\[F_magdir = ( H_magnitude, H_direction )\]
+      &lt;/li&gt;
       &lt;li&gt;These are the normalized histograms of gradient magnitudes and gradient directions, respectively&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -1330,27 +1354,37 @@ integer procedure Count_Holes(M)
     &lt;ul&gt;
       &lt;li&gt;L5 (Gaussian) gives a center-weighted local average
         &lt;ul&gt;
-          &lt;li&gt;$L5 = [1,4,6,4,2]$&lt;/li&gt;
+          &lt;li&gt;
+\[L5 = [1,4,6,4,2]\]
+          &lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
       &lt;li&gt;E5 (gradient) responds to row or col step edges
         &lt;ul&gt;
-          &lt;li&gt;$E5 = [-1,-2,0,2,1]$&lt;/li&gt;
+          &lt;li&gt;
+\[E5 = [-1,-2,0,2,1]\]
+          &lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
       &lt;li&gt;S5 (LoG) detectss spots
         &lt;ul&gt;
-          &lt;li&gt;$S5 = [-1,0,2,0,-1]$&lt;/li&gt;
+          &lt;li&gt;
+\[S5 = [-1,0,2,0,-1]\]
+          &lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
       &lt;li&gt;R5 (Gabor) detects ripples
         &lt;ul&gt;
-          &lt;li&gt;$R5 = [1,-4,6,-4,1]$&lt;/li&gt;
+          &lt;li&gt;
+\[R5 = [1,-4,6,-4,1]\]
+          &lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
       &lt;li&gt;W5(wave) detects waves
         &lt;ul&gt;
-          &lt;li&gt;$W5 = [-1,2,0,-2,1]$&lt;/li&gt;
+          &lt;li&gt;
+\[W5 = [-1,2,0,-2,1]\]
+          &lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
@@ -1367,7 +1401,9 @@ integer procedure Count_Holes(M)
   &lt;/li&gt;
   &lt;li&gt;After the convolution with the specified mask, the texture energy measure (TEM) is computed by summing the absolute values in a local neighborhood
     &lt;ul&gt;
-      &lt;li&gt;$L_e = \sum_{i=1}^m \sum_{j=1}^n |C(i,j)|$&lt;/li&gt;
+      &lt;li&gt;
+\[L_e = \sum_{i=1}^m \sum_{j=1}^n \|C(i,j)\|\]
+      &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;If n masks are applied, the result is an n-dimensional feature vector at each pixel of the image being analyzed&lt;/li&gt;
@@ -1395,7 +1431,9 @@ integer procedure Count_Holes(M)
 &lt;ul&gt;
   &lt;li&gt;Autocorrelation function computes the dot product (energy) of original image with shifted image for different shifts
     &lt;ul&gt;
-      &lt;li&gt;$\rho (dr, dc) = {\sum_i \sum_j I[i, j]I[i+dr, j+dc] \over \sum_i \sum_j I^2[i, j]}= {I[i, j] \circ I_d[i ,j] \over I[i, j] \circ I[i, j]}$&lt;/li&gt;
+      &lt;li&gt;
+\[\rho (dr, dc) = {\sum_i \sum_j I[i, j]I[i+dr, j+dc] \over \sum_i \sum_j I^2[i, j]}= {I[i, j] \circ I_d[i ,j] \over I[i, j] \circ I[i, j]}\]
+      &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;It can detect repetitive patterns of texels&lt;/li&gt;
@@ -1407,7 +1445,9 @@ integer procedure Count_Holes(M)
   &lt;li&gt;Coarse texture: function drops off slowly&lt;/li&gt;
   &lt;li&gt;Fine texture : function drops off rapidly&lt;/li&gt;
   &lt;li&gt;Can drop differently for row and column&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Texture는 이미지를 interest region으로 나누고 그런 region을 classify하기 위해 사용되는 feature다. Texture는 이미지의 color 또는 intensity의 공간적 정보를 제공한다. Texture는 인접 pixel들의 intensity level의 공간 분포로 특징된다. Texture는 이미지 intensity에서 local variation의 반복되는 pattern이다. 따라서 point에서 정의될 수 없다.</summary></entry><entry><title type="html">Image Segmentation</title><link href="http://localhost:4000/2020/10/25/computervision-segmentation/" rel="alternate" type="text/html" title="Image Segmentation" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>http://localhost:4000/2020/10/25/computervision-segmentation</id><content type="html" xml:base="http://localhost:4000/2020/10/25/computervision-segmentation/">&lt;p&gt;Image segmentation이란 이미지를 여러 개의 픽셀 집합(region)으로 나누는 것이다.&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Texture Texture는 이미지를 interest region으로 나누고 그런 region을 classify하기 위해 사용되는 feature다. Texture는 이미지의 color 또는 intensity의 공간적 정보를 제공한다. Texture는 인접 pixel들의 intensity level의 공간 분포로 특징된다. Texture는 이미지 intensity에서 local variation의 반복되는 pattern이다. 따라서 point에서 정의될 수 없다.</summary></entry><entry><title type="html">Region Segmentation</title><link href="https://hsoh0306.github.io//2020/10/25/computervision-segmentation/" rel="alternate" type="text/html" title="Region Segmentation" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/10/25/computervision-segmentation</id><content type="html" xml:base="https://hsoh0306.github.io//2020/10/25/computervision-segmentation/">&lt;h2 id=&quot;image-segmentation&quot;&gt;Image Segmentation&lt;/h2&gt;
+
+&lt;p&gt;Image segmentation이란 이미지를 여러 개의 픽셀 집합(region)으로 나누는 것이다.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -1471,7 +1511,8 @@ Coherent region은 비슷한 속성을 가지는 픽셀들을 포함한다.&lt;/
   &lt;li&gt;각 vector \(x_i\)에 대하여 \(D(x_i, m_k(ic)), k=1,...,K\) 계산하고, \(x_i\)를 가장 가까운 mean의 cluster \(C_j\)에 할당&lt;/li&gt;
   &lt;li&gt;ic를 1증가 시키고, means \(m_1(ic),..., m_k(ic)\)로 업데이트&lt;/li&gt;
   &lt;li&gt;모든 k에 대하여 \(C_k(ic) = C_k(ic+1)\)가 될 때까지, 3-4과정 반복&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Image segmentation이란 이미지를 여러 개의 픽셀 집합(region)으로 나누는 것이다.</summary></entry><entry><title type="html">AlexNet</title><link href="http://localhost:4000/2020/09/26/alexnet/" rel="alternate" type="text/html" title="AlexNet" /><published>2020-09-26T00:00:00+09:00</published><updated>2020-09-26T00:00:00+09:00</updated><id>http://localhost:4000/2020/09/26/alexnet</id><content type="html" xml:base="http://localhost:4000/2020/09/26/alexnet/">&lt;p&gt;“ImageNet Classification with Deep Convolutional Neural Networks”의 저자 Alex Krizhevsky의 이름을 따서 network의  AlexNet이라는 명칭이 붙었다. ILSVRC-2012에서 top-5 test error를 15.3%를 기록 했으며, 26.2%었던 2등과 비교하여 무려 10%가 넘는 격차를 내고 우승했다. ReLU의 대유행을 만들어낸 의미 있는 모델이다.&lt;/p&gt;
+&lt;/ol&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Image Segmentation</summary></entry><entry><title type="html">[AlexNet] ImageNet Classification with Deep Convolutional Neural Networks Review</title><link href="https://hsoh0306.github.io//2020/09/26/alexnet/" rel="alternate" type="text/html" title="[AlexNet] ImageNet Classification with Deep Convolutional Neural Networks Review" /><published>2020-09-26T00:00:00+09:00</published><updated>2020-09-26T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/09/26/alexnet</id><content type="html" xml:base="https://hsoh0306.github.io//2020/09/26/alexnet/">&lt;h2 id=&quot;alexnet&quot;&gt;AlexNet&lt;/h2&gt;
+&lt;p&gt;“ImageNet Classification with Deep Convolutional Neural Networks”의 저자 Alex Krizhevsky의 이름을 따서 network의  AlexNet이라는 명칭이 붙었다. ILSVRC-2012에서 top-5 test error를 15.3%를 기록 했으며, 26.2%었던 2등과 비교하여 무려 10%가 넘는 격차를 내고 우승했다. ReLU의 대유행을 만들어낸 의미 있는 모델이다.&lt;/p&gt;
 
 &lt;h2 id=&quot;dataset&quot;&gt;Dataset&lt;/h2&gt;
 &lt;p&gt;ImageNet은 약 22000 가지의 class에 속하는 1500만개의 고해상도 이미지 데이터 셋이다. 데이터는 Amazon’s Mechanical Turk crowd-sourcing tool를 사용하여 사람이 labeling하여 수집된다고 한다. ILSVRC(ImageNet Large-Scale Visual Acception Challenge)에서는 ImageNet에서 약 1000장의 이미지를 가진 1000개의 class를 사용한다. 전체적으로 120만 장의 학습 이미지와 5만 장의 검증 이미지, 15만 장의 테스트 이미지가 있다. top-1과 top-5 error를 ImageNet에 보고하는데, 여기서 top-5 error는 모델이 가장 가능성이 높다고 출력한 5 개의 label에 대해서 정답이 없는 비율이다. 
@@ -1709,7 +1750,7 @@ The second form of data augmentation consists of altering the intensities of the
 
 &lt;p&gt;&lt;a href=&quot;https://dl.acm.org/doi/pdf/10.5555/2627435.2670313&quot;&gt;Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdinov, ‘Dropout: A Simple Way to Prevent Neural Networks from Overfitting’, vol.15, No.1, 2014&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://stats.stackexchange.com/questions/174295/what-does-the-term-saturating-nonlinearities-mean&quot;&gt;https://stats.stackexchange.com/questions/174295/what-does-the-term-saturating-nonlinearities-mean&lt;/a&gt;&lt;/p&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="AI" /><summary type="html">“ImageNet Classification with Deep Convolutional Neural Networks”의 저자 Alex Krizhevsky의 이름을 따서 network의 AlexNet이라는 명칭이 붙었다. ILSVRC-2012에서 top-5 test error를 15.3%를 기록 했으며, 26.2%었던 2등과 비교하여 무려 10%가 넘는 격차를 내고 우승했다. ReLU의 대유행을 만들어낸 의미 있는 모델이다.</summary></entry><entry><title type="html">Show Time 개인 정보 처리 방침</title><link href="http://localhost:4000/2020/04/22/showtime-policy/" rel="alternate" type="text/html" title="Show Time 개인 정보 처리 방침" /><published>2020-04-22T00:00:00+09:00</published><updated>2020-04-22T00:00:00+09:00</updated><id>http://localhost:4000/2020/04/22/showtime-policy</id><content type="html" xml:base="http://localhost:4000/2020/04/22/showtime-policy/">&lt;p&gt;&lt;strong&gt;1. 개인정보의 처리 목적&lt;/strong&gt; (‘https://hsoh0306.github.io/’이하 ‘Root Developer’) 은(는) 다음의 목적을 위하여 개인정보를 처리하고 있으며, 다음의 목적 이외의 용도로는 이용하지 않습니다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://stats.stackexchange.com/questions/174295/what-does-the-term-saturating-nonlinearities-mean&quot;&gt;https://stats.stackexchange.com/questions/174295/what-does-the-term-saturating-nonlinearities-mean&lt;/a&gt;&lt;/p&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="AI" /><summary type="html">AlexNet “ImageNet Classification with Deep Convolutional Neural Networks”의 저자 Alex Krizhevsky의 이름을 따서 network의 AlexNet이라는 명칭이 붙었다. ILSVRC-2012에서 top-5 test error를 15.3%를 기록 했으며, 26.2%었던 2등과 비교하여 무려 10%가 넘는 격차를 내고 우승했다. ReLU의 대유행을 만들어낸 의미 있는 모델이다.</summary></entry><entry><title type="html">Show Time 개인 정보 처리 방침</title><link href="https://hsoh0306.github.io//2020/04/22/showtime-policy/" rel="alternate" type="text/html" title="Show Time 개인 정보 처리 방침" /><published>2020-04-22T00:00:00+09:00</published><updated>2020-04-22T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/04/22/showtime-policy</id><content type="html" xml:base="https://hsoh0306.github.io//2020/04/22/showtime-policy/">&lt;p&gt;&lt;strong&gt;1. 개인정보의 처리 목적&lt;/strong&gt; (‘https://hsoh0306.github.io/’이하 ‘Root Developer’) 은(는) 다음의 목적을 위하여 개인정보를 처리하고 있으며, 다음의 목적 이외의 용도로는 이용하지 않습니다.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;고객 가입의사 확인, 고객에 대한 서비스 제공에 따른 본인 식별.인증, 회원자격 유지.관리, 물품 또는 서비스 공급에 따른 금액 결제, 물품 또는 서비스의 공급.배송 등&lt;/li&gt;
 &lt;/ul&gt;

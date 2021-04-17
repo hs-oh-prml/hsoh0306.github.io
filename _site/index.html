@@ -25,20 +25,20 @@ Powered by Hydejack v7.5.2 <https://qwtel.com/hydejack/>
   
 <!-- Begin Jekyll SEO tag v2.7.1 -->
 <title>Home | Develope Yourself</title>
-<meta name="generator" content="Jekyll v3.9.0" />
+<meta name="generator" content="Jekyll v4.2.0" />
 <meta property="og:title" content="Home" />
 <meta name="author" content="H.-S. Oh" />
 <meta property="og:locale" content="en" />
 <meta name="description" content="The official Hydejack blog. Version updates, example content and how-to guides on how to blog with Jekyll. Open index.html to edit this text." />
 <meta property="og:description" content="The official Hydejack blog. Version updates, example content and how-to guides on how to blog with Jekyll. Open index.html to edit this text." />
-<link rel="canonical" href="http://localhost:4000/" />
-<meta property="og:url" content="http://localhost:4000/" />
+<link rel="canonical" href="https://hsoh0306.github.io//" />
+<meta property="og:url" content="https://hsoh0306.github.io//" />
 <meta property="og:site_name" content="Develope Yourself" />
-<link rel="next" href="http://localhost:4000/page-2/" />
+<link rel="next" href="https://hsoh0306.github.io//page-2/" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Home" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/","author":{"@type":"Person","name":"H.-S. Oh"},"@type":"WebSite","headline":"Home","description":"The official Hydejack blog. Version updates, example content and how-to guides on how to blog with Jekyll. Open index.html to edit this text.","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/icons/icon.png"},"name":"H.-S. Oh"},"name":"Develope Yourself","@context":"https://schema.org"}</script>
+{"url":"https://hsoh0306.github.io//","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://hsoh0306.github.io//assets/icons/icon.png"},"name":"H.-S. Oh"},"author":{"@type":"Person","name":"H.-S. Oh"},"@type":"WebSite","headline":"Home","description":"The official Hydejack blog. Version updates, example content and how-to guides on how to blog with Jekyll. Open index.html to edit this text.","name":"Develope Yourself","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -64,11 +64,11 @@ Powered by Hydejack v7.5.2 <https://qwtel.com/hydejack/>
 
 <meta name="generator" content="Hydejack v7.5.2">
 
-<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Develope Yourself" />
+<link type="application/atom+xml" rel="alternate" href="https://hsoh0306.github.io//feed.xml" title="Develope Yourself" />
 
 
 
-<link rel="alternate" href="http://localhost:4000/" hreflang="en">
+<link rel="alternate" href="https://hsoh0306.github.io//" hreflang="en">
 
 <link rel="shortcut icon" href="/assets/icons/favicon.ico">
 <link rel="apple-touch-icon" href="/assets/icons/icon.png">
@@ -250,7 +250,6 @@ on <a href="/tag/computer-vision/" class="flip-title">Computer Vision</a>
   
     <p>강의자료에 재밌어 보이는 내용이 있어서 따로 포스팅한다. 사람의 피부색은 인종에 상관 없이 일정한 범위 내에 값을 가져서 색을 이용하여 피부색을 검출 할 수 있다고 한다. “Human Skin Detection Using RGB, HSV and YCbCr Color Models”는 색을 이용하여 사람의 피부를 검출하는 것을 연구한 논문이다. 기계학습을 이용하지 않고 threshold를 이용한 방법으로, 여러 color space를 조합한 방법을 제시했다. 구현하기 전에 Color space에 대해 간략하게 알아보자.</p>
 
-
     
     
     <footer>
@@ -270,7 +269,7 @@ on <a href="/tag/computer-vision/" class="flip-title">Computer Vision</a>
   <header>
     <h1 class="post-title">
       <a href="/2020/11/06/cv-noise/" class="flip-title">
-        Noise
+        Noise&Convolution
       </a>
     </h1>
 
@@ -317,14 +316,14 @@ on <a href="/tag/computer-vision/" class="flip-title">Computer Vision</a>
   </header>
 
   
-    <p>디지털 영상에서 noise는 영상을 왜곡하여 특징을 추출하는 것을 방해한다.</p>
-
+    <h3 id="noise">Noise</h3>
+<p>디지털 영상에서 noise는 영상을 왜곡하여 특징을 추출하는 것을 방해한다.</p>
 
     
     
     <footer>
       <p class="read-more">
-        Continue reading <a class="heading flip-title" href="/2020/11/06/cv-noise/">Noise</a>
+        Continue reading <a class="heading flip-title" href="/2020/11/06/cv-noise/">Noise&Convolution</a>
 
       </p>
     </footer>
@@ -386,8 +385,8 @@ on <a href="/tag/computer-vision/" class="flip-title">Computer Vision</a>
   </header>
 
   
-    <p>대비(Contrast)</p>
-
+    <h3 id="contrast">Contrast</h3>
+<p>대비(Contrast)</p>
 
     
     
@@ -408,7 +407,7 @@ on <a href="/tag/computer-vision/" class="flip-title">Computer Vision</a>
   <header>
     <h1 class="post-title">
       <a href="/2020/10/25/cv-point-processing/" class="flip-title">
-        Point Processing
+        Point Processing: Arithmetic processing&Power-law transformation
       </a>
     </h1>
 
@@ -455,19 +454,19 @@ on <a href="/tag/computer-vision/" class="flip-title">Computer Vision</a>
   </header>
 
   
-    <p>\(G(x,y)=T(f(x,y))\)</p>
+    <h3 id="point-processing">Point Processing</h3>
+<p>\(G(x,y)=T(f(x,y))\)</p>
 <ul>
   <li>\(G()\): 결과 값</li>
   <li>\(T()\): 변환 함수</li>
   <li>\(f(x,y)\):  (x,y) 위치의 픽셀 값</li>
 </ul>
 
-
     
     
     <footer>
       <p class="read-more">
-        Continue reading <a class="heading flip-title" href="/2020/10/25/cv-point-processing/">Point Processing</a>
+        Continue reading <a class="heading flip-title" href="/2020/10/25/cv-point-processing/">Point Processing: Arithmetic processing&Power-law transformation</a>
 
       </p>
     </footer>
@@ -482,7 +481,7 @@ on <a href="/tag/computer-vision/" class="flip-title">Computer Vision</a>
   <header>
     <h1 class="post-title">
       <a href="/2020/10/25/cv-color-histogram/" class="flip-title">
-        Basic Techinques in Digital Image Processing
+        Color&Histogram
       </a>
     </h1>
 
@@ -529,7 +528,8 @@ on <a href="/tag/computer-vision/" class="flip-title">Computer Vision</a>
   </header>
 
   
-    <ul>
+    <h3 id="basic-techinques-in-digital-image-processing">Basic Techinques in Digital Image Processing</h3>
+<ul>
   <li>Image Representation&amp;Storage</li>
   <li>Image Enhancement&amp;Filtering
     <ul>
@@ -545,12 +545,11 @@ on <a href="/tag/computer-vision/" class="flip-title">Computer Vision</a>
   </li>
 </ul>
 
-
     
     
     <footer>
       <p class="read-more">
-        Continue reading <a class="heading flip-title" href="/2020/10/25/cv-color-histogram/">Basic Techinques in Digital Image Processing</a>
+        Continue reading <a class="heading flip-title" href="/2020/10/25/cv-color-histogram/">Color&Histogram</a>
 
       </p>
     </footer>

@@ -1,0 +1,397 @@
+I"�9<h2 id="texture">Texture</h2>
+<ul>
+  <li>Texture는 이미지를 interest region으로 나누고 그런 region을 classify하기 위해 사용되는 feature다.</li>
+  <li>Texture는 이미지의 color 또는 intensity의 공간적 정보를 제공한다.</li>
+  <li>Texture는 인접 pixel들의 intensity level의 공간 분포로 특징된다.</li>
+  <li>Texture는 이미지 intensity에서 local variation의 반복되는 pattern이다. 따라서 point에서 정의될 수 없다.</li>
+</ul>
+
+<h3 id="approach">Approach</h3>
+<ol>
+  <li>Structural: texture는 규칙적이고 반복적인 primitive texel의 set이다.</li>
+  <li>Statistical: texture는 region에서 intensity arrangement의 정량적인 measure이다. 이런 측정의 집합을 feature vector라고 부른다.</li>
+  <li>Modeling: texture modeling 기술은 특정 texture를 구축하는 모델을 포함한다.</li>
+</ol>
+
+<h4 id="aspects-of-texture">Aspects of Texture</h4>
+<ul>
+  <li>Size/Granularity</li>
+  <li>Directionality/Orientation</li>
+  <li>Random or regular</li>
+</ul>
+
+<h4 id="structural-approach-to-texture">Structural Approach to Texture</h4>
+<ul>
+  <li>Texel을 정의해야함
+    <ul>
+      <li>real image에서 texel을 정의하고 추출하는 것이 어렵거나 불가능함</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="statistical-approach-to-texture">Statistical Approach to Texture</h4>
+<ul>
+  <li>gray-scale intensity(or color)에서 통계적 측정으로 texture를 characterize한다.</li>
+  <li>직관적이지 않지만, 모든 이미지에서 적용이 가능하고, 연산이 효율적이다.</li>
+  <li>classification이나 segmentation에서도 모두 사용할 수 있다.</li>
+</ul>
+
+<h4 id="texture-analysis">Texture Analysis</h4>
+<ul>
+  <li>Texture segmentation
+  이미지 내에서 다양한 texture region사이의 boundary를 자동으로 결정</li>
+  <li>Texture classification
+  주어진 texture class로 이미지 내의 texture region을 identifying</li>
+</ul>
+
+<h2 id="simple-statistical-texture-measure">Simple Statistical Texture Measure</h2>
+
+<h4 id="range">Range</h4>
+<p>One of the simplest of the texture operator is the range or difference between maximum and minimum intensity values in a neighbor</p>
+
+<p>인접 pixel사이에서 최대 값과 최소 값 차이 계산</p>
+<ul>
+  <li>The range operator converts the original image to one in which brightness represents texture</li>
+</ul>
+
+<h4 id="variance">Variance</h4>
+<p>Another estimator of texture is the variance in neighborhood regions</p>
+
+<p>중심 pixel과 인접 pixel 사이의 차이의 합 계산</p>
+
+<ul>
+  <li>This is the sum of the squares of the differences between the intensity of the central pixel and its neighbors</li>
+</ul>
+
+<h3 id="quantitative-texture-measures">Quantitative Texture Measures</h3>
+<ol>
+  <li>Local Binary Pattern(LBP)</li>
+  <li>Gray Level Co-occurence(GLCM)</li>
+</ol>
+
+<h4 id="local-binary-patternlbp">Local Binary Pattern(LBP)</h4>
+<ul>
+  <li>For each pixel \(p\), create an 8-bit number \(b_1\) \(b_2\) \(b_3\) \(b_4\) \(b_5\) \(b_6\) \(b_7\) \(b_8\), where \(b_i = 0\) if neighbor \(i\) has value less than or equal to \(p\)’s value and 1 otherwise.</li>
+  <li>Represent the texture in the image (or a region) by the histogram of these numbers</li>
+</ul>
+
+<p>중심 pixel과 인접 픽셀간 대소 비교하여 8-bit에 저장 크면 1, 작거나 같으면 0을 표기</p>
+
+<p>Rotation invariant하여 10 level로 하는 방법도 있음</p>
+
+<h4 id="gray-level-co-occurrenceglcm">Gray Level Co-occurrence(GLCM)</h4>
+<ul>
+  <li>The statistical measures described so far are easy to calculate, but do not provide any information about the repeating nature of texture.</li>
+  <li>A gray level co-occurrence matrix(GLCM) contains information about the positions of pixels having similar gray level values.</li>
+</ul>
+
+<p>통계적 측정은 계산이 쉽지만, 반복되는 texture 본질에 대한 정보는 제공하지 않는다.</p>
+
+<p>GLCM은 similar gray level value를 가지는 pixel의 좌표 정보도 포함한다.</p>
+
+<p>A co-occurrence matrix is a two-dimensional array, P, in which both the rows and the columns represent a set of possible image values</p>
+
+<ul>
+  <li>
+    <p>A GLCM \(P_d[i,j]\) is defined by first specifying a displacement vector \(d=(dx,dy)\) and counting all pairs of pixels separated by d having gray levels \(i\) and \(j\).</p>
+  </li>
+  <li>
+    <p>The GLCM is defined by: \(P_d[i,j] = n_{ij}\)</p>
+
+    <ul>
+      <li>\(n_{ij}\) is the number of occurrences of the pixel values \((i,j)\) lying at distance \(d\) in the image</li>
+      <li>The co-occurrence matrix \(P_d\)has dimension n×n, where n is the number of gray levels in the image</li>
+    </ul>
+  </li>
+</ul>
+
+<p>displacement vector \(d=(dx,dy)\)를 정의하고, 모든 pair를 counting한다.</p>
+
+<h5 id="algorithm">Algorithm</h5>
+<ol>
+  <li>Count all pairs of pixels in which the first pixel has a value \(i\), and its matching pair displaced from the first pixel by d has a value of \(j\)</li>
+  <li>This count is entered in the ith row and jth column of the matrix \(P_d[i,j]\)</li>
+  <li>Note that \(P_d[i,j]\) is not symmetric, since the number of pairs of pixels having gray levels \([i,j]\) does not necessarily equal the number of pixel pairs having gray levels \([j,i]\)</li>
+</ol>
+
+<h4 id="normalized-glcm">Normalized GLCM</h4>
+<p>The elements of \(P_d[i,j]\) can be normalized by dividing each entry by the total number of pixel pairs</p>
+<ul>
+  <li>
+    <p>Normalized GLCM, \(N[i,j]\) is defined by:</p>
+
+\[N[i,j]= {P[i,j] \over \sum_i \sum_j  P[i,j]}\]
+  </li>
+  <li>
+    <p>It normalizes the co-occurrence values to lie between 0 and 1, and allows them to be thought of as probabilites</p>
+  </li>
+</ul>
+
+<h4 id="numeric-features-of-glcm">Numeric Features of GLCM</h4>
+<ul>
+  <li>Gray level co-occurrence matrices capture properties of a texture but they are not directly useful for further analysis, such as the comparison of two textures</li>
+  <li>Numeric features are computed from the occurrence matrix that can be used to represent the texture more compactly
+    <ul>
+      <li>Maximum probability</li>
+      <li>Moments</li>
+      <li>Contrast</li>
+      <li>Homogeneity</li>
+      <li>Entropy</li>
+      <li>Correlation</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="maximum-probability">Maximum Probability</h5>
+<ul>
+  <li>This is simply the largest entry in the matrix, and corresponds to the strongest response
+    <ul>
+      <li>This could be the maximum in any of the matrices or the maximum overall</li>
+      <li>
+\[C_m=\max_{i,j} P_d[i,j]\]
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="moments">Moments</h5>
+<ul>
+  <li>The order k element difference moment can be defined as:
+    <ul>
+      <li>
+\[MOM_k = \sum_i \sum_j (i-j)^k P_d[i,j]\]
+      </li>
+    </ul>
+  </li>
+  <li>This descriptor has small values in cases where the largest elements in \(P\) are along the principal diagonal. The opposite effect can be achieved using the inverse moment
+    <ul>
+      <li>
+\[MOM_k = \sum_i \sum_j {P_d[i,j] \over (i-j)^k}, i \neq j\]
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="contrast">Contrast</h5>
+<ul>
+  <li>
+    <p>Contrast is a measure of the local variations present in an image</p>
+
+    <ul>
+      <li>
+\[MOM_k = \sum_i \sum_j (i-j)^k P_d[i,j]^n\]
+      </li>
+      <li>If there is a large amount of variation in an image the P[i,j]’s will be concentrated away from the main diagonal and contrast will be high</li>
+      <li>Typically, \(k=2\) and \(n=1\)</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="homogeneity">Homogeneity</h5>
+<ul>
+  <li>A homogeneous image will result in a co-occurrence matrix with a combination of high and low \(P[i,j]\)’s
+    <ul>
+      <li>
+\[C_h = \sum_i \sum_j {P_d{i,j} \over 1 + \|i-j\|}\]
+      </li>
+      <li>Where the range of gray levels is small, the P[i,j] will tend to be clustered around the main diagonal</li>
+      <li>A heterogeneous image will result in an even spread of \(P[i,j]\)’s</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="entrophy">Entrophy</h5>
+<ul>
+  <li>Entropy is a measure of information content</li>
+  <li>It measures the randomness of intensity distribution
+    <ul>
+      <li>
+\[C_e = - \sum_i \sum_j P_d[i, j]ln P_d[i,j]\]
+      </li>
+    </ul>
+  </li>
+  <li>Entropy is highest when all entries in \(P[i,j]\) are of similar magnitude, and small when the entries in \(P[i,j]\) are unequal</li>
+</ul>
+
+<h5 id="correlation">Correlation</h5>
+<ul>
+  <li>Correlation is a measure of image linearity
+    <ul>
+      <li>
+\[C_e = {\sum_i \sum_j ij P_d[i,j] - \mu_i \mu_j \over \sigma_i \sigma_j}, \mu_i = \sum i P_d[i,j], \sigma_i^2= \sum i^2 P_d[i,j] - \mu_i^2\]
+      </li>
+    </ul>
+  </li>
+  <li>Correlation will be high if an image contains a considerable amount of linear structure</li>
+</ul>
+
+<h4 id="problem-with-glcm">Problem with GLCM</h4>
+<ul>
+  <li>
+    <p>One problem with deriving texture measures from co-occurrence matrices is how to choose the displacement vector \(d\)</p>
+
+    <ul>
+      <li>The choice of the displacement vector is an important parameter in the definition of the GLCM</li>
+      <li>Occasionally the GLCM is computed from several values of d and the one which maximizes a statistical measure computed from \(P[i,j]\) is used</li>
+      <li>
+        <p>Zucker and Terzopoulos used a \(\chi^2\) measure to select the values of d that have the most structure, i.e., to maximize the value</p>
+
+        <ul>
+          <li>
+\[\chi^2(d)= \sum_i \sum_j {P_d^2[i,j] \over P_d[i] P_d[j]} - 1\]
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="edges-and-texture">Edges and Texture</h3>
+<ul>
+  <li>It should be possible to locate the edges that result from the intensity transitions along the boundary of the texture
+    <ul>
+      <li>Since a texture will have large numbers of texels, there should be a property of the edge pixels that can be used to characterize the texture</li>
+    </ul>
+  </li>
+  <li>Compute the co-occurrence matrix of an edge-enhanced image</li>
+  <li>Edge Density and Direction</li>
+  <li>Use an edge detector as the first step in texture analysis</li>
+  <li>The number of edge pixels in a fixed-size region tells us how busy that region is</li>
+  <li>The directions of the edges also help characterize the texture</li>
+</ul>
+
+<h4 id="two-edge-based-texture-measures">Two Edge-based Texture Measures</h4>
+<ol>
+  <li>
+    <p>Edgeness per unit area for a region R</p>
+
+    <ul>
+      <li>
+\[Fedgeness = \|{ p \| gradient_magnitude(p) ≥ threshold} \| / N\]
+      </li>
+      <li>N is the size of the unit area</li>
+    </ul>
+  </li>
+  <li>
+    <p>Histograms of edge magnitude and direction for a region R</p>
+    <ul>
+      <li>
+\[F_magdir = ( H_magnitude, H_direction )\]
+      </li>
+      <li>These are the normalized histograms of gradient magnitudes and gradient directions, respectively</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="energy-and-texture">Energy and Texture</h4>
+<ul>
+  <li>One approach to generate texture features is to use local kernels to detect various types of texture</li>
+  <li>Laws developed a texture-energy approach that measures the amount of variation within a fixed size window</li>
+</ul>
+
+<h4 id="laws-texture-energy">Law’s Texture Energy</h4>
+<ul>
+  <li>Filter the input image using texture filters</li>
+  <li>Compute texture energy by summing the absolute value of filtering results in local neighborhoods around each pixel</li>
+  <li>Combine features to achieve rotational invariance</li>
+</ul>
+
+<p>-A set of convolution mask are used to compute texture energy</p>
+<ul>
+  <li>The mask are computed from the following basic mask
+    <ul>
+      <li>L5 (Gaussian) gives a center-weighted local average
+        <ul>
+          <li>
+\[L5 = [1,4,6,4,2]\]
+          </li>
+        </ul>
+      </li>
+      <li>E5 (gradient) responds to row or col step edges
+        <ul>
+          <li>
+\[E5 = [-1,-2,0,2,1]\]
+          </li>
+        </ul>
+      </li>
+      <li>S5 (LoG) detectss spots
+        <ul>
+          <li>
+\[S5 = [-1,0,2,0,-1]\]
+          </li>
+        </ul>
+      </li>
+      <li>R5 (Gabor) detects ripples
+        <ul>
+          <li>
+\[R5 = [1,-4,6,-4,1]\]
+          </li>
+        </ul>
+      </li>
+      <li>W5(wave) detects waves
+        <ul>
+          <li>
+\[W5 = [-1,2,0,-2,1]\]
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>The 2D convolution mask are obtained by computing the outer product of a pair of vectors
+    <ul>
+      <li>For example, E5L5 is computed as the product of E5 and L5 as follows</li>
+    </ul>
+  </li>
+  <li>Bias from the “directionality” of textures can be removed by combining symmetric pairs of features, making them rotationally invariant
+    <ul>
+      <li>For example, S5L5 (H) + L5S5 (V) = L5S5R</li>
+    </ul>
+  </li>
+  <li>After the convolution with the specified mask, the texture energy measure (TEM) is computed by summing the absolute values in a local neighborhood
+    <ul>
+      <li>
+\[L_e = \sum_{i=1}^m \sum_{j=1}^n \|C(i,j)\|\]
+      </li>
+    </ul>
+  </li>
+  <li>If n masks are applied, the result is an n-dimensional feature vector at each pixel of the image being analyzed</li>
+</ul>
+
+<h4 id="algorithm-1">Algorithm</h4>
+<ol>
+  <li>Apply convolution masks</li>
+  <li>Calculate the texture energy measure (TEM) at each pixel. This is achieved by summing the absolute values in a local neighborhood</li>
+  <li>Normalize features – use L5L5 to normalize the TEM image</li>
+</ol>
+
+<ul>
+  <li>Subtract mean neighborhood intensity from pixel (to reduce illumination effects)</li>
+  <li>Filter the neighborhood with 16 masks</li>
+  <li>Compute energy at each pixel by summing absolute value of filter output across neighborhood around pixel</li>
+  <li>Define 9 features as follows (replace each pair with average)</li>
+  <li>L5E5 / E5L5, L5R5 / R5L5</li>
+  <li>E5S5 / S5E5, L5S5 / S5L5</li>
+  <li>E5R5 / R5E5, S5R5 / S5R5</li>
+  <li>R5R5, S5S5, E5E5</li>
+</ul>
+
+<h3 id="autocorrelation-for-texture">Autocorrelation for texture</h3>
+<ul>
+  <li>Autocorrelation function computes the dot product (energy) of original image with shifted image for different shifts
+    <ul>
+      <li>
+\[\rho (dr, dc) = {\sum_i \sum_j I[i, j]I[i+dr, j+dc] \over \sum_i \sum_j I^2[i, j]}= {I[i, j] \circ I_d[i ,j] \over I[i, j] \circ I[i, j]}\]
+      </li>
+    </ul>
+  </li>
+  <li>It can detect repetitive patterns of texels</li>
+  <li>
+    <p>Also it can captures fineness/coarseness of the texture</p>
+  </li>
+  <li>Regular textures : function will have peaks and valleys</li>
+  <li>Random textures: only peak at [0,0] and breadth of peak gives the size of the texture</li>
+  <li>Coarse texture: function drops off slowly</li>
+  <li>Fine texture : function drops off rapidly</li>
+  <li>Can drop differently for row and column</li>
+</ul>
+:ET

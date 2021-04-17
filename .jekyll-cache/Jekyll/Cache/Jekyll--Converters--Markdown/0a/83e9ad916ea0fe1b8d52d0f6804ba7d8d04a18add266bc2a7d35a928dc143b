@@ -1,0 +1,17 @@
+I"þ<h3 id="basic-techinques-in-digital-image-processing">Basic Techinques in Digital Image Processing</h3>
+<ul>
+  <li>Image Representation&amp;Storage</li>
+  <li>Image Enhancement&amp;Filtering
+    <ul>
+      <li>Contrast stretching, smoothing, sharpening</li>
+    </ul>
+  </li>
+  <li>Feature Extraction
+    <ul>
+      <li>Color: color space, histogram</li>
+      <li>Texture: Wavelet transformation, Discrete cosine transformation</li>
+      <li>Shape: Edge detector, HOG, SIFT/SURF</li>
+    </ul>
+  </li>
+</ul>
+:ET

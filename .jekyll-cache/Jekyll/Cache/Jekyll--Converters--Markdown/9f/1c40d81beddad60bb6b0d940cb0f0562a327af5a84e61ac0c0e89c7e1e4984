@@ -1,0 +1,8 @@
+I"�<h2 id="texture">Texture</h2>
+<ul>
+  <li>Texture는 이미지를 interest region으로 나누고 그런 region을 classify하기 위해 사용되는 feature다.</li>
+  <li>Texture는 이미지의 color 또는 intensity의 공간적 정보를 제공한다.</li>
+  <li>Texture는 인접 pixel들의 intensity level의 공간 분포로 특징된다.</li>
+  <li>Texture는 이미지 intensity에서 local variation의 반복되는 pattern이다. 따라서 point에서 정의될 수 없다.</li>
+</ul>
+:ET

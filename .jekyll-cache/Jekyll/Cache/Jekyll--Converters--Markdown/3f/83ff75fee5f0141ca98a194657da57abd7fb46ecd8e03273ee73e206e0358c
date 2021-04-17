@@ -1,0 +1,147 @@
+I"L?<h3 id="noise">Noise</h3>
+<p>디지털 영상에서 noise는 영상을 왜곡하여 특징을 추출하는 것을 방해한다.</p>
+
+<h4 id="common-types-of-noise">Common types of noise</h4>
+<ul>
+  <li>Salt and pepper noise: 무작위적인 희고 검은 점이 나타난다.</li>
+  <li>Impulse noise: 의도하지 않게 다양한 이유로 신호가 튀어 발생하며 흰 점으로 나타난다.</li>
+  <li>Guassian noise: 정규 분포와 동일한 확률 밀도 함수를 갖는 통계 noise</li>
+</ul>
+
+<center>
+<img src="/assets/img/noise_ex.png" />
+</center>
+
+<h3 id="filtering-operations-using-masks">Filtering Operations using masks</h3>
+<ul>
+  <li>Mask는 이웃 pixel과 연산한다.</li>
+  <li>pixel을 중심으로 mask가 만들어진다.</li>
+  <li>mask의 coefficient는 픽셀의 값과 곱하고, 그들의 합을 반환한다.</li>
+  <li>결과는 출력 이미지의 해당 픽셀 위치에 놓는다.</li>
+</ul>
+
+<center>
+<img src="/assets/img/convolution.png" />
+</center>
+
+<h3 id="convolution">Convolution</h3>
+<blockquote>
+  <p>A convolution operation is a cross-correlation where the filter is flipped both horizontally and vertically before being applied to the image.</p>
+</blockquote>
+
+\[\begin{aligned}
+G[i, j] = \sum_{u=-k}^{k} \sum_{v=-k}^{k} {H[u, v]F[i-u, j-u]} \\
+G = H*F
+\end{aligned}\]
+
+<h4 id="kernel-convolution-mask-window-filter">Kernel (Convolution mask, window, filter)</h4>
+<p>가중치에 따라 다른 결과를 생성한다.</p>
+<ul>
+  <li>convolution mask의 합: 1 -&gt;  same average intensity as the original image</li>
+  <li>convolution mask의 합: 0 -&gt;  edge detector</li>
+</ul>
+
+<p>영상 스무딩(smoothing), 강화(enhancement), 엣지 검출(edge detection) 등의 효과에 사용</p>
+
+<ul>
+  <li>Mean filter: 필터 내의 값들을 평균 내어 계산</li>
+  <li>Gaussian filter: 가우시안 함수로 coefficient 계산</li>
+  <li>Median filter: 중간 값을 찾아서 출력</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="k">def</span> <span class="nf">convolution</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">kernel</span><span class="p">):</span>
+    <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">src</span><span class="p">.</span><span class="n">shape</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="n">kernel_size</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">.</span><span class="n">shape</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span> <span class="o">-</span> <span class="p">(</span><span class="n">kernel_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width</span> <span class="o">-</span> <span class="p">(</span><span class="n">kernel_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)):</span>
+
+            <span class="n">out</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">):</span>
+                    <span class="n">out</span> <span class="o">=</span> <span class="n">out</span> <span class="o">+</span> <span class="p">(</span><span class="n">kernel</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">l</span><span class="p">]</span> <span class="o">*</span> <span class="n">src</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">k</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="n">l</span><span class="p">])</span>
+
+            <span class="n">res</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">out</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+<span class="n">saltpepper_noise</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'saltpepper_noise.jpg'</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+<span class="n">gaussian_noise</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'gaussian_noise.jpg'</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+
+<span class="n">mean3x3</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">9</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">9</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">9</span><span class="p">]</span>
+<span class="p">])</span>
+<span class="n">gaussian3x3</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span> <span class="mi">2</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">16</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">2</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span> <span class="mi">4</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span> <span class="mi">2</span><span class="o">/</span><span class="mi">16</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span> <span class="mi">2</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">16</span><span class="p">]</span>
+<span class="p">])</span>
+
+<span class="n">mean_saltpepper_result</span> <span class="o">=</span> <span class="n">convolution</span><span class="p">(</span><span class="n">saltpepper_noise</span><span class="p">,</span> <span class="n">mean3x3</span><span class="p">)</span>
+<span class="n">gaussian_saltpepper_result</span> <span class="o">=</span> <span class="n">convolution</span><span class="p">(</span><span class="n">saltpepper_noise</span><span class="p">,</span> <span class="n">gaussian3x3</span><span class="p">)</span>
+
+<span class="n">mean_gaussian_result</span> <span class="o">=</span> <span class="n">convolution</span><span class="p">(</span><span class="n">gaussian_noise</span><span class="p">,</span> <span class="n">mean3x3</span><span class="p">)</span>
+<span class="n">gaussian_gaussian_result</span> <span class="o">=</span> <span class="n">convolution</span><span class="p">(</span><span class="n">gaussian_noise</span><span class="p">,</span> <span class="n">gaussian3x3</span><span class="p">)</span>
+
+<span class="c1"># Opencv Convolution
+# mean_saltpepper_result = cv2.filter2D(saltpepper_noise, -1, mean3x3)
+# gaussian_saltpepper_result = cv2.filter2D(saltpepper_noise, -1, gaussian3x3)
+</span>
+<span class="c1"># mean_gaussian_result = cv2.filter2D(gaussian_noise, -1, mean3x3)
+# gaussian_gaussian_result = cv2.filter2D(gaussian_noise, -1, gaussian3x3)
+</span>
+<span class="n">img_list</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s">"Salt&amp;Pepper noise"</span><span class="p">,</span><span class="n">saltpepper_noise</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">"Gaussian noise"</span><span class="p">,</span> <span class="n">gaussian_noise</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">"Salt&amp;Pepper noise&amp;Mean fileter"</span><span class="p">,</span> <span class="n">mean_saltpepper_result</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">"Gaussian noise&amp;Mean fileter"</span><span class="p">,</span> <span class="n">mean_gaussian_result</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">"Salt&amp;Pepper noise&amp;Gaussian filter"</span><span class="p">,</span> <span class="n">gaussian_saltpepper_result</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">"Gaussian noise&amp;Gaussian filter"</span><span class="p">,</span> <span class="n">gaussian_gaussian_result</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="c1">## putText Info
+</span><span class="n">textsize</span> <span class="o">=</span> <span class="mf">0.65</span>
+<span class="n">font_color</span> <span class="o">=</span> <span class="mi">255</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">thickness</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">res_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">img_list</span><span class="p">:</span>
+    <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">shape</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span> <span class="n">width</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="p">.</span><span class="n">putText</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> 
+    <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">pos</span><span class="p">,</span> 
+    <span class="n">cv2</span><span class="p">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span> 
+    <span class="n">textsize</span><span class="p">,</span> 
+    <span class="n">font_color</span><span class="p">,</span> 
+    <span class="n">thickness</span><span class="p">,</span> 
+    <span class="n">cv2</span><span class="p">.</span><span class="n">LINE_AA</span><span class="p">)</span>
+    <span class="n">res_list</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">cv2</span><span class="p">.</span><span class="n">vconcat</span><span class="p">([</span><span class="n">title</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]]))</span>
+    
+<span class="n">col1</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">vconcat</span><span class="p">([</span><span class="n">res_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">res_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">col2</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">vconcat</span><span class="p">([</span><span class="n">res_list</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">res_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+<span class="n">col3</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">vconcat</span><span class="p">([</span><span class="n">res_list</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">res_list</span><span class="p">[</span><span class="mi">5</span><span class="p">]])</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">hconcat</span><span class="p">([</span><span class="n">col1</span><span class="p">,</span> <span class="n">col2</span><span class="p">,</span> <span class="n">col3</span><span class="p">])</span>
+
+<span class="n">cv2</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="s">'smoothing'</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+<span class="n">cv2</span><span class="p">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s">'smoothing.jpg'</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+<span class="c1"># cv2.imwrite('smoothing_opencv.jpg', result)
+</span><span class="n">cv2</span><span class="p">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cv2</span><span class="p">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>간단하게 convolution을 구현하고 3x3 크기의 mean filter와 gaussian filter를 구현해보았다. 물론 opencv에서 convolution함수뿐만 아니라 다양한 blur함수를 제공하고 있다.</p>
+
+<center>
+<img src="/assets/img/smoothing.jpg" />
+</center>
+
+<p>color image에 대해서는, RGB일 경우 R, G, B 각 채널에 대하여 convolution을 하면 되고, HSI는 intensity에 대해 convolution하면 된다.</p>
+:ET

@@ -1,0 +1,167 @@
+I"lG<h3 id="point-processing">Point Processing</h3>
+<p>\(G(x,y)=T(f(x,y))\)</p>
+<ul>
+  <li>\(G()\): 결과 값</li>
+  <li>\(T()\): 변환 함수</li>
+  <li>\(f(x,y)\):  (x,y) 위치의 픽셀 값</li>
+</ul>
+
+<p>모든 픽셀에 대하여 수행하지만, 공간적인 정보를 사용하지 않음</p>
+
+<p>Simple gray level transformation</p>
+<ul>
+  <li>Image negative</li>
+  <li>Log transformation</li>
+  <li>Power-law transformation</li>
+  <li>Thresholding</li>
+  <li>Gray-level slicing, Bit-plane slicing</li>
+  <li>Contrast stretching</li>
+</ul>
+
+<p>Histogram processing</p>
+<ul>
+  <li>Histogram equalization</li>
+</ul>
+
+<h3 id="basic-point-processing">Basic Point Processing</h3>
+<center>
+<img src="/assets/img/point_processing.png" />
+</center>
+
+<p>Point Processing의 기본</p>
+<ul>
+  <li>Negative: 반전</li>
+  <li>Log&amp;Inverse log: Log 함수 이용</li>
+  <li>Root&amp;Power: 지수 함수 이용</li>
+  <li>Identity: 원본</li>
+</ul>
+
+<p>Arithmetic/logic operation</p>
+<ul>
+  <li>+, -: 영상의 밝기를 밝게 하거나 어둡게 한다.</li>
+  <li>/, *: 영상의 명암 대비를 높이거나 낮춘다.</li>
+</ul>
+
+<center>
+<img src="/assets/img/arithmetic_result.jpg" />
+</center>
+
+<ul>
+  <li>왼쪽부터 원본, +100, -100, x1.5, /2</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">cv2</span>
+
+<span class="k">def</span> <span class="nf">plus</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>               <span class="c1"># +, - 연산 함수
+</span>    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">arr</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="o">+</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>       <span class="c1"># 언더플로일 경우 0으로
+</span>                <span class="n">img</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">elif</span> <span class="n">v</span> <span class="o">+</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="mi">255</span><span class="p">:</span>   <span class="c1"># 오버플로일 경우 255로
+</span>                <span class="n">img</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span>
+            <span class="k">else</span><span class="p">:</span> 
+                <span class="n">img</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span> <span class="o">+</span> <span class="n">value</span>
+    <span class="k">return</span> <span class="n">img</span>
+
+<span class="k">def</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>           <span class="c1"># *, / 연산 함수
+</span>    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">arr</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="o">*</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="mi">255</span><span class="p">:</span>     <span class="c1"># 오버플로일 경우 255로
+</span>                <span class="n">img</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span>
+            <span class="k">else</span><span class="p">:</span> 
+                <span class="n">img</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span> <span class="o">*</span> <span class="n">value</span>
+    <span class="k">return</span> <span class="n">img</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'april.jpg'</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+<span class="n">pls</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'april.jpg'</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+<span class="n">mns</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'april.jpg'</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+<span class="n">mul</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'april.jpg'</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+<span class="n">div</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'april.jpg'</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+
+<span class="n">pls</span> <span class="o">=</span> <span class="n">plus</span><span class="p">(</span><span class="n">pls</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">mns</span> <span class="o">=</span> <span class="n">plus</span><span class="p">(</span><span class="n">mns</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">mul</span> <span class="o">=</span> <span class="n">multiply</span><span class="p">(</span><span class="n">mul</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
+<span class="n">div</span> <span class="o">=</span> <span class="n">multiply</span><span class="p">(</span><span class="n">div</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">res</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">hconcat</span><span class="p">([</span><span class="n">img</span><span class="p">,</span> <span class="n">pls</span><span class="p">,</span> <span class="n">mns</span><span class="p">,</span> <span class="n">mul</span><span class="p">,</span> <span class="n">div</span><span class="p">])</span>
+
+<span class="n">cv2</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="s">'arithmetic processing'</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+<span class="n">cv2</span><span class="p">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s">'arithmetic_result.jpg'</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+<span class="n">cv2</span><span class="p">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cv2</span><span class="p">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>이미지에서 산술 연산을 할 때, 오버플로랑 언더플로를 처리해줘야한다. 그렇지 않고</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pls</span> <span class="o">=</span> <span class="n">pls</span> <span class="o">+</span> <span class="mi">100</span>
+<span class="n">mns</span> <span class="o">=</span> <span class="n">mns</span> <span class="o">-</span> <span class="mi">100</span>
+<span class="n">mul</span> <span class="o">=</span> <span class="n">mul</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="n">div</span> <span class="o">=</span> <span class="n">div</span> <span class="o">//</span> <span class="mi">2</span>
+</code></pre></div></div>
+<p>단순하게 이렇게 짜면 다음과 같은 결과가 나온다.</p>
+
+<center>
+<img src="/assets/img/arithmetic_result_fail.jpg" />
+</center>
+
+<p>각 픽셀이 uint8 자료형으로 다루어지기 때문에 값이 255를 넘어가면 오버플로, 0 이하로 떨어지면 언더플로가 발생한다. 여기서는 간단하게 함수를 만들어서 실습했는데 opecv에서 산술 연산에 대한 함수를 제공한다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pls</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">pls</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">mns</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">mns</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">mul</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">mul</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
+<span class="n">div</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">divide</span><span class="p">(</span><span class="n">div</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>제공되는 함수를 사용하면 오버플로랑 언더플로에 대한 처리는 물론이고 속도도 직접 만든 함수보다 훨씬 빠르다.</p>
+
+<p>Power-Law Transformation</p>
+
+<p>Gamma Transformation이라고도 하며 지수함수를 이용한 point processing 기법이다.</p>
+
+<center>
+<img src="/assets/img/power_law_trans.png" />
+</center>
+
+<blockquote>
+  <center> $$s = cr^{\gamma}$$  </center>
+  <center> $$c = 1$$ </center>
+</blockquote>
+
+<p>power-law transformation을 하기 위해서 pixel의 값을 [0, 255]가 아닌 [0, 1]로 정규화한다. \(c\)는 1이고, \(\gamma\) 값은 변수다. \(\gamma\)가 1보다 크면 영상은 어두워지고, 1보다 작으면 영상은 밝아진다.</p>
+
+<center>
+<img src="/assets/img/power_law_result.jpg" />
+</center>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'cat.jpg'</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+
+<span class="n">hconcat</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">vconcat</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">gamma</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]:</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="mi">255</span><span class="o">*</span><span class="p">(</span><span class="n">img</span> <span class="o">/</span> <span class="mi">255</span><span class="p">)</span> <span class="o">**</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="s">'uint8'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">gamma</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">cv2</span><span class="p">.</span><span class="n">putText</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="s">"original"</span><span class="p">,</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">cv2</span><span class="p">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">LINE_AA</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">gamma</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">cv2</span><span class="p">.</span><span class="n">putText</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="s">"gamma: {}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">gamma</span><span class="p">),</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">cv2</span><span class="p">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">LINE_AA</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cv2</span><span class="p">.</span><span class="n">putText</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="s">"gamma: {}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">gamma</span><span class="p">),</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">cv2</span><span class="p">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">LINE_AA</span><span class="p">)</span>
+    <span class="n">vconcat</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vconcat</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> 
+        <span class="c1"># print(vconcat)
+</span>        <span class="n">temp</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">vconcat</span><span class="p">(</span><span class="n">vconcat</span><span class="p">)</span>
+        <span class="n">hconcat</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+        <span class="n">vconcat</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">hconcat</span><span class="p">(</span><span class="n">hconcat</span><span class="p">)</span>
+
+<span class="n">cv2</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="s">'image'</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+<span class="n">cv2</span><span class="p">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s">'power_law_result.jpg'</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+
+<span class="n">cv2</span><span class="p">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cv2</span><span class="p">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div></div>
+:ET
