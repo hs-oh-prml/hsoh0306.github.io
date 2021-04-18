@@ -2,8 +2,6 @@
 layout: post
 title: "Mid Level Image Feature: Texture"
 tags: [Computer Vision]
-
-use_math: true
 ---
 
 ## Texture 

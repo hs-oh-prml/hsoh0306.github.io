@@ -2,7 +2,6 @@
 layout: post
 title: "Region Segmentation"
 tags: [Computer Vision]
-use_math: true
 ---
 
 ## Image Segmentation

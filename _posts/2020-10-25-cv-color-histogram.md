@@ -2,8 +2,6 @@
 layout: post
 title: Color&Histogram
 tags: [Computer Vision]
-
-use_math: true
 ---
 
 ### Basic Techinques in Digital Image Processing

@@ -27,14 +27,11 @@ title:                 Develope Yourself
 # A short description (~150 chars) of the page used for the meta description tag.
 # Can use markdown, but no more than one paragraph (enforced by `>`)
 description:           >
-  A Jekyll theme with JavaScript powers. "Best Theme by a Mile".
-  Combines the best of static sites and modern web apps.
-  Open `_config.yml` to edit this text.
+  Blog for Study Note
 
 # A shorter description for the sidebar.
 tagline:               >
-  A Jekyll theme with JavaScript powers.
-  Open `_config.yml` to edit this text.
+  Blog for Study Note
 
 # A list of keywords for your blog
 keywords:              []
@@ -68,6 +65,14 @@ permalink:             pretty
 paginate:              5
 paginate_path:         /page-:num/
 
+defaults:
+  - 
+    scope: 
+      path: ""
+      type: "posts"
+    values: 
+      comments: true
+
 
 # Customizaton
 # ========================================================================================
@@ -95,7 +100,7 @@ font_heading:          Roboto Slab, Helvetica, Arial, sans-serif
 
 # Setting a disqus shortname will enable the comment section on
 # pages with `comments: true` in the front matter.
-# disqus:                <disqus_shortname>
+disqus:                hsoh0306
 
 # Setting a tinyletter username will enable the newsletter subscription box.
 # tinyletter:            <tinyletter_username>
