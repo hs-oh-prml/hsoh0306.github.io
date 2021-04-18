@@ -11,11 +11,9 @@ tags: [Computer Vision]
 RGB는 가장 널리 사용되고 있는 color model이다. 모든 색을 빨강(R), 초록(G), 파랑(B)의 합으로 표현하며, 디지털 이미지의 저장에 사용된다. 보통 하나의 color당 8-bit를 할당하며, [0, 255] 사이 값을 가진다. normalized RGB는 이를 [0, 1]로 정규화한 표현으로 다음과 같이 쓰면 된다.
 
 $$ 
-\begin{aligned}
 r = {R \over R + G + B} \\
 g = {G \over R + G + B} \\
 b = {B \over R + G + B}
-\end{aligned}
 $$
 
 <center>
@@ -26,11 +24,9 @@ $$
 YCbCr은 encoded non-linear RGB라고 한다. 압축할 때 많이 써서, TV 송신, 비디오,  JPEG, MPEG1, MPEG2, MPEG4 등에 사용된다. YCbCr에서 Y는 luminance, Cb는 blue값과 기준 값(Y)의 차이,  Cr은 red값과 기준 값(Y)의 차이를 나타낸다. 
 
 $$
-\begin{aligned}
 Y = 0.299R + 0.287G + 0.11B \\
 Cr = R - Y \\
 Cb = B - Y
-\end{aligned}
 $$
 
 <center>

@@ -1,0 +1,154 @@
+I"�C<p>강의자료에 재밌어 보이는 내용이 있어서 따로 포스팅한다. 사람의 피부색은 인종에 상관 없이 일정한 범위 내에 값을 가져서 색을 이용하여 피부색을 검출 할 수 있다고 한다. “Human Skin Detection Using RGB, HSV and YCbCr Color Models”는 색을 이용하여 사람의 피부를 검출하는 것을 연구한 논문이다. 기계학습을 이용하지 않고 threshold를 이용한 방법으로, 여러 color space를 조합한 방법을 제시했다. 구현하기 전에 Color space에 대해 간략하게 알아보자.</p>
+
+<h4 id="red-green-and-blue-rgb-color-model">Red, Green, and Blue (RGB) Color Model</h4>
+
+<p>RGB는 가장 널리 사용되고 있는 color model이다. 모든 색을 빨강(R), 초록(G), 파랑(B)의 합으로 표현하며, 디지털 이미지의 저장에 사용된다. 보통 하나의 color당 8-bit를 할당하며, [0, 255] 사이 값을 가진다. normalized RGB는 이를 [0, 1]로 정규화한 표현으로 다음과 같이 쓰면 된다.</p>
+
+\[\begin{aligned}
+r = {R \over R + G + B} \\
+g = {G \over R + G + B} \\
+b = {B \over R + G + B}
+\end{aligned}\]
+
+<center>
+<img src="/assets/img/rgb_model.jpg" />
+</center>
+
+<h4 id="ycbcr-luminance-chrominance-color-model">YCbCr (Luminance, Chrominance) Color Model</h4>
+<p>YCbCr은 encoded non-linear RGB라고 한다. 압축할 때 많이 써서, TV 송신, 비디오,  JPEG, MPEG1, MPEG2, MPEG4 등에 사용된다. YCbCr에서 Y는 luminance, Cb는 blue값과 기준 값(Y)의 차이,  Cr은 red값과 기준 값(Y)의 차이를 나타낸다.</p>
+
+\[\begin{aligned}
+Y = 0.299R + 0.287G + 0.11B 
+Cr = R - Y 
+Cb = B - Y
+\end{aligned}\]
+
+<center>
+<img src="/assets/img/ycbcr_model.jpg" />
+</center>
+
+<h4 id="hue-saturation-value-hsv-color-model">Hue Saturation Value (HSV) Color Model</h4>
+
+<p>HSV는 RGB보다 사람이 경험하는 색을 더 직관적으로 나타내는 model이다. HSV에서 H(Hue)는 [0, 1.0] 범위를 가지며 red, yellow, green, cyan, blue, magenta 그리고 다시 red를 나타낸다. S(Saturation)는 [0, 1.0]에 값을 가지면 색이 얼마나 saturate한지(0: gray, 1.0: no white componet)를 나타낸다.  V(Value)는 밝기 값을 의미하며 [0, 1.0]의 값을 가진다. H를 각도로 표현하여 [0, 360]도로 표현하는 방법도 있다. opencv에서는 HSV은 각각 H: [0, 180], S: [0, 255], V: [0, 255]로 표현된다.</p>
+
+<center>
+<img src="/assets/img/hsv_model.jpg" />
+</center>
+
+<h3 id="proposed-skin-detection-algorithm">Proposed Skin Detection Algorithm</h3>
+<p>논문에서는 skin color detection을 위한 2가지 방법을 제시했다. 하나는 ARGB와 HSV를 사용한 방법이고, 다른 하나는 ARGB와 YCbCr을 이용한 방법이다. ARGB는 RGB space에 투명도 A(alpha)를 추가한 model이다.</p>
+
+<pre>
+<code>
+ARGB&amp;HSV
+
+if (0.0 &lt;= H &lt;= 50.0 &amp; 0.23 &lt;= S &lt;= 0.68 
+    &amp; R &gt; 95 &amp; G &gt; 40 &amp; B &gt; 20 &amp; R &gt; G &amp; R &gt; B
+    &amp; | R - G | &gt; 15 &amp; A &gt; 15){
+    skin color
+    }
+else {
+    non-skin color
+}
+</code>
+</pre>
+
+<pre>
+<code>
+ARGB&amp;YCbCr
+
+if (R &gt; 95 &amp; G &gt; 40 &amp; B &gt; 20 &amp; R &gt; G &amp; R &gt; B
+    &amp; | R - G | &gt; 15 &amp; A &gt; 15 &amp; Cr &gt; 135 &amp;
+    Cb &gt; 85 &amp; Y &gt; 80 &amp; Cr &lt;= (1.5862*Cb)+20 &amp;
+    Cr&gt;=(0.3448*Cb)+76.2069 &amp;
+    Cr &gt;= (-4.5652*Cb)+234.5652 &amp;
+    Cr &lt;= (-1.15*Cb)+301.75 &amp;
+    Cr &lt;= (-2.2857*Cb)+432.85) {
+    skin color
+    }
+else {
+    non-skin color
+}
+</code>
+</pre>
+<blockquote>
+  <p>(H : Hue ; S: Saturation ; R : Red ; B: Blue ; G : Green ; Cr, Cb : Chrominance components ; Y : luminance component )</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'face.jpg'</span><span class="p">)</span>
+
+<span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="n">shape</span>
+
+<span class="n">argb</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2RGBA</span><span class="p">)</span>        <span class="c1"># ARGB 
+</span><span class="n">hsv</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span>          <span class="c1"># HSV
+</span><span class="n">ycrcb</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2YCR_CB</span><span class="p">)</span>     <span class="c1"># YCrCb
+</span>
+<span class="n">norm_hsv</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="nb">float</span><span class="p">)</span>   
+<span class="n">norm_hsv</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">hsv</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="n">norm_hsv</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">hsv</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">255</span>
+<span class="n">norm_hsv</span><span class="p">[:,:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">hsv</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">255</span>
+
+<span class="n">res1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="n">uint8</span><span class="p">)</span>       <span class="c1"># 첫번째 방법 결과
+</span><span class="n">res2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="n">uint8</span><span class="p">)</span>       <span class="c1"># 두번째 방법 결과
+</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width</span><span class="p">):</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">argb</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">argb</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">argb</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">argb</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+        <span class="n">h</span> <span class="o">=</span> <span class="n">norm_hsv</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">norm_hsv</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">y</span> <span class="o">=</span> <span class="n">ycrcb</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">cr</span> <span class="o">=</span> <span class="n">ycrcb</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">cb</span> <span class="o">=</span> <span class="n">ycrcb</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+        <span class="c1"># opencv에서 hsv의 범위는 h: [0, 180], s: [0, 255], v: [0, 255]이다.
+</span>        <span class="c1"># ARGB
+</span>        <span class="k">if</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="mi">95</span> <span class="ow">and</span> <span class="n">g</span> <span class="o">&gt;</span> <span class="mi">40</span> <span class="ow">and</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="mi">20</span> <span class="ow">and</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="n">g</span> <span class="ow">and</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">g</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">15</span> <span class="ow">and</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">15</span><span class="p">:</span>
+            <span class="c1"># HSV
+</span>            <span class="k">if</span> <span class="n">h</span> <span class="o">&gt;=</span> <span class="mf">0.0</span> <span class="ow">and</span> <span class="n">h</span> <span class="o">&lt;=</span> <span class="mf">50.0</span> <span class="ow">and</span> <span class="n">s</span> <span class="o">&gt;=</span> <span class="mf">0.23</span> <span class="ow">and</span> <span class="n">s</span> <span class="o">&lt;=</span> <span class="mf">0.68</span><span class="p">:</span>
+                <span class="n">res1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span>
+                <span class="n">res1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">g</span>
+                <span class="n">res1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span>
+            <span class="c1"># YCrCb
+</span>            <span class="k">if</span> <span class="n">cb</span> <span class="o">&gt;</span> <span class="mi">85</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">80</span> <span class="ow">and</span> <span class="n">cr</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="mf">1.5862</span><span class="o">*</span><span class="n">cb</span><span class="p">)</span> <span class="o">+</span> <span class="mi">20</span> <span class="ow">and</span> <span class="n">cr</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mf">0.3448</span> <span class="o">*</span> <span class="n">cb</span><span class="p">)</span> <span class="o">+</span> <span class="mf">76.2069</span> <span class="ow">and</span> <span class="n">cr</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="o">-</span><span class="mf">4.5652</span> <span class="o">*</span> <span class="n">cb</span><span class="p">)</span> <span class="o">+</span> <span class="mf">234.5652</span> <span class="ow">and</span> <span class="n">cr</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.15</span> <span class="o">*</span><span class="n">cb</span><span class="p">)</span> <span class="o">+</span> <span class="mf">301.75</span> <span class="ow">and</span> <span class="n">cr</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="o">-</span><span class="mf">2.2857</span> <span class="o">*</span> <span class="n">cb</span><span class="p">)</span> <span class="o">+</span> <span class="mf">432.85</span><span class="p">:</span>
+                <span class="n">res2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span>
+                <span class="n">res2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">g</span>
+                <span class="n">res2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span>
+
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">hconcat</span><span class="p">([</span><span class="n">img</span><span class="p">,</span> <span class="n">res1</span><span class="p">,</span> <span class="n">res2</span><span class="p">])</span>
+<span class="n">cv2</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="s">'skin color detection'</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+<span class="n">cv2</span><span class="p">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s">'skin_color.png'</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+<span class="n">cv2</span><span class="p">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cv2</span><span class="p">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div></div>
+
+<center>
+<img src="/assets/img/skin_color_1.jpg" />
+</center>
+<center>
+<img src="/assets/img/skin_color_2.jpg" />
+</center>
+<center>
+<img src="/assets/img/skin_color_3.jpg" />
+</center>
+<center>
+<img src="/assets/img/skin_color_4.jpg" />
+</center>
+
+<blockquote>
+  <p>왼쪽부터 원본, ARGB&amp;HSV 방법을 사용한 결과, ARGB&amp;YCbCr 방법 사용한 결과</p>
+</blockquote>
+
+<p>threshold만 사용한 방법이라 좀 애매할 거 같았는데 생각보다 꽤 괜찮은 결과를 내었다. 인종에 크게 상관이 없는 거 같고, HSV보다 YCbCr을 사용한 것이 결과가 더 잘나오는 거 같다.</p>
+
+<h3 id="reference">Reference</h3>
+<p><a href="https://arxiv.org/ftp/arxiv/papers/1708/1708.02694.pdf">S. Kolkur, D. Kalbande, P. Shimpi, C. Bapat, and J. Jatakia,’Human Skin Detection Using RGB, HSV and YCbCr Color Models’, <em>ICCASP/ICMMD</em>, 2016, Vol. 137, pp.324-332</a></p>
+:ET

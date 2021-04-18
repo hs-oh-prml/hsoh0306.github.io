@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://hsoh0306.github.io//feed.xml" rel="self" type="application/atom+xml" /><link href="https://hsoh0306.github.io//" rel="alternate" type="text/html" hreflang="en" /><updated>2021-04-17T18:51:48+09:00</updated><id>https://hsoh0306.github.io//feed.xml</id><title type="html">Develope Yourself</title><subtitle>A Jekyll theme with JavaScript powers. &quot;Best Theme by a Mile&quot;. Combines the best of static sites and modern web apps. Open `_config.yml` to edit this text.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://hsoh0306.github.io//feed.xml" rel="self" type="application/atom+xml" /><link href="https://hsoh0306.github.io//" rel="alternate" type="text/html" hreflang="en" /><updated>2021-04-18T10:19:15+09:00</updated><id>https://hsoh0306.github.io//feed.xml</id><title type="html">Develope Yourself</title><subtitle>A Jekyll theme with JavaScript powers. &quot;Best Theme by a Mile&quot;. Combines the best of static sites and modern web apps. Open `_config.yml` to edit this text.
 </subtitle><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><entry><title type="html">Skin Color Detection</title><link href="https://hsoh0306.github.io//2020/11/11/cv-skin-color-detection/" rel="alternate" type="text/html" title="Skin Color Detection" /><published>2020-11-11T00:00:00+09:00</published><updated>2020-11-11T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/11/11/cv-skin-color-detection</id><content type="html" xml:base="https://hsoh0306.github.io//2020/11/11/cv-skin-color-detection/">&lt;p&gt;강의자료에 재밌어 보이는 내용이 있어서 따로 포스팅한다. 사람의 피부색은 인종에 상관 없이 일정한 범위 내에 값을 가져서 색을 이용하여 피부색을 검출 할 수 있다고 한다. “Human Skin Detection Using RGB, HSV and YCbCr Color Models”는 색을 이용하여 사람의 피부를 검출하는 것을 연구한 논문이다. 기계학습을 이용하지 않고 threshold를 이용한 방법으로, 여러 color space를 조합한 방법을 제시했다. 구현하기 전에 Color space에 대해 간략하게 알아보자.&lt;/p&gt;
 
 &lt;h4 id=&quot;red-green-and-blue-rgb-color-model&quot;&gt;Red, Green, and Blue (RGB) Color Model&lt;/h4&gt;
 
 &lt;p&gt;RGB는 가장 널리 사용되고 있는 color model이다. 모든 색을 빨강(R), 초록(G), 파랑(B)의 합으로 표현하며, 디지털 이미지의 저장에 사용된다. 보통 하나의 color당 8-bit를 할당하며, [0, 255] 사이 값을 가진다. normalized RGB는 이를 [0, 1]로 정규화한 표현으로 다음과 같이 쓰면 된다.&lt;/p&gt;
 
-\[\begin{aligned}
-r = {R \over R + G + B} \\
+\[r = {R \over R + G + B} \\
 g = {G \over R + G + B} \\
-b = {B \over R + G + B}
-\end{aligned}\]
+b = {B \over R + G + B}\]
 
 &lt;center&gt;
 &lt;img src=&quot;/assets/img/rgb_model.jpg&quot; /&gt;
@@ -18,11 +16,9 @@ b = {B \over R + G + B}
 &lt;h4 id=&quot;ycbcr-luminance-chrominance-color-model&quot;&gt;YCbCr (Luminance, Chrominance) Color Model&lt;/h4&gt;
 &lt;p&gt;YCbCr은 encoded non-linear RGB라고 한다. 압축할 때 많이 써서, TV 송신, 비디오,  JPEG, MPEG1, MPEG2, MPEG4 등에 사용된다. YCbCr에서 Y는 luminance, Cb는 blue값과 기준 값(Y)의 차이,  Cr은 red값과 기준 값(Y)의 차이를 나타낸다.&lt;/p&gt;
 
-\[\begin{aligned}
-Y = 0.299R + 0.287G + 0.11B \\
+\[Y = 0.299R + 0.287G + 0.11B \\
 Cr = R - Y \\
-Cb = B - Y
-\end{aligned}\]
+Cb = B - Y\]
 
 &lt;center&gt;
 &lt;img src=&quot;/assets/img/ycbcr_model.jpg&quot; /&gt;
@@ -468,10 +464,8 @@ for(i = 0; i &amp;lt; 256; i++){
   &lt;p&gt;A convolution operation is a cross-correlation where the filter is flipped both horizontally and vertically before being applied to the image.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-\[\begin{aligned}
-G[i, j] = \sum_{u=-k}^{k} \sum_{v=-k}^{k} {H[u, v]F[i-u, j-u]} \\
-G = H*F
-\end{aligned}\]
+\[G[i, j] = \sum_{u=-k}^{k} \sum_{v=-k}^{k} {H[u, v]F[i-u, j-u]} \\
+G = H*F\]
 
 &lt;h4 id=&quot;kernel-convolution-mask-window-filter&quot;&gt;Kernel (Convolution mask, window, filter)&lt;/h4&gt;
 &lt;p&gt;가중치에 따라 다른 결과를 생성한다.&lt;/p&gt;
@@ -582,475 +576,73 @@ G = H*F
 &lt;img src=&quot;/assets/img/smoothing.jpg&quot; /&gt;
 &lt;/center&gt;
 
-&lt;p&gt;color image에 대해서는, RGB일 경우 R, G, B 각 채널에 대하여 convolution을 하면 되고, HSI는 intensity에 대해 convolution하면 된다.&lt;/p&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Noise 디지털 영상에서 noise는 영상을 왜곡하여 특징을 추출하는 것을 방해한다.</summary></entry><entry><title type="html">Point Processing: Arithmetic processing&amp;amp;Power-law transformation</title><link href="https://hsoh0306.github.io//2020/10/25/cv-point-processing/" rel="alternate" type="text/html" title="Point Processing: Arithmetic processing&amp;amp;Power-law transformation" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/10/25/cv-point-processing</id><content type="html" xml:base="https://hsoh0306.github.io//2020/10/25/cv-point-processing/">&lt;h3 id=&quot;point-processing&quot;&gt;Point Processing&lt;/h3&gt;
-&lt;p&gt;\(G(x,y)=T(f(x,y))\)&lt;/p&gt;
+&lt;p&gt;color image에 대해서는, RGB일 경우 R, G, B 각 채널에 대하여 convolution을 하면 되고, HSI는 intensity에 대해 convolution하면 된다.&lt;/p&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Noise 디지털 영상에서 noise는 영상을 왜곡하여 특징을 추출하는 것을 방해한다.</summary></entry><entry><title type="html">Region Segmentation</title><link href="https://hsoh0306.github.io//2020/10/25/computervision-segmentation/" rel="alternate" type="text/html" title="Region Segmentation" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/10/25/computervision-segmentation</id><content type="html" xml:base="https://hsoh0306.github.io//2020/10/25/computervision-segmentation/">&lt;h2 id=&quot;image-segmentation&quot;&gt;Image Segmentation&lt;/h2&gt;
+
+&lt;p&gt;Image segmentation이란 이미지를 여러 개의 픽셀 집합(region)으로 나누는 것이다.&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;\(G()\): 결과 값&lt;/li&gt;
-  &lt;li&gt;\(T()\): 변환 함수&lt;/li&gt;
-  &lt;li&gt;\(f(x,y)\):  (x,y) 위치의 픽셀 값&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;목표: 이미지 내에서 coherent region을 찾는 것
+Coherent region은 비슷한 속성을 가지는 픽셀들을 포함한다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;장점: noise에 강하다.&lt;/li&gt;
+  &lt;li&gt;단점: Oversegmented, Undersegmented 문제 발생&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;모든 픽셀에 대하여 수행하지만, 공간적인 정보를 사용하지 않음&lt;/p&gt;
-
-&lt;p&gt;Simple gray level transformation&lt;/p&gt;
+&lt;h3 id=&quot;creteria&quot;&gt;Creteria&lt;/h3&gt;
 &lt;ul&gt;
-  &lt;li&gt;Image negative&lt;/li&gt;
-  &lt;li&gt;Log transformation&lt;/li&gt;
-  &lt;li&gt;Power-law transformation&lt;/li&gt;
-  &lt;li&gt;Thresholding&lt;/li&gt;
-  &lt;li&gt;Gray-level slicing, Bit-plane slicing&lt;/li&gt;
-  &lt;li&gt;Contrast stretching&lt;/li&gt;
+  &lt;li&gt;\(\cup S_i = S\) : 모든 region의 합은 원본 이미지와 같다.&lt;/li&gt;
+  &lt;li&gt;\(S_i \cap S_j = \emptyset, i \neq j\): 각 region은 overlap이 되지 않는다.&lt;/li&gt;
+  &lt;li&gt;\(\forall S_i, P(S_i) = true\): 같은 region에 있는 pixel들은 similarity property를 가진다.&lt;/li&gt;
+  &lt;li&gt;\(P(S_i \cup S_j) = false\): 다른 region의 pixel과는 dissimilarity하다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Histogram processing&lt;/p&gt;
+&lt;h3 id=&quot;region-growing&quot;&gt;Region Growing&lt;/h3&gt;
 &lt;ul&gt;
-  &lt;li&gt;Histogram equalization&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;basic-point-processing&quot;&gt;Basic Point Processing&lt;/h3&gt;
-&lt;center&gt;
-&lt;img src=&quot;/assets/img/point_processing.png&quot; /&gt;
-&lt;/center&gt;
-
-&lt;p&gt;Point Processing의 기본&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Negative: 반전&lt;/li&gt;
-  &lt;li&gt;Log&amp;amp;Inverse log: Log 함수 이용&lt;/li&gt;
-  &lt;li&gt;Root&amp;amp;Power: 지수 함수 이용&lt;/li&gt;
-  &lt;li&gt;Identity: 원본&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Arithmetic/logic operation&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;+, -: 영상의 밝기를 밝게 하거나 어둡게 한다.&lt;/li&gt;
-  &lt;li&gt;/, *: 영상의 명암 대비를 높이거나 낮춘다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;center&gt;
-&lt;img src=&quot;/assets/img/arithmetic_result.jpg&quot; /&gt;
-&lt;/center&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;왼쪽부터 원본, +100, -100, x1.5, /2&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;cv2&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;plus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;               &lt;span class=&quot;c1&quot;&gt;# +, - 연산 함수
-&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;       &lt;span class=&quot;c1&quot;&gt;# 언더플로일 경우 0으로
-&lt;/span&gt;                &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;# 오버플로일 경우 255로
-&lt;/span&gt;                &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; 
-                &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;multiply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;           &lt;span class=&quot;c1&quot;&gt;# *, / 연산 함수
-&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;# 오버플로일 경우 255로
-&lt;/span&gt;                &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; 
-                &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;april.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMREAD_GRAYSCALE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;pls&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;april.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMREAD_GRAYSCALE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;mns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;april.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMREAD_GRAYSCALE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;mul&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;april.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMREAD_GRAYSCALE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;april.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMREAD_GRAYSCALE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;pls&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;mns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;mul&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;multiply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mul&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;multiply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hconcat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mul&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imshow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;arithmetic processing&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imwrite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;arithmetic_result.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;waitKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;destroyAllWindows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;이미지에서 산술 연산을 할 때, 오버플로랑 언더플로를 처리해줘야한다. 그렇지 않고&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;pls&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pls&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;mns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;mul&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mul&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;단순하게 이렇게 짜면 다음과 같은 결과가 나온다.&lt;/p&gt;
-
-&lt;center&gt;
-&lt;img src=&quot;/assets/img/arithmetic_result_fail.jpg&quot; /&gt;
-&lt;/center&gt;
-
-&lt;p&gt;각 픽셀이 uint8 자료형으로 다루어지기 때문에 값이 255를 넘어가면 오버플로, 0 이하로 떨어지면 언더플로가 발생한다. 여기서는 간단하게 함수를 만들어서 실습했는데 opecv에서 산술 연산에 대한 함수를 제공한다.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;pls&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;mns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subtract&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;mul&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;multiply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mul&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;divide&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;제공되는 함수를 사용하면 오버플로랑 언더플로에 대한 처리는 물론이고 속도도 직접 만든 함수보다 훨씬 빠르다.&lt;/p&gt;
-
-&lt;p&gt;Power-Law Transformation&lt;/p&gt;
-
-&lt;p&gt;Gamma Transformation이라고도 하며 지수함수를 이용한 point processing 기법이다.&lt;/p&gt;
-
-&lt;center&gt;
-&lt;img src=&quot;/assets/img/power_law_trans.png&quot; /&gt;
-&lt;/center&gt;
-
-&lt;blockquote&gt;
-  &lt;center&gt; $$s = cr^{\gamma}$$  &lt;/center&gt;
-  &lt;center&gt; $$c = 1$$ &lt;/center&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;power-law transformation을 하기 위해서 pixel의 값을 [0, 255]가 아닌 [0, 1]로 정규화한다. \(c\)는 1이고, \(\gamma\) 값은 변수다. \(\gamma\)가 1보다 크면 영상은 어두워지고, 1보다 작으면 영상은 밝아진다.&lt;/p&gt;
-
-&lt;center&gt;
-&lt;img src=&quot;/assets/img/power_law_result.jpg&quot; /&gt;
-&lt;/center&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;cv2&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;cat.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMREAD_GRAYSCALE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;hconcat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;vconcat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gamma&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gamma&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;uint8&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gamma&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;putText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;original&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FONT_HERSHEY_SIMPLEX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LINE_AA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gamma&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;putText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;gamma: {}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gamma&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FONT_HERSHEY_SIMPLEX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LINE_AA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;putText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;gamma: {}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gamma&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FONT_HERSHEY_SIMPLEX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LINE_AA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;vconcat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vconcat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; 
-        &lt;span class=&quot;c1&quot;&gt;# print(vconcat)
-&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vconcat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vconcat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;hconcat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;vconcat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hconcat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hconcat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imshow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;image&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imwrite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;power_law_result.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;waitKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;destroyAllWindows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Point Processing \(G(x,y)=T(f(x,y))\) \(G()\): 결과 값 \(T()\): 변환 함수 \(f(x,y)\): (x,y) 위치의 픽셀 값</summary></entry><entry><title type="html">Color&amp;amp;Histogram</title><link href="https://hsoh0306.github.io//2020/10/25/cv-color-histogram/" rel="alternate" type="text/html" title="Color&amp;amp;Histogram" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/10/25/cv-color-histogram</id><content type="html" xml:base="https://hsoh0306.github.io//2020/10/25/cv-color-histogram/">&lt;h3 id=&quot;basic-techinques-in-digital-image-processing&quot;&gt;Basic Techinques in Digital Image Processing&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Image Representation&amp;amp;Storage&lt;/li&gt;
-  &lt;li&gt;Image Enhancement&amp;amp;Filtering
+  &lt;li&gt;region일 가능성이 높은 한 pixel에서 시작&lt;/li&gt;
+  &lt;li&gt;인접 pixel과 비교하여 dissimilar한 pixel을 만나기 전까지 확장&lt;/li&gt;
+  &lt;li&gt;
     &lt;ul&gt;
-      &lt;li&gt;Contrast stretching, smoothing, sharpening&lt;/li&gt;
+      &lt;li&gt;seed pixel은 image 내에서 unlabelled pixel로 설정한다.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Feature Extraction
-    &lt;ul&gt;
-      &lt;li&gt;Color: color space, histogram&lt;/li&gt;
-      &lt;li&gt;Texture: Wavelet transformation, Discrete cosine transformation&lt;/li&gt;
-      &lt;li&gt;Shape: Edge detector, HOG, SIFT/SURF&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
+  &lt;li&gt;통계적 테스트를 통해서 어떤 pixel이 region이 될 가능성이  큰 지 결정한다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;color&quot;&gt;Color&lt;/h3&gt;
-&lt;p&gt;사람의 시각에서 색은 중요한 기능을 한다. 컴퓨터에서는 pixel 단위로 색을 표현한다. 사람은 약 400nm에서 700nm 사이의 파장을 인식할 수 있지만, 기계는 X-ray나 적외선, 라디오 주파수같이 더 다양한 것을 인식할 수 있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;색의-표현&quot;&gt;색의 표현&lt;/h3&gt;
+&lt;h3 id=&quot;splitmerge&quot;&gt;Split&amp;amp;Merge&lt;/h3&gt;
 &lt;ul&gt;
-  &lt;li&gt;RGB: Red, Green, Blue로 표현되는 가산 시스템으로 하드웨어의 출력에 많이 사용된다.&lt;/li&gt;
-  &lt;li&gt;CMY: Cyan, Magenta, Yellow로 표현되는 감산 시스템으로 프린팅에 많이 사용된다. Black을 추가한 CMYK를 사용하기도 한다.&lt;/li&gt;
-  &lt;li&gt;HSI(Value): Hue, Saturation, Intensity(Value)로 표현하면 사람의 시각 체계와 가장 유사한 표현 방법이다.&lt;/li&gt;
-  &lt;li&gt;YIQ: 압축률이 좋아 TV 방송 송출에 사용된다.&lt;/li&gt;
+  &lt;li&gt;영상을 4분할 하고, 모든 region \(R_i\)의 \(Q(R_i)=false\)이다.&lt;/li&gt;
+  &lt;li&gt;더 이상 분할 할 수 없을 때까지 분할하고, \(Q(R_i \cup R_j) = true\)인 인접 region끼리 merge한다.&lt;/li&gt;
+  &lt;li&gt;더 이상 merge할 수 없으면 종료&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;saturation-변환&quot;&gt;Saturation 변환&lt;/h3&gt;
-&lt;center&gt;
-&lt;img src=&quot;/assets/img/saturation_result.jpg&quot; /&gt;
-&lt;/center&gt;
-
+&lt;h3 id=&quot;clustering&quot;&gt;Clustering&lt;/h3&gt;
 &lt;ul&gt;
-  &lt;li&gt;왼쪽: 원본 이미지, 중간: Saturation 1.8배, 오른쪽: Saturation 0.4배&lt;/li&gt;
+  &lt;li&gt;object의 set을 grouping하는 것&lt;/li&gt;
+  &lt;li&gt;같은 group의 object(cluster)는 서로 similar하다.&lt;/li&gt;
+  &lt;li&gt;어떤 cluster object는 다른 cluster의 object와 다르다.&lt;/li&gt;
+  &lt;li&gt;ex) Connectivity model, centroid model, distribution model, density model, graph based model, hard clustering, soft clustering…&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Saturation을 높이면 이미지의 색감이 더 풍부해지고, 낮추면 전체적으로 물빠진 색이 된다. opencv2를 이용하여 간단하게 실습해볼 수 있다.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;cv2&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;cat.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                                 &lt;span class=&quot;c1&quot;&gt;# 이미지 로드
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saturation_up&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cvtColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;COLOR_BGR2HSV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;# BGR 색공간을 HSV로 변환
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saturation_down&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cvtColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;COLOR_BGR2HSV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;      &lt;span class=&quot;c1&quot;&gt;# BGR 색공간을 HSV로 변환
-&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;saturation_up&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;saturation_up&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.8&lt;/span&gt;       &lt;span class=&quot;c1&quot;&gt;# Saturation 조정: 1.8배
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saturation_down&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;saturation_down&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.4&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;# Saturation 조정: 0.4배
-&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;saturation_up&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cvtColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saturation_up&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;COLOR_HSV2BGR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;      &lt;span class=&quot;c1&quot;&gt;# HSV 색공간을 다시 BGR로 변환
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saturation_down&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cvtColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saturation_down&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;COLOR_HSV2BGR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# HSV 색공간을 다시 BGR로 변환
-&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imshow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;image&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                                    &lt;span class=&quot;c1&quot;&gt;# 원본 이미지 
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imshow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;saturation_up&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;saturation_up&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                  &lt;span class=&quot;c1&quot;&gt;# Saturation * 1.8 이미지
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imshow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;saturation_down&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;saturation_down&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;              &lt;span class=&quot;c1&quot;&gt;# Saturation * 0.4 이미지
-&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hconcat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;saturation_up&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;saturation_down&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 결과 이미지: 원본, Saturation * 1.8, Saturation * 0.4 
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imwrite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;saturation_result.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                &lt;span class=&quot;c1&quot;&gt;# 이미지 저장 
-&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;waitKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                                              &lt;span class=&quot;c1&quot;&gt;# 키입력 대기 
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;destroyAllWindows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;                                     &lt;span class=&quot;c1&quot;&gt;# 모든 창 닫기
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;histogram&quot;&gt;Histogram&lt;/h3&gt;
+&lt;h3 id=&quot;clustering-centroid-model&quot;&gt;Clustering: Centroid Model&lt;/h3&gt;
 &lt;ul&gt;
-  &lt;li&gt;Color histogram으로 이미지를 표현할 수 있다.&lt;/li&gt;
-  &lt;li&gt;히스토그램은 빠르고 쉽게 연산이 가능하다.&lt;/li&gt;
-  &lt;li&gt;정규화하여 다른 이미지의 히스토그램과 비교가 가능하다.&lt;/li&gt;
-  &lt;li&gt;데이터베이스의 쿼리로 사용할 수 있고, classification에 사용할 수도 있다.&lt;/li&gt;
+  &lt;li&gt;연산량이 작다&lt;/li&gt;
+  &lt;li&gt;사용자가 classifying하기 전에 cluster의 수를 결정해줘야한다.&lt;/li&gt;
+  &lt;li&gt;ex) K-means method&lt;/li&gt;
+  &lt;li&gt;K 개의 클러스터&lt;/li&gt;
+  &lt;li&gt;Least-squares error: \(D=\sum_{k=1}^K \sum_{x_i \in C_k} \| x_i - m_k \| ^2\)&lt;/li&gt;
+  &lt;li&gt;K cluster가 가능한 모든 점에서 \(D\)를 최소화하는 곳 찾기&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;center&gt;
-&lt;img src=&quot;/assets/img/histogram_hsv.png&quot; /&gt;
-&lt;/center&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;HSV 이미지에 대한 histogram&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;cv2&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;cat.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                                     &lt;span class=&quot;c1&quot;&gt;# 이미지 로드
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img_hsv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cvtColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;COLOR_BGR2HSV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                  &lt;span class=&quot;c1&quot;&gt;# 이미지 변환: BRG-&amp;gt;HSV
-&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;hist_h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calcHist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img_hsv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;180&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;180&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;# Histogram: H  [0, 180]
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hist_s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calcHist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img_hsv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;256&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;# Histogram: S  [0, 255]
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hist_v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calcHist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img_hsv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;256&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;# Histogram: V  [0, 255]
-&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img_hsv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img_hsv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img_hsv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;# 그래프 
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;figure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Histogram: HSV&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;221&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Image&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imshow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;222&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Hue&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hist_h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;223&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Saturation&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hist_s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;224&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Intensity&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hist_v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tight_layout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# figure 저장
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;savefig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;histogram_hsv.png&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dpi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;300&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&quot;https://medium.com/@jovana.savic9494/image-contrast-increase-866b7eeac8c2&quot;&gt;Elephant Image&lt;/a&gt;&lt;/p&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Basic Techinques in Digital Image Processing Image Representation&amp;amp;Storage Image Enhancement&amp;amp;Filtering Contrast stretching, smoothing, sharpening Feature Extraction Color: color space, histogram Texture: Wavelet transformation, Discrete cosine transformation Shape: Edge detector, HOG, SIFT/SURF</summary></entry><entry><title type="html">Mid Level Image Features: Shapes</title><link href="https://hsoh0306.github.io//2020/10/25/computervision3/" rel="alternate" type="text/html" title="Mid Level Image Features: Shapes" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/10/25/computervision3</id><content type="html" xml:base="https://hsoh0306.github.io//2020/10/25/computervision3/">&lt;h2 id=&quot;shapes&quot;&gt;Shapes&lt;/h2&gt;
-&lt;p&gt;Shape은 color랑 texture보다 더 나아간 단계의 feautre다. Color랑 texture는 둘 다 global attribute지만, shape은 특정 region에 대한 attribute이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;shape-descriptors&quot;&gt;Shape Descriptors&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Region Descriptor&lt;/li&gt;
-  &lt;li&gt;Boundary&lt;/li&gt;
-  &lt;li&gt;Interest points(corners)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;region-based-shape-descriptors&quot;&gt;Region based Shape Descriptors&lt;/h3&gt;
-&lt;h4 id=&quot;geometric-and-shape-properties&quot;&gt;Geometric and Shape Properties&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;area&lt;/li&gt;
-  &lt;li&gt;centroid&lt;/li&gt;
-  &lt;li&gt;perimeter&lt;/li&gt;
-  &lt;li&gt;perimeter length&lt;/li&gt;
-  &lt;li&gt;circularity, elongation&lt;/li&gt;
-  &lt;li&gt;mean and standard deviation of radial distance&lt;/li&gt;
-  &lt;li&gt;second order moments (row, column, mixed)&lt;/li&gt;
-  &lt;li&gt;bounding box&lt;/li&gt;
-  &lt;li&gt;extremal axis length from bounding box&lt;/li&gt;
-  &lt;li&gt;lengths and orientations of axes of best-fit ellipse&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;em&gt;Often want features independent of position, orientation, scale&lt;/em&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;zero-order-moment&quot;&gt;Zero-order moment&lt;/h4&gt;
-&lt;p&gt;Moment를 사용하는 이유: 
-서로 다른 차수의 기하학적 모멘트는 이미지 분포의 공간적 특성을 나타낸다.
-Zero-order moment란:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-\[A = \sum_i^n \sum_j^m {B[i,j]}\]
-  &lt;/li&gt;
-  &lt;li&gt;전체 intensity를 의미&lt;/li&gt;
-  &lt;li&gt;binary image에서는 area를 의미&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;centroid&quot;&gt;Centroid&lt;/h4&gt;
-&lt;p&gt;이미지 내의 object의 위치가 공간 위치에 의해 정해진다.&lt;/p&gt;
-
-&lt;p&gt;Center of area(centroid, center of mass): First order moment&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;\(\bar{x} = {\sum_i^n \sum_j^m {jB[i,j]} \over A}\) (object의 pixel간에 j 좌표의 평균)&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;\(\bar{y} = {\sum_i^n \sum_j^m {iB[i,j]} \over A}\) (object의 pixel간에 i 좌표의 평균)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;intensity centroid&lt;/li&gt;
-  &lt;li&gt;binary image의 기하학적 중심&lt;/li&gt;
-  &lt;li&gt;Centroid는 분석과 매칭에서 interesting point가 될 수 있다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;second-moments&quot;&gt;Second moments&lt;/h4&gt;
-
-&lt;p&gt;Second-order row moment&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-\[\mu_{rr} = {1 \over A} \sum_{(r,c) \in R}  {(r - \bar{r})^2}\]
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Second-order mixed moment&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-\[\mu_{rc} = {1 \over A} \sum_{(r,c) \in R}  {(r - \bar{r})(c - \bar{c})}\]
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Second-order column moment&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-\[\mu_{cc} = {1 \over A} \sum_{(r,c) \in R}  {(c - \bar{c})^2}\]
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;moment-invariants&quot;&gt;Moment Invariants&lt;/h4&gt;
-&lt;p&gt;기하 변형: translation, scale, mirroring, rotation&lt;/p&gt;
-
-&lt;h4 id=&quot;perimeter-and-perimeter-length&quot;&gt;Perimeter and Perimeter Length&lt;/h4&gt;
-
-&lt;p&gt;Perimeter&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-\[P_4 = \\{ (r,c) \in R \| N_8(r,c) - R \neq \varnothing \\}\]
-  &lt;/li&gt;
-  &lt;li&gt;
-\[P_8 = \\{ (r,c) \in R \| N_4(r,c) - R \neq \varnothing \\}\]
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Perimeter Length&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-\[\| P \| = \| \\{ k \| (r_{k+1}, c_{k+1}) \in N_4(r_k, c_k) \\} \| + \sqrt(2) \| \\{ k \| ( r_{k+1}, c_{k+1}) \in N_8(r_k, c_k) - N_4(r_k, c_k) \\} \|\]
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;circularity&quot;&gt;Circularity&lt;/h4&gt;
-&lt;p&gt;간단하게 circularity를 측정하는 방법은 둘레의 제곱을 면적으로 나누는 것이다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;\(C_1 = { \| P \| ^2 \over A}\)
-같은 면적일때, 원에 가까울수록 둘레가 작아지므로 \(C_1\)은 작아진다. 
-그렇게 할 경우 정사각형이 원보다 circularity가 좋게 나오는 경우가 발생하기 때문에 다음과 같은 방법이 있다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-\[C_2 = { \mu_R \over \sigma_R}\]
-  &lt;/li&gt;
-  &lt;li&gt;
-\[\mu_R = {1 \over K} \sum_{k=0}^{K-1} \parallel (r_k, c_k) - (\bar{r}, \bar{c}) \parallel\]
-  &lt;/li&gt;
-  &lt;li&gt;
-\[\sigma_R^2 = {1 \over K} \sum_{k=0}^{K-1} [\parallel (r_k, c_k) - (\bar{r}, \bar{c}) \parallel - \mu_R]^2\]
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;분산과 표준 편차를 이용하여 계산하는 방법이다. 원에 가까울 수록 표준편차가 작아지므로, \(C_2\)는 커진다.&lt;/p&gt;
-
-&lt;h4 id=&quot;orientation&quot;&gt;Orientation&lt;/h4&gt;
-&lt;p&gt;object의 방향을 연장선의 축(axis) 방향으로 정의한다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;second order moment(분산, 데이터의 퍼짐)를 최소화하는 부분&lt;/li&gt;
-  &lt;li&gt;
-\[\min_{line} \chi^2 = \min_{line} \sum_{i=1}^n \sum_{j=1}^n {r_{ij}^2 B[i,j]}\]
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;\(r_{ij}^2\)는 object 내의 점 \([i,j]\)과 축의 수직 거리다.&lt;/p&gt;
-
-&lt;p&gt;직선을 극좌표로 표현&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-\[y = ax + b\]
-  &lt;/li&gt;
-  &lt;li&gt;
-\[(x,y) \centerdot (\cos{\theta}, \sin{\theta}) = \rho\]
-  &lt;/li&gt;
-  &lt;li&gt;\(\centerdot\) is projection$$&lt;/li&gt;
-  &lt;li&gt;
-\[x\cos{\theta} + y\sin{\theta}=\rho\]
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Axis with Least Second Moment&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-\[\tan{2\alpha} = {2\sum(r-\bar{r})(c-\bar{c}) \over \sum(r-\bar{r})(r-\bar{r}) \sum(c-\bar{c})(c-\bar{c})}\]
-  &lt;/li&gt;
-  &lt;li&gt;
-\[= { {1 \over A} 2\sum(r-\bar{r})(c-\bar{c}) \over {1 \over A} \sum(r-\bar{r})(r-\bar{r}) {1 \over A} \sum(c-\bar{c})(c-\bar{c})}\]
-  &lt;/li&gt;
-  &lt;li&gt;
-\[= {2 \mu_{rc} \over \mu_{rr} - \mu_{cc}}\]
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;topological-region-descriptors&quot;&gt;Topological Region Descriptors&lt;/h4&gt;
-&lt;p&gt;Hole Counting&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;external corner has 3(1)s and 1(0)&lt;/li&gt;
-  &lt;li&gt;internal corner has 3(0)s and 1(1)&lt;/li&gt;
-  &lt;li&gt;Holes computed from only these patterns!&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Algorithm&lt;/p&gt;
-&lt;pre&gt;
-&lt;code&gt;
-Input a binary image and output the number of holes it contains 
-
-- M is a binary image of R rows of C columns 
-- 1 represents material through which light has not passed
-- 0 represents absence of material indicated by light passing 
-- Each region of 0s must be 4-connected and all image border pixels must be 1s 
-- E is the count of *external corners* (3 ones and 1 zero) 
-- I is the count of *internal corners* (3 zeros and 1 one) 
-
-integer procedure Count_Holes(M)
-{
-    examine entire image, 2 rows at a time;
-    count external corners E;
-    count internal corners I;
-    return (number_of_holes = (E-I)/4);
-}
-&lt;/code&gt;
-&lt;/pre&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Shapes Shape은 color랑 texture보다 더 나아간 단계의 feautre다. Color랑 texture는 둘 다 global attribute지만, shape은 특정 region에 대한 attribute이다.</summary></entry><entry><title type="html">Mid Level Image Feature: Texture</title><link href="https://hsoh0306.github.io//2020/10/25/computervision2/" rel="alternate" type="text/html" title="Mid Level Image Feature: Texture" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/10/25/computervision2</id><content type="html" xml:base="https://hsoh0306.github.io//2020/10/25/computervision2/">&lt;h2 id=&quot;texture&quot;&gt;Texture&lt;/h2&gt;
+&lt;h3 id=&quot;k-means-clustering&quot;&gt;K means clustering&lt;/h3&gt;
+&lt;p&gt;n-dimensional vector에서 K-means cluster&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;ic(iteration count)를 1로 설정&lt;/li&gt;
+  &lt;li&gt;random으로 K means set, means \(m_1(1),..., m_k(1)\)을 고른다.&lt;/li&gt;
+  &lt;li&gt;각 vector \(x_i\)에 대하여 \(D(x_i, m_k(ic)), k=1,...,K\) 계산하고, \(x_i\)를 가장 가까운 mean의 cluster \(C_j\)에 할당&lt;/li&gt;
+  &lt;li&gt;ic를 1증가 시키고, means \(m_1(ic),..., m_k(ic)\)로 업데이트&lt;/li&gt;
+  &lt;li&gt;모든 k에 대하여 \(C_k(ic) = C_k(ic+1)\)가 될 때까지, 3-4과정 반복&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Image Segmentation</summary></entry><entry><title type="html">Mid Level Image Feature: Texture</title><link href="https://hsoh0306.github.io//2020/10/25/computervision2/" rel="alternate" type="text/html" title="Mid Level Image Feature: Texture" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/10/25/computervision2</id><content type="html" xml:base="https://hsoh0306.github.io//2020/10/25/computervision2/">&lt;h2 id=&quot;texture&quot;&gt;Texture&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;Texture는 이미지를 interest region으로 나누고 그런 region을 classify하기 위해 사용되는 feature다.&lt;/li&gt;
   &lt;li&gt;Texture는 이미지의 color 또는 intensity의 공간적 정보를 제공한다.&lt;/li&gt;
@@ -1445,73 +1037,475 @@ integer procedure Count_Holes(M)
   &lt;li&gt;Coarse texture: function drops off slowly&lt;/li&gt;
   &lt;li&gt;Fine texture : function drops off rapidly&lt;/li&gt;
   &lt;li&gt;Can drop differently for row and column&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Texture Texture는 이미지를 interest region으로 나누고 그런 region을 classify하기 위해 사용되는 feature다. Texture는 이미지의 color 또는 intensity의 공간적 정보를 제공한다. Texture는 인접 pixel들의 intensity level의 공간 분포로 특징된다. Texture는 이미지 intensity에서 local variation의 반복되는 pattern이다. 따라서 point에서 정의될 수 없다.</summary></entry><entry><title type="html">Region Segmentation</title><link href="https://hsoh0306.github.io//2020/10/25/computervision-segmentation/" rel="alternate" type="text/html" title="Region Segmentation" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/10/25/computervision-segmentation</id><content type="html" xml:base="https://hsoh0306.github.io//2020/10/25/computervision-segmentation/">&lt;h2 id=&quot;image-segmentation&quot;&gt;Image Segmentation&lt;/h2&gt;
+&lt;/ul&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Texture Texture는 이미지를 interest region으로 나누고 그런 region을 classify하기 위해 사용되는 feature다. Texture는 이미지의 color 또는 intensity의 공간적 정보를 제공한다. Texture는 인접 pixel들의 intensity level의 공간 분포로 특징된다. Texture는 이미지 intensity에서 local variation의 반복되는 pattern이다. 따라서 point에서 정의될 수 없다.</summary></entry><entry><title type="html">Mid Level Image Features: Shapes</title><link href="https://hsoh0306.github.io//2020/10/25/computervision3/" rel="alternate" type="text/html" title="Mid Level Image Features: Shapes" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/10/25/computervision3</id><content type="html" xml:base="https://hsoh0306.github.io//2020/10/25/computervision3/">&lt;h2 id=&quot;shapes&quot;&gt;Shapes&lt;/h2&gt;
+&lt;p&gt;Shape은 color랑 texture보다 더 나아간 단계의 feautre다. Color랑 texture는 둘 다 global attribute지만, shape은 특정 region에 대한 attribute이다.&lt;/p&gt;
 
-&lt;p&gt;Image segmentation이란 이미지를 여러 개의 픽셀 집합(region)으로 나누는 것이다.&lt;/p&gt;
+&lt;h3 id=&quot;shape-descriptors&quot;&gt;Shape Descriptors&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Region Descriptor&lt;/li&gt;
+  &lt;li&gt;Boundary&lt;/li&gt;
+  &lt;li&gt;Interest points(corners)&lt;/li&gt;
+&lt;/ul&gt;
 
+&lt;h3 id=&quot;region-based-shape-descriptors&quot;&gt;Region based Shape Descriptors&lt;/h3&gt;
+&lt;h4 id=&quot;geometric-and-shape-properties&quot;&gt;Geometric and Shape Properties&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;area&lt;/li&gt;
+  &lt;li&gt;centroid&lt;/li&gt;
+  &lt;li&gt;perimeter&lt;/li&gt;
+  &lt;li&gt;perimeter length&lt;/li&gt;
+  &lt;li&gt;circularity, elongation&lt;/li&gt;
+  &lt;li&gt;mean and standard deviation of radial distance&lt;/li&gt;
+  &lt;li&gt;second order moments (row, column, mixed)&lt;/li&gt;
+  &lt;li&gt;bounding box&lt;/li&gt;
+  &lt;li&gt;extremal axis length from bounding box&lt;/li&gt;
+  &lt;li&gt;lengths and orientations of axes of best-fit ellipse&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;Often want features independent of position, orientation, scale&lt;/em&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;zero-order-moment&quot;&gt;Zero-order moment&lt;/h4&gt;
+&lt;p&gt;Moment를 사용하는 이유: 
+서로 다른 차수의 기하학적 모멘트는 이미지 분포의 공간적 특성을 나타낸다.
+Zero-order moment란:&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;목표: 이미지 내에서 coherent region을 찾는 것
-Coherent region은 비슷한 속성을 가지는 픽셀들을 포함한다.&lt;/p&gt;
+\[A = \sum_i^n \sum_j^m {B[i,j]}\]
   &lt;/li&gt;
-  &lt;li&gt;장점: noise에 강하다.&lt;/li&gt;
-  &lt;li&gt;단점: Oversegmented, Undersegmented 문제 발생&lt;/li&gt;
+  &lt;li&gt;전체 intensity를 의미&lt;/li&gt;
+  &lt;li&gt;binary image에서는 area를 의미&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;creteria&quot;&gt;Creteria&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;\(\cup S_i = S\) : 모든 region의 합은 원본 이미지와 같다.&lt;/li&gt;
-  &lt;li&gt;\(S_i \cap S_j = \emptyset, i \neq j\): 각 region은 overlap이 되지 않는다.&lt;/li&gt;
-  &lt;li&gt;\(\forall S_i, P(S_i) = true\): 같은 region에 있는 pixel들은 similarity property를 가진다.&lt;/li&gt;
-  &lt;li&gt;\(P(S_i \cup S_j) = false\): 다른 region의 pixel과는 dissimilarity하다.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;h4 id=&quot;centroid&quot;&gt;Centroid&lt;/h4&gt;
+&lt;p&gt;이미지 내의 object의 위치가 공간 위치에 의해 정해진다.&lt;/p&gt;
 
-&lt;h3 id=&quot;region-growing&quot;&gt;Region Growing&lt;/h3&gt;
+&lt;p&gt;Center of area(centroid, center of mass): First order moment&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;region일 가능성이 높은 한 pixel에서 시작&lt;/li&gt;
-  &lt;li&gt;인접 pixel과 비교하여 dissimilar한 pixel을 만나기 전까지 확장&lt;/li&gt;
+  &lt;li&gt;\(\bar{x} = {\sum_i^n \sum_j^m {jB[i,j]} \over A}\) (object의 pixel간에 j 좌표의 평균)&lt;/li&gt;
   &lt;li&gt;
+    &lt;p&gt;\(\bar{y} = {\sum_i^n \sum_j^m {iB[i,j]} \over A}\) (object의 pixel간에 i 좌표의 평균)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;intensity centroid&lt;/li&gt;
+  &lt;li&gt;binary image의 기하학적 중심&lt;/li&gt;
+  &lt;li&gt;Centroid는 분석과 매칭에서 interesting point가 될 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;second-moments&quot;&gt;Second moments&lt;/h4&gt;
+
+&lt;p&gt;Second-order row moment&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+\[\mu_{rr} = {1 \over A} \sum_{(r,c) \in R}  {(r - \bar{r})^2}\]
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Second-order mixed moment&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+\[\mu_{rc} = {1 \over A} \sum_{(r,c) \in R}  {(r - \bar{r})(c - \bar{c})}\]
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Second-order column moment&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+\[\mu_{cc} = {1 \over A} \sum_{(r,c) \in R}  {(c - \bar{c})^2}\]
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;moment-invariants&quot;&gt;Moment Invariants&lt;/h4&gt;
+&lt;p&gt;기하 변형: translation, scale, mirroring, rotation&lt;/p&gt;
+
+&lt;h4 id=&quot;perimeter-and-perimeter-length&quot;&gt;Perimeter and Perimeter Length&lt;/h4&gt;
+
+&lt;p&gt;Perimeter&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+\[P_4 = \\{ (r,c) \in R \| N_8(r,c) - R \neq \varnothing \\}\]
+  &lt;/li&gt;
+  &lt;li&gt;
+\[P_8 = \\{ (r,c) \in R \| N_4(r,c) - R \neq \varnothing \\}\]
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Perimeter Length&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+\[\| P \| = \| \\{ k \| (r_{k+1}, c_{k+1}) \in N_4(r_k, c_k) \\} \| + \sqrt(2) \| \\{ k \| ( r_{k+1}, c_{k+1}) \in N_8(r_k, c_k) - N_4(r_k, c_k) \\} \|\]
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;circularity&quot;&gt;Circularity&lt;/h4&gt;
+&lt;p&gt;간단하게 circularity를 측정하는 방법은 둘레의 제곱을 면적으로 나누는 것이다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;\(C_1 = { \| P \| ^2 \over A}\)
+같은 면적일때, 원에 가까울수록 둘레가 작아지므로 \(C_1\)은 작아진다. 
+그렇게 할 경우 정사각형이 원보다 circularity가 좋게 나오는 경우가 발생하기 때문에 다음과 같은 방법이 있다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+\[C_2 = { \mu_R \over \sigma_R}\]
+  &lt;/li&gt;
+  &lt;li&gt;
+\[\mu_R = {1 \over K} \sum_{k=0}^{K-1} \parallel (r_k, c_k) - (\bar{r}, \bar{c}) \parallel\]
+  &lt;/li&gt;
+  &lt;li&gt;
+\[\sigma_R^2 = {1 \over K} \sum_{k=0}^{K-1} [\parallel (r_k, c_k) - (\bar{r}, \bar{c}) \parallel - \mu_R]^2\]
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;분산과 표준 편차를 이용하여 계산하는 방법이다. 원에 가까울 수록 표준편차가 작아지므로, \(C_2\)는 커진다.&lt;/p&gt;
+
+&lt;h4 id=&quot;orientation&quot;&gt;Orientation&lt;/h4&gt;
+&lt;p&gt;object의 방향을 연장선의 축(axis) 방향으로 정의한다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;second order moment(분산, 데이터의 퍼짐)를 최소화하는 부분&lt;/li&gt;
+  &lt;li&gt;
+\[\min_{line} \chi^2 = \min_{line} \sum_{i=1}^n \sum_{j=1}^n {r_{ij}^2 B[i,j]}\]
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;\(r_{ij}^2\)는 object 내의 점 \([i,j]\)과 축의 수직 거리다.&lt;/p&gt;
+
+&lt;p&gt;직선을 극좌표로 표현&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+\[y = ax + b\]
+  &lt;/li&gt;
+  &lt;li&gt;
+\[(x,y) \centerdot (\cos{\theta}, \sin{\theta}) = \rho\]
+  &lt;/li&gt;
+  &lt;li&gt;\(\centerdot\) is projection$$&lt;/li&gt;
+  &lt;li&gt;
+\[x\cos{\theta} + y\sin{\theta}=\rho\]
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Axis with Least Second Moment&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+\[\tan{2\alpha} = {2\sum(r-\bar{r})(c-\bar{c}) \over \sum(r-\bar{r})(r-\bar{r}) \sum(c-\bar{c})(c-\bar{c})}\]
+  &lt;/li&gt;
+  &lt;li&gt;
+\[= { {1 \over A} 2\sum(r-\bar{r})(c-\bar{c}) \over {1 \over A} \sum(r-\bar{r})(r-\bar{r}) {1 \over A} \sum(c-\bar{c})(c-\bar{c})}\]
+  &lt;/li&gt;
+  &lt;li&gt;
+\[= {2 \mu_{rc} \over \mu_{rr} - \mu_{cc}}\]
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;topological-region-descriptors&quot;&gt;Topological Region Descriptors&lt;/h4&gt;
+&lt;p&gt;Hole Counting&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;external corner has 3(1)s and 1(0)&lt;/li&gt;
+  &lt;li&gt;internal corner has 3(0)s and 1(1)&lt;/li&gt;
+  &lt;li&gt;Holes computed from only these patterns!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Algorithm&lt;/p&gt;
+&lt;pre&gt;
+&lt;code&gt;
+Input a binary image and output the number of holes it contains 
+
+- M is a binary image of R rows of C columns 
+- 1 represents material through which light has not passed
+- 0 represents absence of material indicated by light passing 
+- Each region of 0s must be 4-connected and all image border pixels must be 1s 
+- E is the count of *external corners* (3 ones and 1 zero) 
+- I is the count of *internal corners* (3 zeros and 1 one) 
+
+integer procedure Count_Holes(M)
+{
+    examine entire image, 2 rows at a time;
+    count external corners E;
+    count internal corners I;
+    return (number_of_holes = (E-I)/4);
+}
+&lt;/code&gt;
+&lt;/pre&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Shapes Shape은 color랑 texture보다 더 나아간 단계의 feautre다. Color랑 texture는 둘 다 global attribute지만, shape은 특정 region에 대한 attribute이다.</summary></entry><entry><title type="html">Color&amp;amp;Histogram</title><link href="https://hsoh0306.github.io//2020/10/25/cv-color-histogram/" rel="alternate" type="text/html" title="Color&amp;amp;Histogram" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/10/25/cv-color-histogram</id><content type="html" xml:base="https://hsoh0306.github.io//2020/10/25/cv-color-histogram/">&lt;h3 id=&quot;basic-techinques-in-digital-image-processing&quot;&gt;Basic Techinques in Digital Image Processing&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Image Representation&amp;amp;Storage&lt;/li&gt;
+  &lt;li&gt;Image Enhancement&amp;amp;Filtering
     &lt;ul&gt;
-      &lt;li&gt;seed pixel은 image 내에서 unlabelled pixel로 설정한다.&lt;/li&gt;
+      &lt;li&gt;Contrast stretching, smoothing, sharpening&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;통계적 테스트를 통해서 어떤 pixel이 region이 될 가능성이  큰 지 결정한다.&lt;/li&gt;
+  &lt;li&gt;Feature Extraction
+    &lt;ul&gt;
+      &lt;li&gt;Color: color space, histogram&lt;/li&gt;
+      &lt;li&gt;Texture: Wavelet transformation, Discrete cosine transformation&lt;/li&gt;
+      &lt;li&gt;Shape: Edge detector, HOG, SIFT/SURF&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;splitmerge&quot;&gt;Split&amp;amp;Merge&lt;/h3&gt;
+&lt;h3 id=&quot;color&quot;&gt;Color&lt;/h3&gt;
+&lt;p&gt;사람의 시각에서 색은 중요한 기능을 한다. 컴퓨터에서는 pixel 단위로 색을 표현한다. 사람은 약 400nm에서 700nm 사이의 파장을 인식할 수 있지만, 기계는 X-ray나 적외선, 라디오 주파수같이 더 다양한 것을 인식할 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;색의-표현&quot;&gt;색의 표현&lt;/h3&gt;
 &lt;ul&gt;
-  &lt;li&gt;영상을 4분할 하고, 모든 region \(R_i\)의 \(Q(R_i)=false\)이다.&lt;/li&gt;
-  &lt;li&gt;더 이상 분할 할 수 없을 때까지 분할하고, \(Q(R_i \cup R_j) = true\)인 인접 region끼리 merge한다.&lt;/li&gt;
-  &lt;li&gt;더 이상 merge할 수 없으면 종료&lt;/li&gt;
+  &lt;li&gt;RGB: Red, Green, Blue로 표현되는 가산 시스템으로 하드웨어의 출력에 많이 사용된다.&lt;/li&gt;
+  &lt;li&gt;CMY: Cyan, Magenta, Yellow로 표현되는 감산 시스템으로 프린팅에 많이 사용된다. Black을 추가한 CMYK를 사용하기도 한다.&lt;/li&gt;
+  &lt;li&gt;HSI(Value): Hue, Saturation, Intensity(Value)로 표현하면 사람의 시각 체계와 가장 유사한 표현 방법이다.&lt;/li&gt;
+  &lt;li&gt;YIQ: 압축률이 좋아 TV 방송 송출에 사용된다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;clustering&quot;&gt;Clustering&lt;/h3&gt;
+&lt;h3 id=&quot;saturation-변환&quot;&gt;Saturation 변환&lt;/h3&gt;
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/saturation_result.jpg&quot; /&gt;
+&lt;/center&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;object의 set을 grouping하는 것&lt;/li&gt;
-  &lt;li&gt;같은 group의 object(cluster)는 서로 similar하다.&lt;/li&gt;
-  &lt;li&gt;어떤 cluster object는 다른 cluster의 object와 다르다.&lt;/li&gt;
-  &lt;li&gt;ex) Connectivity model, centroid model, distribution model, density model, graph based model, hard clustering, soft clustering…&lt;/li&gt;
+  &lt;li&gt;왼쪽: 원본 이미지, 중간: Saturation 1.8배, 오른쪽: Saturation 0.4배&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;clustering-centroid-model&quot;&gt;Clustering: Centroid Model&lt;/h3&gt;
+&lt;p&gt;Saturation을 높이면 이미지의 색감이 더 풍부해지고, 낮추면 전체적으로 물빠진 색이 된다. opencv2를 이용하여 간단하게 실습해볼 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;cv2&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;cat.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                                 &lt;span class=&quot;c1&quot;&gt;# 이미지 로드
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saturation_up&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cvtColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;COLOR_BGR2HSV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;# BGR 색공간을 HSV로 변환
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saturation_down&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cvtColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;COLOR_BGR2HSV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;      &lt;span class=&quot;c1&quot;&gt;# BGR 색공간을 HSV로 변환
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;saturation_up&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;saturation_up&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.8&lt;/span&gt;       &lt;span class=&quot;c1&quot;&gt;# Saturation 조정: 1.8배
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saturation_down&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;saturation_down&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.4&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;# Saturation 조정: 0.4배
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;saturation_up&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cvtColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saturation_up&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;COLOR_HSV2BGR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;      &lt;span class=&quot;c1&quot;&gt;# HSV 색공간을 다시 BGR로 변환
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saturation_down&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cvtColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saturation_down&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;COLOR_HSV2BGR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# HSV 색공간을 다시 BGR로 변환
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imshow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;image&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                                    &lt;span class=&quot;c1&quot;&gt;# 원본 이미지 
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imshow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;saturation_up&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;saturation_up&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                  &lt;span class=&quot;c1&quot;&gt;# Saturation * 1.8 이미지
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imshow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;saturation_down&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;saturation_down&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;              &lt;span class=&quot;c1&quot;&gt;# Saturation * 0.4 이미지
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hconcat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;saturation_up&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;saturation_down&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 결과 이미지: 원본, Saturation * 1.8, Saturation * 0.4 
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imwrite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;saturation_result.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                &lt;span class=&quot;c1&quot;&gt;# 이미지 저장 
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;waitKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                                              &lt;span class=&quot;c1&quot;&gt;# 키입력 대기 
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;destroyAllWindows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;                                     &lt;span class=&quot;c1&quot;&gt;# 모든 창 닫기
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;histogram&quot;&gt;Histogram&lt;/h3&gt;
 &lt;ul&gt;
-  &lt;li&gt;연산량이 작다&lt;/li&gt;
-  &lt;li&gt;사용자가 classifying하기 전에 cluster의 수를 결정해줘야한다.&lt;/li&gt;
-  &lt;li&gt;ex) K-means method&lt;/li&gt;
-  &lt;li&gt;K 개의 클러스터&lt;/li&gt;
-  &lt;li&gt;Least-squares error: \(D=\sum_{k=1}^K \sum_{x_i \in C_k} \| x_i - m_k \| ^2\)&lt;/li&gt;
-  &lt;li&gt;K cluster가 가능한 모든 점에서 \(D\)를 최소화하는 곳 찾기&lt;/li&gt;
+  &lt;li&gt;Color histogram으로 이미지를 표현할 수 있다.&lt;/li&gt;
+  &lt;li&gt;히스토그램은 빠르고 쉽게 연산이 가능하다.&lt;/li&gt;
+  &lt;li&gt;정규화하여 다른 이미지의 히스토그램과 비교가 가능하다.&lt;/li&gt;
+  &lt;li&gt;데이터베이스의 쿼리로 사용할 수 있고, classification에 사용할 수도 있다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;k-means-clustering&quot;&gt;K means clustering&lt;/h3&gt;
-&lt;p&gt;n-dimensional vector에서 K-means cluster&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;ic(iteration count)를 1로 설정&lt;/li&gt;
-  &lt;li&gt;random으로 K means set, means \(m_1(1),..., m_k(1)\)을 고른다.&lt;/li&gt;
-  &lt;li&gt;각 vector \(x_i\)에 대하여 \(D(x_i, m_k(ic)), k=1,...,K\) 계산하고, \(x_i\)를 가장 가까운 mean의 cluster \(C_j\)에 할당&lt;/li&gt;
-  &lt;li&gt;ic를 1증가 시키고, means \(m_1(ic),..., m_k(ic)\)로 업데이트&lt;/li&gt;
-  &lt;li&gt;모든 k에 대하여 \(C_k(ic) = C_k(ic+1)\)가 될 때까지, 3-4과정 반복&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Image Segmentation</summary></entry><entry><title type="html">[AlexNet] ImageNet Classification with Deep Convolutional Neural Networks Review</title><link href="https://hsoh0306.github.io//2020/09/26/alexnet/" rel="alternate" type="text/html" title="[AlexNet] ImageNet Classification with Deep Convolutional Neural Networks Review" /><published>2020-09-26T00:00:00+09:00</published><updated>2020-09-26T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/09/26/alexnet</id><content type="html" xml:base="https://hsoh0306.github.io//2020/09/26/alexnet/">&lt;h2 id=&quot;alexnet&quot;&gt;AlexNet&lt;/h2&gt;
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/histogram_hsv.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;HSV 이미지에 대한 histogram&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;cv2&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;cat.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                                     &lt;span class=&quot;c1&quot;&gt;# 이미지 로드
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img_hsv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cvtColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;COLOR_BGR2HSV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                  &lt;span class=&quot;c1&quot;&gt;# 이미지 변환: BRG-&amp;gt;HSV
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;hist_h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calcHist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img_hsv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;180&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;180&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;# Histogram: H  [0, 180]
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hist_s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calcHist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img_hsv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;256&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;# Histogram: S  [0, 255]
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hist_v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calcHist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img_hsv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;256&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;# Histogram: V  [0, 255]
+&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img_hsv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img_hsv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img_hsv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# 그래프 
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;figure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Histogram: HSV&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;221&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Image&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imshow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;222&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Hue&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hist_h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;223&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Saturation&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hist_s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;224&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;Intensity&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hist_v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tight_layout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# figure 저장
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;savefig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;histogram_hsv.png&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dpi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;300&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://medium.com/@jovana.savic9494/image-contrast-increase-866b7eeac8c2&quot;&gt;Elephant Image&lt;/a&gt;&lt;/p&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Basic Techinques in Digital Image Processing Image Representation&amp;amp;Storage Image Enhancement&amp;amp;Filtering Contrast stretching, smoothing, sharpening Feature Extraction Color: color space, histogram Texture: Wavelet transformation, Discrete cosine transformation Shape: Edge detector, HOG, SIFT/SURF</summary></entry><entry><title type="html">Point Processing: Arithmetic processing&amp;amp;Power-law transformation</title><link href="https://hsoh0306.github.io//2020/10/25/cv-point-processing/" rel="alternate" type="text/html" title="Point Processing: Arithmetic processing&amp;amp;Power-law transformation" /><published>2020-10-25T00:00:00+09:00</published><updated>2020-10-25T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/10/25/cv-point-processing</id><content type="html" xml:base="https://hsoh0306.github.io//2020/10/25/cv-point-processing/">&lt;h3 id=&quot;point-processing&quot;&gt;Point Processing&lt;/h3&gt;
+&lt;p&gt;\(G(x,y)=T(f(x,y))\)&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;\(G()\): 결과 값&lt;/li&gt;
+  &lt;li&gt;\(T()\): 변환 함수&lt;/li&gt;
+  &lt;li&gt;\(f(x,y)\):  (x,y) 위치의 픽셀 값&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;모든 픽셀에 대하여 수행하지만, 공간적인 정보를 사용하지 않음&lt;/p&gt;
+
+&lt;p&gt;Simple gray level transformation&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Image negative&lt;/li&gt;
+  &lt;li&gt;Log transformation&lt;/li&gt;
+  &lt;li&gt;Power-law transformation&lt;/li&gt;
+  &lt;li&gt;Thresholding&lt;/li&gt;
+  &lt;li&gt;Gray-level slicing, Bit-plane slicing&lt;/li&gt;
+  &lt;li&gt;Contrast stretching&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Histogram processing&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Histogram equalization&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;basic-point-processing&quot;&gt;Basic Point Processing&lt;/h3&gt;
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/point_processing.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;Point Processing의 기본&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Negative: 반전&lt;/li&gt;
+  &lt;li&gt;Log&amp;amp;Inverse log: Log 함수 이용&lt;/li&gt;
+  &lt;li&gt;Root&amp;amp;Power: 지수 함수 이용&lt;/li&gt;
+  &lt;li&gt;Identity: 원본&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Arithmetic/logic operation&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;+, -: 영상의 밝기를 밝게 하거나 어둡게 한다.&lt;/li&gt;
+  &lt;li&gt;/, *: 영상의 명암 대비를 높이거나 낮춘다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/arithmetic_result.jpg&quot; /&gt;
+&lt;/center&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;왼쪽부터 원본, +100, -100, x1.5, /2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;cv2&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;plus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;               &lt;span class=&quot;c1&quot;&gt;# +, - 연산 함수
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;       &lt;span class=&quot;c1&quot;&gt;# 언더플로일 경우 0으로
+&lt;/span&gt;                &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;# 오버플로일 경우 255로
+&lt;/span&gt;                &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; 
+                &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;multiply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;           &lt;span class=&quot;c1&quot;&gt;# *, / 연산 함수
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;# 오버플로일 경우 255로
+&lt;/span&gt;                &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; 
+                &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;april.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMREAD_GRAYSCALE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pls&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;april.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMREAD_GRAYSCALE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;april.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMREAD_GRAYSCALE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mul&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;april.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMREAD_GRAYSCALE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;april.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMREAD_GRAYSCALE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;pls&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mul&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;multiply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mul&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;multiply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hconcat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mul&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imshow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;arithmetic processing&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imwrite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;arithmetic_result.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;waitKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;destroyAllWindows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이미지에서 산술 연산을 할 때, 오버플로랑 언더플로를 처리해줘야한다. 그렇지 않고&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;pls&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pls&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mul&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mul&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;단순하게 이렇게 짜면 다음과 같은 결과가 나온다.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/arithmetic_result_fail.jpg&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;각 픽셀이 uint8 자료형으로 다루어지기 때문에 값이 255를 넘어가면 오버플로, 0 이하로 떨어지면 언더플로가 발생한다. 여기서는 간단하게 함수를 만들어서 실습했는데 opecv에서 산술 연산에 대한 함수를 제공한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;pls&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subtract&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mul&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;multiply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mul&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;divide&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;제공되는 함수를 사용하면 오버플로랑 언더플로에 대한 처리는 물론이고 속도도 직접 만든 함수보다 훨씬 빠르다.&lt;/p&gt;
+
+&lt;p&gt;Power-Law Transformation&lt;/p&gt;
+
+&lt;p&gt;Gamma Transformation이라고도 하며 지수함수를 이용한 point processing 기법이다.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/power_law_trans.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;blockquote&gt;
+  &lt;center&gt; $$s = cr^{\gamma}$$  &lt;/center&gt;
+  &lt;center&gt; $$c = 1$$ &lt;/center&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;power-law transformation을 하기 위해서 pixel의 값을 [0, 255]가 아닌 [0, 1]로 정규화한다. \(c\)는 1이고, \(\gamma\) 값은 변수다. \(\gamma\)가 1보다 크면 영상은 어두워지고, 1보다 작으면 영상은 밝아진다.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/assets/img/power_law_result.jpg&quot; /&gt;
+&lt;/center&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;cv2&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;cat.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMREAD_GRAYSCALE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;hconcat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;vconcat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gamma&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gamma&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;uint8&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gamma&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;putText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;original&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FONT_HERSHEY_SIMPLEX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LINE_AA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gamma&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;putText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;gamma: {}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gamma&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FONT_HERSHEY_SIMPLEX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LINE_AA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;putText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;gamma: {}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gamma&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FONT_HERSHEY_SIMPLEX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LINE_AA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;vconcat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vconcat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; 
+        &lt;span class=&quot;c1&quot;&gt;# print(vconcat)
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vconcat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vconcat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;hconcat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;vconcat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hconcat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hconcat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imshow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;image&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imwrite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;power_law_result.jpg&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;waitKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;destroyAllWindows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>H.-S. Oh</name><email>hs_oh@korea.ac.kr</email></author><category term="Computer Vision" /><summary type="html">Point Processing \(G(x,y)=T(f(x,y))\) \(G()\): 결과 값 \(T()\): 변환 함수 \(f(x,y)\): (x,y) 위치의 픽셀 값</summary></entry><entry><title type="html">[AlexNet] ImageNet Classification with Deep Convolutional Neural Networks Review</title><link href="https://hsoh0306.github.io//2020/09/26/alexnet/" rel="alternate" type="text/html" title="[AlexNet] ImageNet Classification with Deep Convolutional Neural Networks Review" /><published>2020-09-26T00:00:00+09:00</published><updated>2020-09-26T00:00:00+09:00</updated><id>https://hsoh0306.github.io//2020/09/26/alexnet</id><content type="html" xml:base="https://hsoh0306.github.io//2020/09/26/alexnet/">&lt;h2 id=&quot;alexnet&quot;&gt;AlexNet&lt;/h2&gt;
 &lt;p&gt;“ImageNet Classification with Deep Convolutional Neural Networks”의 저자 Alex Krizhevsky의 이름을 따서 network의  AlexNet이라는 명칭이 붙었다. ILSVRC-2012에서 top-5 test error를 15.3%를 기록 했으며, 26.2%었던 2등과 비교하여 무려 10%가 넘는 격차를 내고 우승했다. ReLU의 대유행을 만들어낸 의미 있는 모델이다.&lt;/p&gt;
 
 &lt;h2 id=&quot;dataset&quot;&gt;Dataset&lt;/h2&gt;
