@@ -4,7 +4,8 @@ title: "Point Processing: Arithmetic processing&Power-law transformation"
 tags: [Computer Vision]
 ---
 
-### Point Processing
+### Point Processing: Arithmetic processing&Power-law transformation
+#### Point Processing
 $$G(x,y)=T(f(x,y))$$
 - $$G()$$: 결과 값
 - $$T()$$: 변환 함수

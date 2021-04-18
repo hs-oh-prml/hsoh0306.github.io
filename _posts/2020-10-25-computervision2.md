@@ -4,7 +4,7 @@ title: "Mid Level Image Feature: Texture"
 tags: [Computer Vision]
 ---
 
-## Texture 
+## Mid Level Image Feature: Texture 
 - Texture는 이미지를 interest region으로 나누고 그런 region을 classify하기 위해 사용되는 feature다.
 - Texture는 이미지의 color 또는 intensity의 공간적 정보를 제공한다.
 - Texture는 인접 pixel들의 intensity level의 공간 분포로 특징된다.

@@ -4,7 +4,7 @@ title: "Region Segmentation"
 tags: [Computer Vision]
 ---
 
-## Image Segmentation
+### Region Segmentation
 
 Image segmentation이란 이미지를 여러 개의 픽셀 집합(region)으로 나누는 것이다. 
 

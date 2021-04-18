@@ -1,0 +1,8 @@
+I"-<h3 id="point-processing-arithmetic-processingpower-law-transformation">Point Processing: Arithmetic processing&amp;Power-law transformation</h3>
+<p>\(G(x,y)=T(f(x,y))\)</p>
+<ul>
+  <li>\(G()\): 결과 값</li>
+  <li>\(T()\): 변환 함수</li>
+  <li>\(f(x,y)\):  (x,y) 위치의 픽셀 값</li>
+</ul>
+:ET

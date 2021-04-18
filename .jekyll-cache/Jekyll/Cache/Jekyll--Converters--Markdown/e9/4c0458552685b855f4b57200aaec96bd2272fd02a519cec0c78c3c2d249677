@@ -1,0 +1,241 @@
+I"�:<h3 id="alexnet">AlexNet</h3>
+<p>“ImageNet Classification with Deep Convolutional Neural Networks”의 저자 Alex Krizhevsky의 이름을 따서 network의  AlexNet이라는 명칭이 붙었다. ILSVRC-2012에서 top-5 test error를 15.3%를 기록 했으며, 26.2%었던 2등과 비교하여 무려 10%가 넘는 격차를 내고 우승했다. ReLU의 대유행을 만들어낸 의미 있는 모델이다.</p>
+
+<h3 id="dataset">Dataset</h3>
+<p>ImageNet은 약 22000 가지의 class에 속하는 1500만개의 고해상도 이미지 데이터 셋이다. 데이터는 Amazon’s Mechanical Turk crowd-sourcing tool를 사용하여 사람이 labeling하여 수집된다고 한다. ILSVRC(ImageNet Large-Scale Visual Acception Challenge)에서는 ImageNet에서 약 1000장의 이미지를 가진 1000개의 class를 사용한다. 전체적으로 120만 장의 학습 이미지와 5만 장의 검증 이미지, 15만 장의 테스트 이미지가 있다. top-1과 top-5 error를 ImageNet에 보고하는데, 여기서 top-5 error는 모델이 가장 가능성이 높다고 출력한 5 개의 label에 대해서 정답이 없는 비율이다. 
+ImageNet은 variable-resolution 이미지로 구성되지만, constant input dimensionality를 필요로 때문에, 이미지를 256x256으로 down sampling을 했다고 한다. 이미지를 자르는 작업 외에 다른 전처리를 하지않고, 픽셀의 R,G,B 원래의 값을 사용했다.</p>
+
+<h3 id="alexnet-network-architecture">AlexNet Network Architecture</h3>
+<p>네트워크는 5개의 convolutional layer와 3개의 fully-connected layer로 총 8개의 layer로 구성된다. 네트워크 설계에 사용된 4개의 큰 특징을 소개한다.</p>
+
+<h3 id="relu-nonlinearity">ReLU Nonlinearity</h3>
+<p>ReLU가 유행하기 전까지 활성화 함수는 tanh가 많이 사용됐다. 논문에서는 경사 하강법에서 saturating nonlinearities는 non-saturating nonlinearity보다 훨씬 느리다고 했다. saturating nonlinearities와 non-saturating nonlinearity가 뭔지 찾아보니<br /></p>
+
+<ul>
+  <li>\(f\) is non-saturating iff \((\|\lim\limits_{z \to -\infty} f(z)\|= +\infty)∨(\|\lim\limits_{z \to \infty} f(z)\|= +\infty)\) <br /></li>
+  <li>\(f\) is saturating iff \(f\) is not non-saturating.<br /></li>
+</ul>
+
+<p>\(f\)가 무한으로 발산하면 non-saturating이고, 그렇지 않으면 saturating이란다. 즉, ReLU는 무한으로 발산하므로, non-saturating이고, [-1, 1] 수렴하는 tanh나 [0, 1]로 수렴하는 sigmoid는 saturating에 해당된다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Sigmoid</th>
+      <th style="text-align: center">tanh</th>
+      <th style="text-align: center">ReLU</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><img src="/assets/img/sigmoid.png" width="100%" /></td>
+      <td style="text-align: center"><img src="/assets/img/tanh.png" width="90%" /></td>
+      <td style="text-align: center"><img src="/assets/img/relu.png" width="100%" /></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">\(sigmoid(x) = (1+e^{-x})^{-1}\)</td>
+      <td style="text-align: center">\(tanh(x) = (1-e^{-x})/(1+e^{-x})\)</td>
+      <td style="text-align: center">\(ReLU(x) = max(0, x)\)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Sigmoid와 tanh에 비해서 ReLU의 식이 단순한 것으로 보아, 연산 속도를 빠르게 한다는 것을 직관적으로 추론이 가능한데, 결과는 다음과 같다.</p>
+
+<center>
+<img src="/assets/img/alexnet_relu.png" width="60%" />
+</center>
+
+<p><em>Figure 1: A four-layer convolutional neural network with ReLUs (solid line) reaches a 25% training error rate on CIFAR-10 six times faster than an equivalent network with tanh neurons (dashed line). The learning rates for each network were chosen independently to make training as fast as possible. No regularization of any kind was employed. The magnitude of the effect demonstrated here varies with network architecture, but networks with ReLUs consistently learn several times faster than equivalents with saturating neurons.</em></p>
+
+<p>실선이 ReLU를 사용한 결과고, 점선은 tanh를 사용한 실험 결과다. 결과로 보았을 때, ReLU가 tanh를 사용했을 때보다 6배 이상 빠른 것을 알 수 있다. 이렇게 빨라진 속도는 대량의 학습 데이터를 사용하는 것을 가능하게 했다.</p>
+
+<h3 id="training-on-multiple-gpu">Training on Multiple GPU</h3>
+<p>저자는 실험을 위해 GTX 580 GPU를 2개를 사용했다고 한다. 120만개의 학습 데이터를 충분히 학습 시킬만한 크기의 네트워크를 로드하는데 3GB짜리 GPU하나로는 부족했다. 현대의 GPU는 호스트의 메모리를 통하지 않고, 다른 GPU로 직접 I/O를 할 수 있어 병렬화에 적합하다. 네트크를 반으로 분리하여 각 GPU에 로드하여, 학습을 진행한다. 특정 레이어에서는 각 GPU의 파라미터를 모두 받으며 통신을 했다고 한다. 이 방법을 통해서 top-1 error를 1.7%, top-5 error를 1.2% 감소시켰으며, 단일 GPU를 사용했을 때보다 학습시간을 더 단축시킬 수 있었다.</p>
+
+<h3 id="local-response-normalization">Local Response Normalization</h3>
+
+<blockquote>
+  <p>ReLUs have the desirable property that they do not require input normalization to prevent them from saturating. If at least some training examples produce a positive input to a ReLU, learning will happen in that neuron. However, we still find that the following local normalization scheme aids generalization.</p>
+</blockquote>
+
+<p>ReLU는 input에 대하여 nomalization이 필요 없고, Local Response Normalizaation은 generalization에 도움이 된다는 것을 발견했다고 한다. Local Response Normalizaation은 다음과 같다.</p>
+
+<blockquote>
+  <center> $$b_{x,y}^{i} = a_{x,y}^{i} / (k+\alpha \displaystyle\sum_{j=max(0,i-n/2)}^{min(N-1,i+n/2)} (a_{x,y}^j)^{2})^\beta$$ </center>
+  <p>where<br />
+\(b_{x,y}^{i}\) : regularized output for kernel \(i\) at position \(x, y\)<br />
+\(a_{x,y}^{i}\) : source output of kernel \(i\) applied at position \(x, y\)<br />
+\(N\) : total number of kernels<br />
+\(n\) : size of normalization neigborhood<br />
+\(\alpha, \beta, (n)\) : hyperparmeters</p>
+</blockquote>
+
+<p>\(a_{x,y}^{i}\)는 input으로 \(i\)번째 kernel에서 \(x, y\) 값을 의미하고, \(b_{x,y}^{i}\)는 output을 의미한다. 논문에서는 \(k=2, n=5, \alpha=10^{-4}, \beta=0.75\)로 설정하고, top-1 error를 1.4%, top-5 error를 1.2% 감소시키는 효과를 얻었다고 한다.</p>
+
+<h3 id="overlapping-pooling">Overlapping Pooling</h3>
+<p>전통적인 CNN에서는 non-overlapping pooling을 사용했지만, overlapping pooling을 통해 약간의 overfit을 개선하는데 효과를 봤다고 한다. overlapping pooling은 kernel의 크기보다 stride의 크기를 작게하면서 구현된다. kernel의 크기와 stride의 크기가 같은 경우 non-overlapping pooling이 된다. kernel의 크기보다, stride가 작게하여 시각화하면 다음과 같은 결과가 나온다.</p>
+
+<p><img src="/assets/img/overlapping_pooling.png" alt="" /></p>
+
+<p>논문에서는 이 방법을 이용하여 top-1, top-5 error를 0.4%, 0.3% 감소시켰다고한다.</p>
+
+<h3 id="architecture">Architecture</h3>
+
+<center>
+<img src="/assets/img/alexnet.png" width="100%" />
+</center>
+
+<p><em>Figure 2: An illustration of the architecture of our CNN, explicitly showing the delineation of responsibilities between the two GPUs. One GPU runs the layer-parts at the top of the figure while the other runs the layer-parts at the bottom. The GPUs communicate only at certain layers. The network’s input is 150,528-dimensional, and the number of neurons in the network’s remaining layers is given by 253,440–186,624–64,896–64,896–43,264–4096–4096–1000.</em></p>
+
+<p>네트크는 5개의 convolution layer와 3개의 fully-connected layer로 구성된다. 마지막 fully-connected layer는 softmax를 통해 각 1000개의 class label에 대한 확률을 출력한다. 3번째 layer와 모든 fully-connected layer에서 GPU connection이 이루어져 parameter를 공유한다. Local Response Normalization은 첫번째와 두번째 layer에서 이루어진다. 첫번째와 두번째, 다섯번째 layer에서 max-pooling이 된다. ReLU는 모든 layer에 적용된다. 입력 이미지의 크기는 224x224x3이다.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Convolution Layer 1</td>
+      <td>96x(11x11x3) kernels</td>
+      <td>Conv5x5, stride: 1 kernel: 256, padding: 2</td>
+      <td>ReLU</td>
+      <td>Overlapping Max pooling3x3, stride: 2</td>
+      <td>Local Response Normalization</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Convolution Layer 2</td>
+      <td>256x(5x5x48) kernels</td>
+      <td>Conv3x3, stride: 1 kernel: 384, padding: 1</td>
+      <td>ReLU</td>
+      <td>Overlapping Max pooling3x3, stride: 2</td>
+      <td>Local Response Normalization</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Convolution Layer 3</td>
+      <td>384x(3x3x256) kernels</td>
+      <td>Conv3x3, stride: 1 kernel: 384, padding: 1</td>
+      <td>ReLU</td>
+      <td> </td>
+      <td> </td>
+      <td>GPU Connection</td>
+    </tr>
+    <tr>
+      <td>Convolution Layer 4</td>
+      <td>384x(3x3x192) kernels</td>
+      <td>Conv3x3, stride: 1 kernel: 384, padding: 1</td>
+      <td>ReLU</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Convolution Layer 5</td>
+      <td>256x(3x3x192) kernels</td>
+      <td>Conv3x3, stride: 1 kernel: 256,padding: 1</td>
+      <td>ReLU</td>
+      <td>Overlapping Max pooling3x3, stride: 2</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Fully-Connected Layer 1</td>
+      <td>4096 neurons</td>
+      <td> </td>
+      <td>ReLU</td>
+      <td> </td>
+      <td> </td>
+      <td>GPU Connection</td>
+    </tr>
+    <tr>
+      <td>Fully-Connected Layer 2</td>
+      <td>4096 neurons</td>
+      <td> </td>
+      <td>ReLU</td>
+      <td> </td>
+      <td> </td>
+      <td>GPU Connection</td>
+    </tr>
+    <tr>
+      <td>Fully-Connected Layer 3</td>
+      <td>1000 neurons</td>
+      <td> </td>
+      <td>Softmax</td>
+      <td> </td>
+      <td> </td>
+      <td>GPU Connection</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>요약하자면 다음과 같다.</p>
+
+<center>
+<img src="/assets/img/alexnet_network_summary.png" width="100%" />
+</center>
+
+<h2 id="reducing-overfitting">Reducing Overfitting</h2>
+<p>6000만 개의 파라미터를 사용한다. ILSVRC에서는 1000개의 class를 학습시키는데 image-label mapping을 10 bit로 제약했고, 이는 많은 파라미터를 overfitting 없이 학습 시키기 불충분하다고 했다. 논문에서는 2가지 방법을 통해 overfitting을 막고자 했다.</p>
+
+<h3 id="data-augmentation">Data Augmentation</h3>
+<p>가장 간단하게 overfiitting을 줄이는 방법은 데이터셋을 인공적으로 늘리는 것이다. 
+논문에서는 2가지 방법을 사용하여 data augmentation을 했다.</p>
+<blockquote>
+  <p>The first form of data augmentation consists of generating image translations and horizontal reflections.<br />
+The second form of data augmentation consists of altering the intensities of the RGB channels in training images. Specifically, we perform PCA on the set of RGB pixel values throughout the ImageNet training set.</p>
+</blockquote>
+
+<p>첫번째 방법은 256x256 이미지에서 임의의 부분을 224x224로 자르는 것이다. 그렇게 하면 같은 label을 가진 데이터를 하나의 이미지로 여러 개의 이미지를 만들 수 있게 된다.</p>
+
+<center>
+<img src="/assets/img/alexnet_augmentation.png" width="100%" />
+</center>
+
+<p>256x256 크기의 이미지를 224x224로 crop하고, 수평 반전에도 똑같이 적용하여 데이터가 2048배 증가 시킬 수 있었고, 네트워크의 입력이 224x224인 이유이다.</p>
+
+<p>두번째 방법은 PCA를 RGB에 적용하여 augmentation을 했다고 한다. PCA(Principal component analysis)는 고차원 데이터를 저차원 데이터로 환원 시키는 방법이라고 한다. 자세한 내용은 좀 더 공부해봐야 할 것 같다. RGB에 PCA를 적용하여 이미지의 eigenvalue \(\lambda_{i}\)와 eigenvetor \(p_{i}\)를 구하고, \(\lambda_{i}\)에 평균이 0이고 표준편차가 0.1인 guassian 분포의 random variable을 곱하여 augmentation을 했다고 한다.</p>
+
+<blockquote>
+  <center>$$I_{xy} = [I_{xy}^{R}, I_{xy}^{G},I_{xy}^{B}] + [p_{1}, p_{2}, p_{3}][\alpha_{1}\lambda_{1}, \alpha_{2}\lambda_{2}, \alpha_{3}\lambda_{3}]^{T}$$</center>
+</blockquote>
+
+<p>이 방법을 통해서 top-1 error rate를 1% 감소하는 효과를 얻었다.</p>
+
+<h3 id="dropout">Dropout</h3>
+<p>Computation cost를 줄이고, overfitting을 줄이기 위해 dropout을 적용했다. dropout은 각 hidden neuron에 값을 0으로 하는 확률을 0.5로 세팅하면서 구현했다고 한다. dropout으로 꺼진 neuron은 forward pass와 back-propagation에 관여하지 않는다. 매 학습마다 꺼지는 neuron은 다르지만, weight는 공유한다고 한다. 논문에서는 모든 neuron을 사용하고, 출력에 0.5를 곱했다.</p>
+
+<blockquote>
+  <p>At test time, we use all the neurons but multiply their outputs by 0.5, which is a reasonable approximation to taking the geometric mean of the predictive distributions produced by the exponentially-many dropout networks.</p>
+</blockquote>
+
+<center>
+<img src="/assets/img/dropout_2014.png" />
+</center>
+
+<blockquote>
+  <p>‘Dropout: A Simple Way to Prevent Neural Networks from Overfitting’</p>
+</blockquote>
+
+<center>
+<img src="/assets/img/dropout.png" />
+</center>
+
+<blockquote>
+  <p>‘Improving neural networks by preventing co-adaptation of feature detectors’</p>
+</blockquote>
+
+<h3 id="result">Result</h3>
+
+<center>
+<img src="/assets/img/alexnet_result.png" />
+</center>
+
+<hr />
+<h3 id="reference">Reference</h3>
+<p><a href="http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf">Alex Krizhevsky, Ilya Sutskever, and Geoffrey E. Hinton,’ImageNet Classification with Deep Convolutional Neural Networks’, <em>Neural Information Processing Systems (NIPS)</em>, 2012</a></p>
+
+<p><a href="https://arxiv.org/pdf/1207.0580.pdf">G.E. Hinton, N. Srivastava, A. Krizhevsky, I. Sutskever and R.R. Salakhutdinov, ‘Improving neural networks by preventing co-adaptation of feature detectors’, 2012</a></p>
+
+<p><a href="https://dl.acm.org/doi/pdf/10.5555/2627435.2670313">Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdinov, ‘Dropout: A Simple Way to Prevent Neural Networks from Overfitting’, vol.15, No.1, 2014</a></p>
+
+<p><a href="https://stats.stackexchange.com/questions/174295/what-does-the-term-saturating-nonlinearities-mean">https://stats.stackexchange.com/questions/174295/what-does-the-term-saturating-nonlinearities-mean</a></p>
+:ET

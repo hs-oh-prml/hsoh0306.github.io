@@ -4,7 +4,7 @@ title: "Mid Level Image Features: Shapes"
 tags: [Computer Vision]
 ---
 
-## Shapes 
+## Mid Level Image Features: Shapes 
 Shape은 color랑 texture보다 더 나아간 단계의 feautre다. Color랑 texture는 둘 다 global attribute지만, shape은 특정 region에 대한 attribute이다. 
 
 ### Shape Descriptors
