@@ -3,8 +3,10 @@ layout: post
 tags: []
 title: "Controllable Emotional Text-to-Speech based on FastSpeech 2 Demo"
 ---
-
 # Controllable Emotional Text-to-Speech based on FastSpeech 2 Demo
+
+[https://github.com/hsoh0306/EmotionControllableTextToSpeech](https://github.com/hsoh0306/EmotionControllableTextToSpeech)
+
 
 ## Audio Sample
 
