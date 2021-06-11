@@ -8,7 +8,7 @@ title: "Controllable Emotional Text-to-Speech based on FastSpeech 2 Demo"
 
 ## Audio Sample
 
-<audio controls>
+<audio preload='autio' controls>
     <source src='./assets/wav/step_100000_acriil_sad_00001772_mel_ang_0.mp3'>
 </audio>
 
